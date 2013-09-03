@@ -12,10 +12,20 @@ from ..model.session import Session
 def institution_create(request):
 
     data = dict(request.params)
-    institution = Institution(**data)
-    Session.add(institution)
-    Session.flush()
-    Session.commit()
+    safe_keys = ['city', 'address', 'name', 'contact_person', 'telephone']
+    safe_data = {}
+
+    for key in data.keys():
+        if key in safe_keys:
+            safe_data[key] = data[key]
+
+    institution = Institution(**safe_data)
+    try:
+        Session.add(institution)
+        Session.flush()
+        Session.commit()
+    except:
+        Session.rollback()
 
     message = "Uspešno ste dodali instituciju."
     request.session.flash(message)

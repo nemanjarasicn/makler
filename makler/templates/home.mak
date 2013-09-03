@@ -2,8 +2,7 @@
 <%inherit file="base.mak"/>
 
 <%def name="title()">Makler DB</%def>
-##<form action="${action_add_institution}" method="post">
-<form>
+<form action="${action_add_institution}" method="post">
     <div class="row">
 
       <div class="large-6 columns">
@@ -14,7 +13,7 @@
             <label class="right inline">Ime ustanove</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" class="right-label" placeholder="ime ustanove">
+            <input type="text" name="name" class="right-label" placeholder="ime ustanove">
           </div>
         </div>
 
@@ -23,7 +22,7 @@
             <label class="right inline">Adresa</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" class="right-label" placeholder="adresa ustanove">
+            <input type="text" name="address" class="right-label" placeholder="adresa ustanove">
           </div>
         </div>
 
@@ -32,7 +31,7 @@
             <label class="right inline">Grad</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" class="right-label" placeholder="grad">
+            <input type="text" name="city" class="right-label" placeholder="grad">
           </div>
         </div>
 
@@ -41,7 +40,7 @@
             <label class="right inline">Kontakt osoba</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" class="right-label" placeholder="kontakt osoba">
+            <input type="text" name="contact_person" class="right-label" placeholder="kontakt osoba">
           </div>
         </div>
 
@@ -50,7 +49,7 @@
             <label class="right inline">Telefon</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" class="right-label" placeholder="telefon">
+            <input type="text" name="telephone" class="right-label" placeholder="telefon">
           </div>
         </div>
 
@@ -62,8 +61,7 @@
 </form>
 
 
-##<form action="${action_add_instrument}" method="post">
-<form>
+<form action="${action_add_instrument}" method="post">
     <div class="row">
 
       <div class="large-6 columns">
