@@ -18,7 +18,7 @@ class InstrumentType(Base):
         {}
     )
 
-    id = Column(types.Integer, primary_key=True)
+    id = Column(types.Integer, nullable=False, primary_key=True)
     manufacturer = Column(types.String(50))
     name = Column(types.String(10))
 
@@ -27,7 +27,7 @@ class Instrument(Base):
 
     __tablename__ = 'instruments'
 
-    id = Column(types.Integer, primary_key=True)
+    id = Column(types.Integer, nullable=False, primary_key=True)
     institution_id = Column(types.Integer, ForeignKey('institutions.id'))
     instrument_type_id = Column(
         types.Integer,

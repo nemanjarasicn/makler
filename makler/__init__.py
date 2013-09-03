@@ -9,6 +9,7 @@ def main(global_config, **settings):
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
     init_session(engine)
+
     config = Configurator(settings=settings)
     config.add_static_view('public', 'public', cache_max_age=3600)
 
