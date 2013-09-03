@@ -15,6 +15,8 @@ def main(global_config, **settings):
 
     # Routes
     config.add_route('home', '/')
+    config.add_route('institution_create', '/institution')
+    config.add_route('instrument_create', '/instrument')
 
     config.scan('.views')
     return config.make_wsgi_app()
