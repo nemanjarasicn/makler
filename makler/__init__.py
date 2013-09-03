@@ -1,4 +1,5 @@
 from pyramid.config import Configurator
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
 from sqlalchemy import engine_from_config
 
 from .model.session import init_session
@@ -10,7 +11,12 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     init_session(engine)
 
-    config = Configurator(settings=settings)
+    my_session_factory = UnencryptedCookieSessionFactoryConfig('secret')
+
+    config = Configurator(
+        settings=settings,
+        session_factory=my_session_factory,
+    )
     config.add_static_view('public', 'public', cache_max_age=3600)
 
     # Routes

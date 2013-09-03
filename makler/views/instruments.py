@@ -3,8 +3,8 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 
-from .model.instrument import Instrument
-from .model.session import Session
+from ..model.instrument import Instrument
+from ..model.session import Session
 
 
 @view_config(route_name='instrument_create',
