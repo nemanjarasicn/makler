@@ -46,8 +46,8 @@
       </div>
     </div>
 
-    <script src="${request.static_url('pyro:public/js/vendor/jquery.min.js')}"></script>
-    <script src="${request.static_url('pyro:public/js/foundation.min.js')}"></script>
+    <script src="${request.static_url('makler:public/js/vendor/jquery.min.js')}"></script>
+    <script src="${request.static_url('makler:public/js/foundation.min.js')}"></script>
      <%block name="javascripts"></%block>
     <script>
       $(document).foundation();
