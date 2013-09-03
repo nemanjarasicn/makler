@@ -28,11 +28,14 @@ class Instrument(Base):
     __tablename__ = 'instruments'
 
     id = Column(types.Integer, nullable=False, primary_key=True)
-    institution_id = Column(types.Integer, ForeignKey('institutions.id'))
+    institution_id = Column(types.Integer,
+                            ForeignKey('institutions.id'),
+                            nullable=False)
     instrument_type_id = Column(
         types.Integer,
         ForeignKey('instrument_types.id')
     )
     description = Column(types.Text)
 
+    instrument_type = relationship(InstrumentType, uselist=False)
     institution = relationship(Institution, uselist=False)
