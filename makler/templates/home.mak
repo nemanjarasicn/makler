@@ -2,10 +2,22 @@
 <%inherit file="base.mak"/>
 
 <%def name="title()">Makler DB</%def>
-<form action="${action_add_institution}" method="post">
-    <div class="row">
 
-      <div class="large-6 columns">
+<div class="row">
+  <div class="large-6 columns">
+    <h3>Ustanove</h3>
+      <ul>
+        <a href="${request.route_path('home', id='new')}"><li>Dodaj novu</li></a>
+        % for institution in institutions:
+            <a href="${request.route_path('home', id=institution.id)}"><li>${institution.name}</li></a>
+        % endfor
+      </ul>
+  </div>
+
+  <div class="large-6 columns">
+
+    <form action="${action_add_institution}" method="post">
+
         <fieldset>
             <legend>Ustanova</legend>
         <div class="row">
@@ -62,9 +74,7 @@
 
 
 <form action="${action_add_instrument}" method="post">
-    <div class="row">
 
-      <div class="large-6 columns">
         <fieldset>
             <legend>Analizator</legend>
         <div class="row">
@@ -101,10 +111,3 @@
   </div>
 
 </form>
-
-<div class="row">
-    <h3>Ustanove</h3>
-    % for institution in institutions:
-        ${institution.name}
-    % endfor
-</div>

@@ -20,7 +20,7 @@ def main(global_config, **settings):
     config.add_static_view('public', 'public', cache_max_age=3600)
 
     # Routes
-    config.add_route('home', '/')
+    config.add_route('home', '/{id}')
     config.add_route('institution_create', '/institution')
     config.add_route('instrument_create', '/instrument')
 
