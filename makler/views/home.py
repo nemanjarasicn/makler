@@ -9,10 +9,8 @@ from ..model.institution import Institution
              renderer='home.mak',
              request_method='GET')
 def home(request):
-    #instruments = Session.query(Instrument).all()
-    #institutions = Session.query(Institution).all()
-    instruments = []
-    institutions = []
+    instruments = Session.query(Instrument).all()
+    institutions = Session.query(Institution).all()
 
     return {
         'instruments': instruments,
