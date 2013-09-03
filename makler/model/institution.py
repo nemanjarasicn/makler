@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from sqlalchemy import types
-from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.schema import Column
 from sqlalchemy.schema import UniqueConstraint
-from sqlalchemy.orm import relationship
 
 from .base import Base
 
@@ -23,5 +22,3 @@ class Institution(Base):
     address = Column(types.String(50))
     contact_person = Column(types.String(50))
     telephone = Column(types.String(15))
-
-

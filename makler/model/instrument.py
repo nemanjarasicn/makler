@@ -6,6 +6,7 @@ from sqlalchemy.schema import UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from .base import Base
+from .institution import Institution
 
 
 class InstrumentType(Base):

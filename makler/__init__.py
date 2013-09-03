@@ -15,5 +15,5 @@ def main(global_config, **settings):
     # Routes
     config.add_route('home', '/')
 
-    config.scan('views')
+    config.scan('.views')
     return config.make_wsgi_app()
