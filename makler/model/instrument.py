@@ -28,6 +28,7 @@ class Instrument(Base):
     __tablename__ = 'instruments'
 
     id = Column(types.Integer, nullable=False, primary_key=True)
+    name = Column(types.String(50))
     institution_id = Column(types.Integer,
                             ForeignKey('institutions.id'),
                             nullable=False)
