@@ -15,6 +15,8 @@ from ..model.session import Session
              renderer='instrument_new.mak',
              request_method='GET')
 def instrument_new(request):
+    """Display a form for creating instrument.
+    """
     id = request.matchdict['id']
 
     institution = (Session.query(Institution)
@@ -29,16 +31,6 @@ def instrument_new(request):
     return {
         'institution': institution,
         'instrument_types': instrument_types
-    }
-
-
-@view_config(route_name='instrument_type_new',
-             renderer='instrument_type_new.mak',
-             request_method='GET')
-def instrument_type_new(request):
-    instrument_type = InstrumentType()
-    return {
-        'instrument_type': instrument_type,
     }
 
 
@@ -152,29 +144,3 @@ def instrument_delete(request):
 
     return HTTPFound(location=request.route_path(
         'institution', id=institution_id))
-
-
-@view_config(route_name='instrument_type_new',
-             request_method="POST")
-def instrument_type_create(request):
-    data = dict(request.params)
-    safe_keys = [
-        'manufacturer',
-        'name',
-        'type']
-    safe_data = {}
-
-    for key in data.keys():
-        if key in safe_keys:
-            safe_data[key] = data[key]
-
-    instrument_type = InstrumentType(**safe_data)
-
-    try:
-        Session.add(instrument_type)
-        Session.flush()
-        Session.commit()
-    except:
-        Session.rollback()
-
-    return HTTPFound(location=request.route_path('home'))
