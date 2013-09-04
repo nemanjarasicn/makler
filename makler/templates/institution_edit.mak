@@ -20,9 +20,9 @@
                    type="checkbox" name="${instrument.id}"
                    ${'checked' if instrument.active else ''} />
             <a href="${request.route_path('instrument', id=instrument.id)}">${instrument.name}</a>
-            <form action="${request.route_path('instrument_delete')}" method="POST">
+            <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
                 <input type="hidden" name="id" value="${instrument.id}" />
-                <button class="small round" type="submit">Obrisi</button>
+                <button class="tiny round alert button" type="submit">x</button>
             </form>
         </li>
     % endfor
