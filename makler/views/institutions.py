@@ -71,9 +71,6 @@ def institution_create(request):
     except:
         Session.rollback()
 
-    message = "Uspešno ste dodali ustanovu."
-    request.session.flash(message)
-
     return HTTPFound(
         location=request.route_path('institution', id=institution.id))
 
@@ -99,8 +96,5 @@ def institution_update(request):
         Session.commit()
     except:
         Session.rollback()
-
-    message = "Uspešno ste ažurirali ustanovu."
-    request.session.flash(message)
 
     return HTTPFound(location=request.route_path('institution', id=id))

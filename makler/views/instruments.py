@@ -37,8 +37,6 @@ def instrument_new(request):
              request_method='GET')
 def instrument_type_new(request):
     instrument_type = InstrumentType()
-    print request.referer
-
     return {
         'instrument_type': instrument_type,
     }
@@ -95,9 +93,6 @@ def instrument_create(request):
     except:
         Session.rollback()
         raise HTTPInternalServerError
-
-    message = "Uspešno ste dodali aparat."
-    request.session.flash(message)
 
     return HTTPFound(location=request.route_path(
         'institution', id=data['institution_id']))
@@ -181,9 +176,5 @@ def instrument_type_create(request):
         Session.commit()
     except:
         Session.rollback()
-
-    message = "Uspešno ste dodali model aparata."
-    request.session.flash(message)
-    print request.referer
 
     return HTTPFound(location=request.route_path('home'))
