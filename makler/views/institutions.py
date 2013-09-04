@@ -64,7 +64,35 @@ def institution_create(request):
     except:
         Session.rollback()
 
-    message = "Uspešno ste dodali instituciju."
+    message = "Uspešno ste dodali ustanovu."
     request.session.flash(message)
 
     return HTTPFound(location=request.route_path('home'))
+
+
+@view_config(route_name='institution_update',
+             request_method='POST')
+def institution_update(request):
+    """Updates institutions"""
+
+    id = request.POST['id']
+    institution = Session.query.filter(Institution.id == id).first()
+
+    if not institution:
+        raise HTTPNotFound
+
+    institution.name = request.POST['name']
+    institution.address = request.POST['address']
+    institution.city = request.POST['city']
+    institution.contact_person = request.POST['contact_person']
+    institution.telephone = request.POST['telephone']
+
+    try:
+        Session.commit()
+    except:
+        Session.rollback()
+
+    message = "Uspešno ste ažurirali ustanovu."
+    request.session.flash(message)
+
+    return HTTPFound(location=request.route_path('institution_edit', id=id))

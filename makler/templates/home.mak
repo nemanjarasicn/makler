@@ -13,7 +13,7 @@
   </div>
 
   <div class="large-4 columns">
-    <button class="small">Nova</button>
+    <a href="${request.route_path('institution_new')}" class="button small round">Nova</a>
   </div>
 
   <div class="large-4 columns">

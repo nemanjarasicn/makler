@@ -6,6 +6,7 @@
   <div class="large-6 columns">
 
     <form action="${form_action}" method="post">
+       <input type="hidden" name="id" value="${institution.id}" />
 
       <fieldset>
         <legend>Ustanova</legend>
