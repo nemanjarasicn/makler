@@ -18,27 +18,29 @@ class InstrumentType(Base):
         {}
     )
 
-    id = Column(types.Integer, nullable=False, primary_key=True)
-    type = Column(types.String(50))
-    manufacturer = Column(types.String(50))
-    name = Column(types.String(10))
+    id = Column("id", types.Integer, nullable=False, primary_key=True)
+    type = Column("type", types.String(50))
+    manufacturer = Column("manufacturer", types.String(50))
+    name = Column("name", types.String(10))
 
 
 class Instrument(Base):
 
     __tablename__ = 'instruments'
 
-    id = Column(types.Integer, nullable=False, primary_key=True)
-    name = Column(types.String(50))
-    active = Column(types.Boolean)
-    institution_id = Column(types.Integer,
+    id = Column("id", types.Integer, nullable=False, primary_key=True)
+    name = Column("name", types.String(50))
+    active = Column("active", types.Boolean)
+    institution_id = Column("institution_id",
+                            types.Integer,
                             ForeignKey('institutions.id'),
                             nullable=False)
     instrument_type_id = Column(
+        "instrument_type_id",
         types.Integer,
         ForeignKey('instrument_types.id')
     )
-    description = Column(types.Text)
+    description = Column("description", types.Text)
 
     instrument_type = relationship(InstrumentType, uselist=False)
     institution = relationship(Institution, uselist=False)

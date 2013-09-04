@@ -16,8 +16,8 @@ class Institution(Base):
         {}
     )
 
-    id = Column(types.Integer, nullable=False, primary_key=True)
-    name = Column(types.String(50))
-    city = Column(types.String(50))
-    address = Column(types.String(50))
-    phone = Column(types.String(15))
+    id = Column("id", types.Integer, nullable=False, primary_key=True)
+    name = Column("name", types.String(50))
+    city = Column("city", types.String(50))
+    address = Column("address", types.String(50))
+    phone = Column("phone", types.String(15))
