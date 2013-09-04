@@ -21,7 +21,7 @@ def institution_new(request):
     }
 
 
-@view_config(route_name='institution_edit',
+@view_config(route_name='institution',
              renderer='institution_edit.mak',
              request_method='GET')
 def institution_edit(request):
@@ -40,7 +40,7 @@ def institution_edit(request):
     }
 
 
-@view_config(route_name='institution_create',
+@view_config(route_name='institution_new',
              request_method='POST')
 def institution_create(request):
     """Creates an institution.
@@ -68,13 +68,15 @@ def institution_create(request):
     return HTTPFound(location=request.route_path('home'))
 
 
-@view_config(route_name='institution_update',
+@view_config(route_name='institution',
              request_method='POST')
 def institution_update(request):
     """Updates institutions"""
 
     id = request.POST['id']
-    institution = Session.query.filter(Institution.id == id).first()
+    institution = (Session.query(Institution)
+                   .filter(Institution.id == id)
+                   .first())
 
     if not institution:
         raise HTTPNotFound
@@ -93,4 +95,4 @@ def institution_update(request):
     message = "Uspešno ste ažurirali ustanovu."
     request.session.flash(message)
 
-    return HTTPFound(location=request.route_path('institution_edit', id=id))
+    return HTTPFound(location=request.route_path('institution', id=id))
