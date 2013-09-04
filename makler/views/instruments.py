@@ -10,7 +10,7 @@ from ..model.session import Session
 
 
 @view_config(route_name='instrument_new',
-             renderer='instrument_edit.mak',
+             renderer='instrument_new.mak',
              request_method='GET')
 def instrument_new(request):
     id = request.matchdict['id']

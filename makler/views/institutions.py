@@ -10,7 +10,7 @@ from ..model.session import Session
 
 
 @view_config(route_name='institution_new',
-             renderer='institution_edit.mak',
+             renderer='institution_new.mak',
              request_method='GET')
 def institution_new(request):
     """Displays form for creating new institution"""
