@@ -17,7 +17,6 @@ def institution_new(request):
     institution = Institution()
 
     return {
-        'form_action': request.route_path('institution_create'),
         'institution': institution
     }
 
@@ -37,7 +36,6 @@ def institution_edit(request):
         raise HTTPNotFound
 
     return {
-        'form_action': request.route_path('institution_update', id=id),
         'institution': institution
     }
 

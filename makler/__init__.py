@@ -11,7 +11,7 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     init_session(engine)
 
-    my_session_factory = UnencryptedCookieSessionFactoryConfig('secret')
+    my_session_factory = UnencryptedCookieSessionFactoryConfig('makler')
 
     config = Configurator(
         settings=settings,
@@ -19,10 +19,12 @@ def main(global_config, **settings):
     )
     config.add_static_view('public', 'public', cache_max_age=3600)
 
-    # Routes
+    # GET Routes
     config.add_route('home', '/')
     config.add_route('institution_new', '/institution')
     config.add_route('institution_edit', '/institution/{id}')
+
+    # POST Routes
     config.add_route('institution_create', '/institution')
     config.add_route('institution_update', '/institution/{id}')
     config.add_route('instrument_create', '/instrument')

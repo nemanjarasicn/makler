@@ -6,6 +6,6 @@
 
 <div class="row">
   <div class="large-6 columns">
-    ${form.institution_form(institution, form_action)}
+    ${form.institution_form(institution, request.route_path('institution_create'))}
   </div>
 </div>
