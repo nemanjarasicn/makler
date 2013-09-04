@@ -10,8 +10,46 @@
   </div>
 </div>
 
+<h4>Kontakti</h4>
+  % for contact in institution.contacts:
+  <div class="row">
+    <div class="large-6 columns">
+      <div class="large-5 columns">
+        <input type="text" value="${contact.name}" disabled />
+      </div>
+      <div class="large-5 columns">
+        <input type="text" value="${contact.telephone}" disabled />
+      </div>
+      <div class="large-2 columns">
+        <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline;">
+          <input type="hidden" name="id" value="${contact.id}" />
+          <button type="submit" class="tiny round alert">x</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  % endfor
+
+  <div class="row">
+    <div class="large-6 columns">
+      <form action="${request.route_path('contact_new', id=institution.id)}" method="POST" style="display:inline;">
+        <input type="hidden" name="institution_id" value="${institution.id}" />
+        <div class="large-5 columns">
+          <input type="text" name="name" placeholder="Ime" />
+        </div>
+        <div class="large-5 columns">
+          <input type="text" name="telephone" placeholder="Broj telefona" />
+        </div>
+        <div class="large-2 columns">
+          <button type="submit" class="tiny round">+</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 <div class="row">
-  <div class="small-3 columns">
+  <div class="large-6 columns">
+  <div class="small-6 columns">
     <h4>Aparati</h4>
     <ul>
     % for instrument in instruments:
@@ -28,7 +66,7 @@
     % endfor
     </ul>
   </div>
-  <div class="small-9 columns">
+  <div class="small-6 columns">
     <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
       <input type="hidden" name="institution_id" value="${institution.id}" />
       <h4>Dodaj novi aparat</h4>
@@ -39,6 +77,7 @@
     </select>
     <button class="small round" type="submit">Dodaj</button>
     </form>
+  </div>
   </div>
 </div>
 

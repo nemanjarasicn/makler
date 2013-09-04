@@ -13,32 +13,40 @@ from ..model.session import Session
 @view_config(route_name='contact_new',
              request_method='POST')
 def contact_new(request):
-    id = request.matchdict['id']
+    data = dict(request.params)
+    safe_keys = ['institution_id', 'name', 'telephone']
+    safe_data = {}
 
-    institution = (Session.query(Institution)
-                   .filter(Institution.id == id)
-                   .first())
+    for key in data.keys():
+        if key in safe_keys:
+            safe_data[key] = data[key]
 
-    instrument_types = Session.query(InstrumentType).all()
+    contact = Contact(**safe_data)
 
-    if not institution:
-        raise HTTPNotFound
+    try:
+        Session.add(contact)
+        Session.flush()
+        Session.commit()
+    except:
+        Session.rollback()
+        raise
+        raise HTTPInternalServerError
 
-    return {
-        'institution': institution,
-        'instrument_types': instrument_types
-    }
+    return HTTPFound(location=request.route_path(
+        'institution', id=data['institution_id']))
 
 
 @view_config(route_name='contact_delete',
              request_method='POST')
 def contact_delete(request):
 
-    institution_id
+    id = request.POST['id']
     contact = Session.query(Contact).filter(Contact.id == id).first()
+
     if not contact:
         raise HTTPNotFound
 
+    institution_id = contact.institution.id
     try:
         Session.delete(contact)
         Session.flush()

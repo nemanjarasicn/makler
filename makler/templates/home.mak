@@ -3,6 +3,7 @@
 
 <%def name="title()">Makler DB</%def>
 
+<h3>Ustanove</h3>
 <div class="row">
   <div class="large-4 columns">
     <select id="institutions-list" class="select full-width">
@@ -13,13 +14,14 @@
   </div>
 
   <div class="large-4 columns">
-    <a href="${request.route_path('institution_new')}" class="button small round">Nova</a>
+    <a href="${request.route_path('institution_new')}" class="button small round padded">Nova ustanova</a>
   </div>
 
   <div class="large-4 columns">
   </div>
 </div>
 
+<h3>Modeli aparata</h3>
 <div class="row">
   <div class="large-4 columns">
     <select id="instrument-types-list" class="select full-width">
@@ -30,7 +32,7 @@
   </div>
 
   <div class="large-4 columns">
-    <a href="${request.route_path('instrument_type_new')}" class="button small round">Novi</a>
+    <a href="${request.route_path('instrument_type_new')}" class="button small round">Novi model</a>
   </div>
 
   <div class="large-4 columns">
