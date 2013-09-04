@@ -5,7 +5,7 @@
 
 <div class="row">
   <div class="large-4 columns">
-    <select class="chosen">
+    <select id="institutions-list" class="select">
       % for institution in institutions:
         <option value="${institution.id}">${institution.name}</option>
       % endfor
@@ -21,5 +21,10 @@
 </div>
 
 <%block name="ready">
-  $('.chosen').chosen();
+  $('#institutions-list').select2();
+  $('#institutions-list').on("select2-selecting", function (e) {
+    var base_url = "${request.route_path('institution_new')}"
+    var institution_url = base_url + '/' + e.val
+    window.location.href = institution_url
+  });
 </%block>

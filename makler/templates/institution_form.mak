@@ -5,7 +5,7 @@
 
   <div class="large-6 columns">
 
-    <form action="${request.route_path('institution_create')}" method="post">
+    <form action="${form_action}" method="post">
 
       <fieldset>
         <legend>Ustanova</legend>
@@ -14,7 +14,9 @@
             <label class="right inline">Ime ustanove</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="name" class="right-label" placeholder="ime ustanove">
+            <input type="text" name="name" class="right-label" placeholder="ime ustanove"
+                   value="${institution.name if institution.name else ''}">
+            </input>
           </div>
         </div>
 
@@ -23,7 +25,9 @@
             <label class="right inline">Adresa</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="address" class="right-label" placeholder="adresa ustanove">
+            <input type="text" name="address" class="right-label" placeholder="adresa ustanove"
+                   value="${institution.address if institution.address else ''}">
+            </input>
           </div>
         </div>
 
@@ -32,7 +36,9 @@
             <label class="right inline">Grad</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="city" class="right-label" placeholder="grad">
+            <input type="text" name="city" class="right-label" placeholder="grad"
+                   value="${institution.city if institution.city else ''}">
+            </input>
           </div>
         </div>
 
@@ -41,7 +47,9 @@
             <label class="right inline">Kontakt osoba</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="contact_person" class="right-label" placeholder="kontakt osoba">
+            <input type="text" name="contact_person" class="right-label" placeholder="kontakt osoba"
+                   value="${institution.contact_person if institution.contact_person else ''}">
+            </input>
           </div>
         </div>
 
@@ -50,7 +58,9 @@
             <label class="right inline">Telefon</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="telephone" class="right-label" placeholder="telefon">
+            <input type="text" name="telephone" class="right-label" placeholder="telefon"
+                   value="${institution.telephone if institution.telephone else ''}">
+            </input>
           </div>
         </div>
 

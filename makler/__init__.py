@@ -22,7 +22,9 @@ def main(global_config, **settings):
     # Routes
     config.add_route('home', '/')
     config.add_route('institution_new', '/institution')
+    config.add_route('institution_edit', '/institution/{id}')
     config.add_route('institution_create', '/institution')
+    config.add_route('institution_update', '/institution/{id}')
     config.add_route('instrument_create', '/instrument')
 
     config.scan('.views')
