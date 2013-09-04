@@ -5,6 +5,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 
 from ..model.institution import Institution
+from ..model.instrument import Instrument
 from ..model.session import Session
 
 
@@ -32,11 +33,16 @@ def institution_edit(request):
                    .filter(Institution.id == id)
                    .first())
 
+    instruments = (Session.query(Instrument)
+                   .filter(Instrument.institution_id == id)
+                   .all())
+
     if not institution:
         raise HTTPNotFound
 
     return {
-        'institution': institution
+        'institution': institution,
+        'instruments': instruments,
     }
 
 
