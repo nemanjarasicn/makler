@@ -20,6 +20,22 @@
     </ul>
   </div>
   <div class="small-9 columns">
-    <a href="${request.route_path('instrument_new', id=institution.id)}" class="small button round">Dodaj novi</a>
+    <h4>Dodaj novi aparat</h4>
+    <select id="instrument-list" class="select">
+        <option></option>
+        % for ins_type in instrument_types:
+            <option value="ins.type.id">${ins_type.name}</option>
+        % endfor
+    </select>
+    <a href="${request.route_path('instrument_new', id=institution.id)}" class="small button round">Dodaj</a>
   </div>
 </div>
+
+
+
+<%block name="ready">
+  $('#instrument-list').select2({
+    placeholder: "izaberi tip",
+    allowClear: true
+  });
+</%block>
