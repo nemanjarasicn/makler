@@ -23,11 +23,12 @@
     </ul>
   </div>
   <div class="small-9 columns">
-    <form action="${request.route_path('instrument_new', id=institution.id)}">
+    <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
+      <input type="hidden" name="institution_id" value="${institution.id}" />
       <h4>Dodaj novi aparat</h4>
-        <select id="instrument-list" name="instrument_type" class="select">
-          % for ins_type in instrument_types:
-            <option value="ins.type.id">${ins_type.name}</option>
+        <select id="instrument-list" name="instrument_type_id" class="select">
+          % for instrument_type in instrument_types:
+            <option value="${instrument_type.id}">${instrument_type.name}</option>
           % endfor
     </select>
     <button class="small round" type="submit">Dodaj</button>

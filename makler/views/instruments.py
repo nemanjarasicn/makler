@@ -3,6 +3,7 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..model.instrument import Instrument
 from ..model.instrument import InstrumentType
@@ -35,7 +36,12 @@ def instrument_new(request):
              renderer='instrument_type_new.mak',
              request_method='GET')
 def instrument_type_new(request):
-    return {}
+    instrument_type = InstrumentType()
+    print request.referer
+
+    return {
+        'instrument_type': instrument_type,
+    }
 
 
 @view_config(route_name='instrument',
@@ -74,14 +80,78 @@ def instrument_create(request):
 
     instrument = Instrument(**safe_data)
 
+    if not instrument.name:
+        instrument_type = (
+            Session.query(InstrumentType)
+            .filter(InstrumentType.id == data['instrument_type_id'])
+            .one())
+
+        instrument.name = instrument_type.name
+
     try:
         Session.add(instrument)
         Session.flush()
         Session.commit()
     except:
+        raise HTTPInternalServerError
         Session.rollback()
 
     message = "Uspešno ste dodali aparat."
     request.session.flash(message)
+
+    return HTTPFound(location=request.route_path('home'))
+
+
+@view_config(route_name='instrument',
+             request_method="POST")
+def instrument_update(request):
+    id = request.matchdict['id']
+
+    instrument = (Session.query(Instrument)
+                  .filter(Instrument.id == id)
+                  .first())
+
+    if not instrument:
+        raise HTTPNotFound
+
+    instrument.name = request.POST['name']
+    instrument.description = request.POST['description']
+    instrument.active = request.POST['active']
+
+    try:
+        Session.flush()
+        Session.commit()
+    except:
+        Session.rollback()
+
+    return HTTPFound(location=request.route_path('instrument', id=id))
+
+
+@view_config(route_name='instrument_type_new',
+             request_method="POST")
+def instrument_type_create(request):
+    data = dict(request.params)
+    safe_keys = [
+        'manufacturer',
+        'name',
+        'type']
+    safe_data = {}
+
+    for key in data.keys():
+        if key in safe_keys:
+            safe_data[key] = data[key]
+
+    instrument_type = InstrumentType(**safe_data)
+
+    try:
+        Session.add(instrument_type)
+        Session.flush()
+        Session.commit()
+    except:
+        Session.rollback()
+
+    message = "Uspešno ste dodali model aparata."
+    request.session.flash(message)
+    print request.referer
 
     return HTTPFound(location=request.route_path('home'))

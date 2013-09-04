@@ -1,16 +1,12 @@
 ## -*- coding: utf-8 -*-
 <%inherit file="base.mak"/>
 
-<%
-    institution = instrument.institution
-%>
-
-<%def name="title()">Analizator za ${instrument.institution.name}</%def>
+<%def name="title()">Analizator ${instrument.name} (${instrument.institution.name})</%def>
 
 <div class="row">
   <div class="large-6 columns">
-    <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
-        <input type="hidden" name="institution_id" value="${institution.id}" />
+    <form action="${request.route_path('instrument_edit, id=instrument.id)}" method="post">
+        <input type="hidden" name="id" value="${instrument.id}" />
 
     <fieldset>
         <legend>Analizator</legend>
