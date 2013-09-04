@@ -31,6 +31,14 @@
       </div>
     </div>
 
+    <div class="row">
+        <div class="small-3 columns">
+            <label class="right inline">Aktivan</label>
+        </div>
+        <div class="small-9 columns">
+            <input type="checkbox" name="active" style="position:absolute; top:6px;"/>
+        </div>
+
     </fieldset>
     <button type="submit" class="small round">Sačuvaj</button>
 
