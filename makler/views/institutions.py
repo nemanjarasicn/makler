@@ -9,7 +9,7 @@ from ..model.session import Session
 
 
 @view_config(route_name='institution_new',
-             renderer='institution_form.mak',
+             renderer='institution_new.mak',
              request_method='GET')
 def institution_new(request):
     """Displays form for creating new institution"""
@@ -23,7 +23,7 @@ def institution_new(request):
 
 
 @view_config(route_name='institution_edit',
-             renderer='institution_form.mak',
+             renderer='institution_edit.mak',
              request_method='GET')
 def institution_edit(request):
     """Displays form for editing existing institution"""

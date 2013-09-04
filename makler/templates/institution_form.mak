@@ -1,10 +1,5 @@
 ## -*- coding: utf-8 -*-
-<%inherit file="base.mak"/>
-
-<div class="row">
-
-  <div class="large-6 columns">
-
+<%def name="institution_form(institution, form_action)">
     <form action="${form_action}" method="post">
        <input type="hidden" name="id" value="${institution.id}" />
 
@@ -67,8 +62,5 @@
 
         </fieldset>
         <button type="submit" class="small round">Sačuvaj</button>
-
     </form>
-
-  </div>
-</div>
+</%def>
