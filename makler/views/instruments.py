@@ -31,18 +31,7 @@ def instrument_new(request):
              renderer='instrument_type_new.mak',
              request_method='GET')
 def instrument_type_new(request):
-    id = request.matchdict['id']
-
-    institution = (Session.query(Institution)
-                   .filter(Institution.id == id)
-                   .all())
-
-    if not institution:
-        raise HTTPNotFound
-
-    return {
-        'institution': institution,
-    }
+    return {}
 
 
 @view_config(route_name='instrument',
@@ -66,8 +55,13 @@ def instrument_edit(request):
              request_method='POST')
 def instrument_create(request):
     data = dict(request.params)
-    safe_keys = ['instrument_type_id', 'name',
-                 'active', 'description']
+    safe_keys = [
+        'instrument_type_id',
+        'institution_id',
+        'name',
+        'active',
+        'type',
+        'description']
     safe_data = {}
 
     for key in data.keys():
