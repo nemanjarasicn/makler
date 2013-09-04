@@ -5,7 +5,7 @@
 
 <div class="row">
   <div class="large-4 columns">
-    <select id="institutions-list" class="select">
+    <select id="institutions-list" class="select full-width">
       % for institution in institutions:
         <option value="${institution.id}">${institution.name}</option>
       % endfor
@@ -22,7 +22,7 @@
 
 <div class="row">
   <div class="large-4 columns">
-    <select id="instrument-types-list" class="select">
+    <select id="instrument-types-list" class="select full-width">
       % for instrument_type in instrument_types:
         <option value="${instrument_type.id}">${instrument_type.name}</option>
       % endfor
@@ -38,13 +38,11 @@
 </div>
 
 <%block name="ready">
-  $('#institutions-list').select2();
   $('#institutions-list').on("select2-selecting", function (e) {
     var url = "/institution/" + e.val
     window.location.href = url
   });
 
-  $('#instrument-types-list').select2();
   $('#instrument-types-list').on("select2-selecting", function (e) {
     var url = "/instrument_type/" + e.val
     window.location.href = url

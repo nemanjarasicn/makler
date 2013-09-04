@@ -63,6 +63,7 @@
 
     <script>
       $(document).ready(function() {
+        $('.select').select2();
         <%block name="ready"></%block>
       });
     </script>

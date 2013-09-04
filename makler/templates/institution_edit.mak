@@ -45,11 +45,6 @@
 
 
 <%block name="ready">
-  $('#instrument-list').select2({
-    placeholder: "izaberi tip",
-    allowClear: true
-  });
-
   $('.instrument-activation').click(function () {
     var url = '/instrument/' + $(this).attr('name');
 
