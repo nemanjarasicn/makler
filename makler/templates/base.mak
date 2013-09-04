@@ -18,6 +18,8 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="${request.static_url('makler:public/css/normalize.css')}">
     <link rel="stylesheet" href="${request.static_url('makler:public/css/foundation.css')}">
+    <link rel="stylesheet" href="${request.static_url('makler:public/vendor/chosen/chosen.min.css')}">
+    <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}">
     <%block name="stylesheets"></%block>
     <script src="${request.static_url('makler:public/js/vendor/custom.modernizr.js')}"></script>
   </head>
@@ -52,6 +54,8 @@
 
     <script src="${request.static_url('makler:public/js/vendor/jquery.min.js')}"></script>
     <script src="${request.static_url('makler:public/js/foundation.min.js')}"></script>
+    <script src="${request.static_url('makler:public/vendor/chosen/chosen.jquery.min.js')}"></script>
+
      <%block name="javascripts"></%block>
     <script>
       $(document).foundation();
