@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 def init_db(db_file):
     cwd = os.path.dirname(os.path.realpath(__file__))
     fullpath_db = os.path.abspath(
-        os.path.join(cwd, db_file))
+        os.path.join(cwd, '../', db_file))
 
     engine = create_engine(
         'sqlite:///' + fullpath_db, echo=True)

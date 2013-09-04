@@ -13,8 +13,6 @@ def home(request):
     institutions = Session.query(Institution).all()
 
     return {
-        'action_add_instrument': request.route_url('instrument_create'),
-        'action_add_institution': request.route_url('institution_create'),
         'instruments': instruments,
         'institutions': institutions,
     }
