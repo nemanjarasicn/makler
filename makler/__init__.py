@@ -23,8 +23,12 @@ def main(global_config, **settings):
     config.add_route('institution_new', '/institution')
     config.add_route('institution', '/institution/{id}')
 
+    config.add_route('contact_new', '/institution/{id}/contact')
+    config.add_route('contact_delete', '/delete/contact')
+
     config.add_route('instrument_new', '/institution/{id}/instrument')
     config.add_route('instrument', '/instrument/{id}')
+    config.add_route('instrument_delete', '/delete/instrument')
 
     config.add_route('instrument_type_new', '/instrument_type')
     config.add_route('instrument_type', '/instrument_type/{id}')

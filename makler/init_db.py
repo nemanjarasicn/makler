@@ -6,7 +6,7 @@ import os
 from sqlalchemy import create_engine
 
 
-def init_db(db_file):
+def init_db(db_file="makler.db"):
     cwd = os.path.dirname(os.path.realpath(__file__))
     fullpath_db = os.path.abspath(
         os.path.join(cwd, '../', db_file))
@@ -20,4 +20,8 @@ def init_db(db_file):
 
 
 if __name__ == '__main__':
-    init_db(sys.argv[1]) or sys.exit(1)
+    if len(sys.argv) > 1:
+        db_file = sys.argv[1]
+    else:
+        db_file = "makler.db"
+        init_db(db_file) or sys.exit(1)

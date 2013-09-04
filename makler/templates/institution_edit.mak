@@ -16,7 +16,7 @@
     <ul>
     % for instrument in instruments:
         <li>
-            <input type="checkbox" name="${instrument.id}" />
+            <input type="checkbox" name="${instrument.id}" ${'checked' if instrument.active else ''} />
             <a href="${request.route_path('instrument', id=instrument.id)}">${instrument.name}</a>
             <form action="${request.route_path('instrument_delete')}" method=POST>
                 <input type="hidden" name="id" value="${instrument.id}" />

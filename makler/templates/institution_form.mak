@@ -40,22 +40,11 @@
 
         <div class="row">
           <div class="small-3 columns">
-            <label class="right inline">Kontakt osoba</label>
-          </div>
-          <div class="small-9 columns">
-            <input type="text" name="contact_person" class="right-label" placeholder="kontakt osoba"
-                   value="${institution.contact_person if institution.contact_person else ''}">
-            </input>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="small-3 columns">
             <label class="right inline">Telefon</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="telephone" class="right-label" placeholder="telefon"
-                   value="${institution.telephone if institution.telephone else ''}">
+            <input type="text" name="phone" class="right-label" placeholder="telefon"
+                   value="${institution.phone if institution.phone else ''}">
             </input>
           </div>
         </div>

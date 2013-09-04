@@ -27,7 +27,7 @@
         <label class="right inline">Opis</label>
       </div>
       <div class="small-9 columns">
-        <textarea name="description" placeholder="opis"></textarea>
+        <textarea name="description" placeholder="Opis"></textarea>
       </div>
     </div>
 
@@ -36,7 +36,9 @@
             <label class="right inline">Aktivan</label>
         </div>
         <div class="small-9 columns">
-            <input type="checkbox" name="active" style="position:absolute; top:6px;"/>
+            <input type="checkbox" name="active"
+                ${'checked' if instrument.active else ''}
+                style="position:absolute; top:6px;" />
         </div>
 
     </fieldset>

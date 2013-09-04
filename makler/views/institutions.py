@@ -74,7 +74,8 @@ def institution_create(request):
     message = "Uspešno ste dodali ustanovu."
     request.session.flash(message)
 
-    return HTTPFound(location=request.route_path('home'))
+    return HTTPFound(
+        location=request.route_path('institution', id=institution.id))
 
 
 @view_config(route_name='institution',
@@ -93,8 +94,6 @@ def institution_update(request):
     institution.name = request.POST['name']
     institution.address = request.POST['address']
     institution.city = request.POST['city']
-    institution.contact_person = request.POST['contact_person']
-    institution.telephone = request.POST['telephone']
 
     try:
         Session.commit()

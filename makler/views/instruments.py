@@ -93,13 +93,14 @@ def instrument_create(request):
         Session.flush()
         Session.commit()
     except:
-        raise HTTPInternalServerError
         Session.rollback()
+        raise HTTPInternalServerError
 
     message = "Uspešno ste dodali aparat."
     request.session.flash(message)
 
-    return HTTPFound(location=request.route_path('home'))
+    return HTTPFound(location=request.route_path(
+        'institution', id=data['institution_id']))
 
 
 @view_config(route_name='instrument',
@@ -114,9 +115,17 @@ def instrument_update(request):
     if not instrument:
         raise HTTPNotFound
 
-    instrument.name = request.POST['name']
-    instrument.description = request.POST['description']
-    instrument.active = request.POST['active']
+    if 'name' in request.POST:
+        instrument.name = request.POST['name']
+
+    if 'description' in request.POST:
+        instrument.description = request.POST['description']
+
+    # TODO: Is there a better way to handle this?
+    if 'active' in request.POST and request.POST['active']:
+        instrument.active = True
+    else:
+        instrument.active = False
 
     try:
         Session.flush()
@@ -124,7 +133,30 @@ def instrument_update(request):
     except:
         Session.rollback()
 
-    return HTTPFound(location=request.route_path('instrument', id=id))
+    return HTTPFound(location=request.route_path(
+        'institution', id=instrument.institution_id))
+
+
+@view_config(route_name='instrument_delete',
+             request_method="POST")
+def instrument_delete(request):
+    id = request.POST['id']
+    instrument = Session.query(Instrument).filter(Instrument.id == id).first()
+
+    if not instrument:
+        raise HTTPNotFound
+
+    institution_id = instrument.institution.id
+    try:
+        Session.delete(instrument)
+        Session.flush()
+        Session.commit()
+    except:
+        Session.rollback()
+        raise HTTPInternalServerError
+
+    return HTTPFound(location=request.route_path(
+        'institution', id=institution_id))
 
 
 @view_config(route_name='instrument_type_new',

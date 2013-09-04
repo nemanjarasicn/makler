@@ -20,5 +20,4 @@ class Institution(Base):
     name = Column(types.String(50))
     city = Column(types.String(50))
     address = Column(types.String(50))
-    contact_person = Column(types.String(50))
-    telephone = Column(types.String(15))
+    phone = Column(types.String(15))
