@@ -42,8 +42,6 @@
   </div>
 </div>
 
-
-
 <%block name="ready">
   $('.instrument-activation').click(function () {
     var url = '/instrument/' + $(this).attr('name');
