@@ -23,7 +23,7 @@ def instrument_new(request):
         raise HTTPNotFound
 
     return {
-        'institution_id': id,
+        'institution': institution,
     }
 
 
