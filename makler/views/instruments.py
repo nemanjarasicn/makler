@@ -17,6 +17,24 @@ def instrument_new(request):
 
     institution = (Session.query(Institution)
                    .filter(Institution.id == id)
+                   .first())
+
+    if not institution:
+        raise HTTPNotFound
+
+    return {
+        'institution': institution,
+    }
+
+
+@view_config(route_name='instrument_type_new',
+             renderer='instrument_type_new.mak',
+             request_method='GET')
+def instrument_type_new(request):
+    id = request.matchdict['id']
+
+    institution = (Session.query(Institution)
+                   .filter(Institution.id == id)
                    .all())
 
     if not institution:
