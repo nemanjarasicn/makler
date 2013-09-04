@@ -16,9 +16,11 @@
     <ul>
     % for instrument in instruments:
         <li>
-            <input type="checkbox" name="${instrument.id}" ${'checked' if instrument.active else ''} />
+            <input class="instrument-activation"
+                   type="checkbox" name="${instrument.id}"
+                   ${'checked' if instrument.active else ''} />
             <a href="${request.route_path('instrument', id=instrument.id)}">${instrument.name}</a>
-            <form action="${request.route_path('instrument_delete')}" method=POST>
+            <form action="${request.route_path('instrument_delete')}" method="POST">
                 <input type="hidden" name="id" value="${instrument.id}" />
                 <button class="small round" type="submit">Obrisi</button>
             </form>
@@ -46,5 +48,21 @@
   $('#instrument-list').select2({
     placeholder: "izaberi tip",
     allowClear: true
+  });
+
+  $('.instrument-activation').click(function () {
+    var url = '/instrument/' + $(this).attr('name');
+
+    // TODO: There has to be a better way to do this
+    if ($(this).is(':checked')) {
+      var data = {
+        'active': 'True'
+      };
+    }
+    else {
+      var data = {}
+    }
+
+    $.post(url, data)
   });
 </%block>
