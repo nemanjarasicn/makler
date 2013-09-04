@@ -15,19 +15,23 @@
     <h4>Aparati</h4>
     <ul>
     % for instrument in instruments:
-        <li><a href="${request.route_path('instrument', id=instrument.id)}">${instrument.name}</a></li>
+        <li>
+            <input type="checkbox" name="${instrument.id}" />
+            <a href="${request.route_path('instrument', id=instrument.id)}">${instrument.name}</a>
+        </li>
     % endfor
     </ul>
   </div>
   <div class="small-9 columns">
-    <h4>Dodaj novi aparat</h4>
-    <select id="instrument-list" class="select">
-        <option></option>
-        % for ins_type in instrument_types:
+    <form action="${request.route_path('instrument_new', id=institution.id)}">
+      <h4>Dodaj novi aparat</h4>
+        <select id="instrument-list" name="instrument_type" class="select">
+          % for ins_type in instrument_types:
             <option value="ins.type.id">${ins_type.name}</option>
-        % endfor
+          % endfor
     </select>
-    <a href="${request.route_path('instrument_new', id=institution.id)}" class="small button round">Dodaj</a>
+    <button class="small round" type="submit">Dodaj</button>
+    </form>
   </div>
 </div>
 
