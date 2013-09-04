@@ -31,7 +31,7 @@ def instrument_new(request):
              renderer='instrument_edit.mak',
              request_method='GET')
 def instrument_edit(request):
-    id = request.matchdict('id')
+    id = request.matchdict['id']
     instrument = (Session.query(Instrument)
                   .filter(Instrument.id == id)
                   .first())
