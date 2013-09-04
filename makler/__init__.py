@@ -18,12 +18,16 @@ def main(global_config, **settings):
         session_factory=my_session_factory,
     )
     config.add_static_view('public', 'public', cache_max_age=3600)
-
     config.add_route('home', '/')
+
     config.add_route('institution_new', '/institution')
     config.add_route('institution', '/institution/{id}')
 
-    config.add_route('instrument_create', '/instrument')
+    config.add_route('instrument_new', '/institution/{id}/instrument')
+    config.add_route('instrument', '/instrument/{id}')
+
+    config.add_route('instrument_type_new', '/instrument_type')
+    config.add_route('instrument_type', '/instrument_type/{id}')
 
     config.scan('.views')
     return config.make_wsgi_app()
