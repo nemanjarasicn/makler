@@ -21,9 +21,9 @@
       <input type="text" value="${contact.telephone}" disabled />
     </div>
     <div class="large-2 columns">
-      <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline;">
+      <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline; position:relative; top: 4px;">
         <input type="hidden" name="id" value="${contact.id}" />
-        <button type="submit" class="tiny round alert">x</button>
+        <button type="submit" class="delete"></button>
       </form>
     </div>
   </div>
@@ -41,7 +41,7 @@
         <input type="text" name="telephone" placeholder="Broj telefona" />
       </div>
       <div class="large-2 columns">
-        <button type="submit" class="tiny round">+</button>
+        <button type="submit" class="tiny round">Dodaj</button>
       </div>
     </form>
   </div>
@@ -50,7 +50,7 @@
 <div class="row">
   <div class="large-6 columns">
     <h4 style="display:inline;">Aparati</h4>
-    <a href="#" class="tiny round button" id="ajax-test" data-reveal-id="novi-instrument">+</a>
+    <a href="#" class="tiny round button" id="ajax-test" data-reveal-id="novi-instrument">Dodaj</a>
     <ul>
       % for instrument in instruments:
       <li>
@@ -63,7 +63,7 @@
         </a>
         <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
           <input type="hidden" name="id" value="${instrument.id}" />
-          <button class="tiny round alert button" type="submit">x</button>
+          <button class="delete" type="submit"></button>
         </form>
       </li>
       % endfor

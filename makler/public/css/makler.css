@@ -9,3 +9,23 @@ ul li {
 .ustanova {
     margin-top: 30px;
 }
+
+.delete, .delete:hover {
+    background: url('../img/trash.png') no-repeat;
+    height: 16px;
+    width: 16px;
+    border: none;
+    bottom: 0px;
+    margin-left: 10px;
+}
+
+.delete:hover {
+    background: url('../img/trash-over.png') no-repeat;
+}
+
+.add, .add:hover {
+    background: url('../img/add.png') no-repeat;
+    height: 16px;
+    width: 16px;
+    border: none;
+}
