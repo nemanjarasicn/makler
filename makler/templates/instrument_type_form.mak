@@ -33,7 +33,7 @@
       <label class="right inline">Tip</label>
     </div>
     <div class="small-9 columns">
-      <select name="type" class="select full-width">
+      <select name="type" class="select2 full-width">
         <option ${'selected' if instrument_type.type == "biohemijski" else ''} value="biohemijski">Biohemijski</option>
         <option ${'selected' if instrument_type.type == "imunohemijski" else ''} value="imunohemijski">Imunohemijski</option>
         <option ${'selected' if instrument_type.type == "hematoloski" else ''} value="hematoloski">Hematološki</option>

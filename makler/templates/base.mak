@@ -16,12 +16,11 @@
     <title>${self.title()}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <script src="${request.static_url('makler:public/js/vendor/custom.modernizr.js')}"></script>
     <link rel="stylesheet" href="${request.static_url('makler:public/css/normalize.css')}">
     <link rel="stylesheet" href="${request.static_url('makler:public/css/foundation.css')}">
-    <link rel="stylesheet" href="${request.static_url('makler:public/vendor/select2-3.4.2/select2.css')}">
     <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}">
     <%block name="stylesheets"></%block>
-    <script src="${request.static_url('makler:public/js/vendor/custom.modernizr.js')}"></script>
   </head>
 
   <body>
@@ -54,16 +53,11 @@
 
     <script src="${request.static_url('makler:public/js/vendor/jquery.min.js')}"></script>
     <script src="${request.static_url('makler:public/js/foundation.min.js')}"></script>
-    <script src="${request.static_url('makler:public/vendor/select2-3.4.2/select2.min.js')}"></script>
+    <%block name="javascripts"></%block>
 
-     <%block name="javascripts"></%block>
     <script>
       $(document).foundation();
-    </script>
-
-    <script>
       $(document).ready(function() {
-        $('.select').select2();
         <%block name="ready"></%block>
       });
     </script>
