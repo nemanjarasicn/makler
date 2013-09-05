@@ -1,5 +1,5 @@
 ## -*- coding: utf-8 -*-
-<%inherit file="base.mak"/>
+<%inherit file="base_select2.mak"/>
 <%namespace name="form" file="instrument_type_form.mak" />
 
 <%def name="title()">Model analizatora</%def>
