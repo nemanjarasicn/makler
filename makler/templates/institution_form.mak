@@ -11,7 +11,7 @@
           </div>
           <div class="small-9 columns">
             <input type="text" name="name" class="right-label" placeholder="ime ustanove"
-                   value="${institution.name if institution.name else ''}">
+                   value="${institution.name}">
             </input>
           </div>
         </div>
@@ -22,7 +22,7 @@
           </div>
           <div class="small-9 columns">
             <input type="text" name="address" class="right-label" placeholder="adresa ustanove"
-                   value="${institution.address if institution.address else ''}">
+                   value="${institution.address}">
             </input>
           </div>
         </div>
@@ -33,7 +33,7 @@
           </div>
           <div class="small-9 columns">
             <input type="text" name="city" class="right-label" placeholder="grad"
-                   value="${institution.city if institution.city else ''}">
+                   value="${institution.city}">
             </input>
           </div>
         </div>
@@ -44,7 +44,7 @@
           </div>
           <div class="small-9 columns">
             <input type="text" name="phone" class="right-label" placeholder="telefon"
-                   value="${institution.phone if institution.phone else ''}">
+                   value="${institution.phone}">
             </input>
           </div>
         </div>

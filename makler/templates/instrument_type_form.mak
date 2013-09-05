@@ -12,7 +12,7 @@
     </div>
     <div class="small-9 columns">
       <input type="text" name="manufacturer" class="right-label" placeholder="Proizvođač"
-            value="${instrument_type.manufacturer if instrument_type.manufacturer else ''}">
+            value="${instrument_type.manufacturer}">
       </input>
     </div>
   </div>
@@ -23,7 +23,7 @@
     </div>
     <div class="small-9 columns">
       <input type="text" name="name" class="" placeholder="Naziv modela"
-            value="${instrument_type.name if instrument_type.name else ''}">
+            value="${instrument_type.name}">
       </input>
     </div>
   </div>

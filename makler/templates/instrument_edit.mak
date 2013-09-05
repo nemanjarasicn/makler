@@ -17,7 +17,7 @@
       </div>
       <div class="small-9 columns">
         <input type="text" name="name" class="right-label" placeholder="ime analizatora"
-              value="${instrument.name if instrument.name else ''}">
+              value="${instrument.name}">
         </input>
       </div>
     </div>
@@ -27,7 +27,9 @@
         <label class="right inline">Opis</label>
       </div>
       <div class="small-9 columns">
-        <textarea name="description" placeholder="Opis"></textarea>
+        <textarea name="description" placeholder="Opis"
+          value="${instrument.description}">
+        </textarea>
       </div>
     </div>
 
