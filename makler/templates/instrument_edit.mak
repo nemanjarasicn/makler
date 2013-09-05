@@ -6,58 +6,58 @@
 <div class="row">
   <div class="large-6 columns">
     <form action="${request.route_path('instrument', id=instrument.id)}" method="post">
-        <input type="hidden" name="id" value="${instrument.id}" />
+      <input type="hidden" name="id" value="${instrument.id}" />
 
-    <fieldset>
+      <fieldset>
         <legend>Analizator</legend>
 
-    <div class="row">
-      <div class="small-3 columns">
-        <label class="right inline">Ime</label>
-      </div>
-      <div class="small-9 columns">
-        <input type="text" name="name" class="right-label" placeholder="Ime analizatora"
-              value="${instrument.name}">
+        <div class="row">
+          <div class="small-3 columns">
+            <label class="right inline">Ime</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" name="name" class="right-label" placeholder="Ime analizatora"
+                   value="${instrument.name}">
         </input>
-      </div>
-    </div>
+          </div>
+        </div>
 
-    <div class="row">
-      <div class="small-3 columns">
-        <label class="right inline">Datum instalacije</label>
-      </div>
-      <div class="small-9 columns">
-        <input type="text" name="installed" class="right-label" placeholder="Datum instalacije"
-              value="${instrument.name}">
+        <div class="row">
+          <div class="small-3 columns">
+            <label class="right inline">Datum instalacije</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" name="installed" class="right-label" placeholder="Datum instalacije"
+                   value="${instrument.name}">
         </input>
-      </div>
-    </div>
+          </div>
+        </div>
 
-    <div class="row">
-      <div class="small-3 columns">
-        <label class="right inline">Opis</label>
-      </div>
-      <div class="small-9 columns">
-        <textarea name="description" placeholder="Opis"
-          value="${instrument.description}">
-        </textarea>
-      </div>
-    </div>
+        <div class="row">
+          <div class="small-3 columns">
+            <label class="right inline">Opis</label>
+          </div>
+          <div class="small-9 columns">
+            <textarea name="description" placeholder="Opis"
+                      value="${instrument.description}">
+            </textarea>
+          </div>
+        </div>
 
-    <div class="row">
-        <div class="small-3 columns">
+        <div class="row">
+          <div class="small-3 columns">
             <label class="right inline">Aktivan</label>
-        </div>
-        <div class="small-9 columns">
+          </div>
+          <div class="small-9 columns">
             <input type="checkbox" name="active"
-                ${'checked' if instrument.active else ''}
-                style="position:absolute; top:6px;" />
-        </div>
+                   ${'checked' if instrument.active else ''}
+                   style="position:absolute; top:6px;" />
+          </div>
 
-    </fieldset>
-    <button type="submit" class="small round">Sačuvaj</button>
-    <a href="${request.route_path('institution', id=instrument.institution.id)}" class="button small round">Odustani</a>
+      </fieldset>
+      <button type="submit" class="small round">Sačuvaj</button>
+      <a href="${request.route_path('institution', id=instrument.institution.id)}" class="button small round">Odustani</a>
 
     </form>
+    </div>
   </div>
-</div>

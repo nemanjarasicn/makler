@@ -13,7 +13,7 @@
           <select id="institutions-list" class="select2 full-width">
             <option></option>
             % for institution in institutions:
-              <option value="${institution.id}">${institution.name}</option>
+            <option value="${institution.id}">${institution.name}</option>
             % endfor
           </select>
         </div>
@@ -42,7 +42,7 @@
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.name}</td></a>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.address}</td></a>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.phone}</td></a>
-              % endfor
+                % endfor
               </tr>
             </tbody>
           </table>
@@ -56,9 +56,9 @@
       <div class="row">
         <div class="large-4 columns">
           <select id="instrument-types-list" class="select2 full-width">
-              <option></option>
+            <option></option>
             % for instrument_type in instrument_types:
-              <option value="${instrument_type.id}">${instrument_type.name}</option>
+            <option value="${instrument_type.id}">${instrument_type.name}</option>
             % endfor
           </select>
         </div>
@@ -86,7 +86,7 @@
                 <td><a href="${request.route_path('instrument_type', id=instrument_type.id)}">${instrument_type.manufacturer}</td></a>
                 <td><a href="${request.route_path('instrument_type', id=instrument_type.id)}">${instrument_type.name}</td></a>
                 <td><a href="${request.route_path('instrument_type', id=instrument_type.id)}">${instrument_type.type}</td></a>
-              % endfor
+                % endfor
               </tr>
             </tbody>
           </table>
@@ -94,35 +94,11 @@
       </div>
     </div>
 
-
   </section>
 </div>
 
 
-<%block name="ready">
-  ${parent.ready()}
-
-  function noResults() {
-    return 'Nema rezultata';
-  }
-
-  $('#institutions-list').select2({
-     'placeholder': 'Izaberite ustanovu',
-     'formatNoMatches': noResults
-   });
-
-  $('#instrument-types-list').select2({
-     'placeholder': 'Izaberite model aparata',
-     'formatNoMatches': noResults
-   });
-
-  $('#institutions-list').on("select2-selecting", function (e) {
-    var url = "/institution/" + e.val
-    window.location.href = url
-  });
-
-  $('#instrument-types-list').on("select2-selecting", function (e) {
-    var url = "/instrument_type/" + e.val
-    window.location.href = url
-  });
+<%block name="javascripts">
+${parent.javascripts()}
+<script src="${request.static_url('makler:public/js/home.js')}"></script>
 </%block>

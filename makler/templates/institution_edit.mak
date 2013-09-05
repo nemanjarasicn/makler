@@ -75,37 +75,19 @@
   <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
     <input type="hidden" name="institution_id" value="${institution.id}" />
     <h4>Dodaj novi aparat</h4>
-    <select id="instrument-list" name="instrument_type_id" class="select2 full-width">
+    <select id="instrument-types-list" name="instrument_type_id" class="select2 full-width">
+      <option></option>
       % for instrument_type in instrument_types:
       <option value="${instrument_type.id}">${instrument_type.name}</option>
       % endfor
     </select>
-    <button class="small round" type="submit" style="margin-top:10px;">Dodaj</button>
+    <button class="small round disabled" type="submit" style="margin-top:10px;">Dodaj</button>
+    <a id="cancel-instrument-add" class="button small round">Odustani</a>
   </form>
   <a class="close-reveal-modal">&#215;</a>
 </div>
 
-<%block name="ready">
-  ${parent.ready()}
-
-  function ajax() {
-    $('#ajax-test').foundation('reveal', 'open');
-  }
-  //setTimeout(ajax, 2000);
-
-  $('.instrument-activation').click(function () {
-    var url = '/instrument/' + $(this).attr('name');
-
-    // TODO: There has to be a better way to do this
-    if ($(this).is(':checked')) {
-      var data = {
-        'active': 'True'
-      };
-    }
-    else {
-      var data = {}
-    }
-
-    $.post(url, data)
-  });
+<%block name="javascripts">
+${parent.javascripts()}
+<script src="${request.static_url('makler:public/js/institution_edit.js')}"></script>
 </%block>
