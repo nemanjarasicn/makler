@@ -1,3 +1,16 @@
+body {
+    background: url('../img/bck.gif') repeat-x;
+}
+.container {
+    background: url('../img/bck.jpg') top center no-repeat;
+}
+
+#logo {
+    position: absolute;
+    top: 60px;
+    left: 300px;
+}
+
 ul li {
     list-style-type: none;
 }
@@ -23,9 +36,6 @@ ul li {
     background: url('../img/trash-over.png') no-repeat;
 }
 
-.add, .add:hover {
-    background: url('../img/add.png') no-repeat;
-    height: 16px;
-    width: 16px;
-    border: none;
+.kontakti{
+      font-size: 0.875em;
 }

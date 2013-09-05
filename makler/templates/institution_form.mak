@@ -52,7 +52,7 @@
       <h6>Kontakti</h6>
       % for contact in institution.contacts:
       <div class="row">
-        <div class="large-3 large-offset-3 columns">
+        <div class="large-3 large-offset-3 columns kontakti">
           ${contact.name}
         </div>
         <div class="large-3 columns">

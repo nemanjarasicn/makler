@@ -24,6 +24,8 @@
   </head>
 
   <body>
+    <div class="container">
+      <img src="/public/img/header-logo.gif" id="logo" />
     <div class="row">
       <div class="large-12 columns">
         <%block name="header">
@@ -61,6 +63,7 @@
         <%block name="ready"></%block>
       });
     </script>
+  </div>
   </body>
 </html>
 
