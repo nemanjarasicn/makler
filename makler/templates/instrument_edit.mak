@@ -16,7 +16,18 @@
         <label class="right inline">Ime</label>
       </div>
       <div class="small-9 columns">
-        <input type="text" name="name" class="right-label" placeholder="ime analizatora"
+        <input type="text" name="name" class="right-label" placeholder="Ime analizatora"
+              value="${instrument.name}">
+        </input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-3 columns">
+        <label class="right inline">Datum instalacije</label>
+      </div>
+      <div class="small-9 columns">
+        <input type="text" name="installed" class="right-label" placeholder="Datum instalacije"
               value="${instrument.name}">
         </input>
       </div>

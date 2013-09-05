@@ -31,6 +31,7 @@ class Instrument(Base):
     id = Column("id", types.Integer, nullable=False, primary_key=True)
     name = Column("name", types.String(50))
     active = Column("active", types.Boolean)
+    installed = Column("installed", types.DateTime)
     institution_id = Column("institution_id",
                             types.Integer,
                             ForeignKey('institutions.id'),
