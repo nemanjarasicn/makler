@@ -10,26 +10,6 @@
   </div>
 </div>
 
-<h4>Kontakti</h4>
-% for contact in institution.contacts:
-<div class="row">
-  <div class="large-6 columns">
-    <div class="large-5 columns">
-      <input type="text" value="${contact.name}" disabled />
-    </div>
-    <div class="large-5 columns">
-      <input type="text" value="${contact.telephone}" disabled />
-    </div>
-    <div class="large-2 columns">
-      <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline; position:relative; top: 4px;">
-        <input type="hidden" name="id" value="${contact.id}" />
-        <button type="submit" class="delete"></button>
-      </form>
-    </div>
-  </div>
-</div>
-% endfor
-
 <div class="row">
   <div class="large-6 columns">
     <form action="${request.route_path('contact_new', id=institution.id)}" method="POST" style="display:inline;">
@@ -75,7 +55,7 @@
   <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
     <input type="hidden" name="institution_id" value="${institution.id}" />
     <h4>Dodaj novi aparat</h4>
-    <select id="instrument-types-list" name="instrument_type_id" class="select2 full-width">
+    <select id="instrument-types-list" name="instrument_type_id" class="full-width">
       <option></option>
       % for instrument_type in instrument_types:
       <option value="${instrument_type.id}">${instrument_type.name}</option>
@@ -88,6 +68,6 @@
 </div>
 
 <%block name="javascripts">
-${parent.javascripts()}
-<script src="${request.static_url('makler:public/js/institution_edit.js')}"></script>
+  ${parent.javascripts()}
+  <script src="${request.static_url('makler:public/js/institution_edit.js')}"></script>
 </%block>

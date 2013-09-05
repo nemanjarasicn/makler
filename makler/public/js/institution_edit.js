@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    function noResults () {
+    function noResults() {
         return 'Nema rezultata';
     }
 

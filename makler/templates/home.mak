@@ -1,5 +1,4 @@
 ## -*- coding: utf-8 -*-
-##<%inherit file="base.mak"/>
 <%inherit file="base_select2.mak"/>
 
 <%def name="title()">Makler DB</%def>
@@ -10,7 +9,7 @@
     <div class="content" data-section-content>
       <div class="row">
         <div class="large-4 columns">
-          <select id="institutions-list" class="select2 full-width">
+          <select id="institutions-list" class="full-width">
             <option></option>
             % for institution in institutions:
             <option value="${institution.id}">${institution.name}</option>
@@ -55,7 +54,7 @@
     <div class="content" data-section-content>
       <div class="row">
         <div class="large-4 columns">
-          <select id="instrument-types-list" class="select2 full-width">
+          <select id="instrument-types-list" class="full-width">
             <option></option>
             % for instrument_type in instrument_types:
             <option value="${instrument_type.id}">${instrument_type.name}</option>

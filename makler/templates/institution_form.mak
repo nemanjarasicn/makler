@@ -49,6 +49,21 @@
         </div>
       </div>
 
+      <h6>Kontakti</h6>
+      % for contact in institution.contacts:
+      <div class="row">
+        <div class="large-3 large-offset-3 columns">
+          ${contact.name}
+        </div>
+        <div class="large-3 columns">
+          ${contact.telephone}
+        </div>
+        <div class="large-1 large-offset-2 columns">
+          <input type="button" class="delete" data-id="${contact.id}" style="display:inline; position:relative; top: 4px;" />
+        </div>
+      </div>
+      % endfor
+
     </fieldset>
     <button type="submit" class="small round">Sačuvaj</button>
     <a href="${request.route_path('home')}" class="button small round">Odustani</a>
