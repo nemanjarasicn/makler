@@ -10,7 +10,7 @@
             <label class="right inline">Ime ustanove</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="name" class="right-label" placeholder="ime ustanove"
+            <input type="text" name="name" class="right-label" placeholder="Ime ustanove"
                    value="${institution.name}">
             </input>
           </div>
@@ -21,7 +21,7 @@
             <label class="right inline">Adresa</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="address" class="right-label" placeholder="adresa ustanove"
+            <input type="text" name="address" class="right-label" placeholder="Adresa ustanove"
                    value="${institution.address}">
             </input>
           </div>
@@ -32,7 +32,7 @@
             <label class="right inline">Grad</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="city" class="right-label" placeholder="grad"
+            <input type="text" name="city" class="right-label" placeholder="Grad"
                    value="${institution.city}">
             </input>
           </div>
@@ -43,7 +43,7 @@
             <label class="right inline">Telefon</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="phone" class="right-label" placeholder="telefon"
+            <input type="text" name="phone" class="right-label" placeholder="Telefon"
                    value="${institution.phone}">
             </input>
           </div>
