@@ -74,7 +74,7 @@ ul li {
       font-size: 0.875em;
 }
 
-button, .button {
+button, .button, .button:focus {
     background-color: #9a3539;
     border-color: #691316;
 }
@@ -87,4 +87,9 @@ button, .button:hover{
 .disabled {
     background-color: #a2494f !important;
     border-color: #9a3539 !important;
+}
+
+.add {
+    margin-left: 10px;
+    bottom: 5px;
 }

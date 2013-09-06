@@ -11,7 +11,7 @@
 
   <div class="large-6 columns">
     <h4 style="display:inline;">Kontakti</h4>
-    <a href="" class="tiny round button" data-reveal-id="novi-kontakt">Dodaj</a>
+    <a href="" class="tiny round button add" data-reveal-id="novi-kontakt">Dodaj</a>
     % for contact in institution.contacts:
     <div class="row">
       <div class="large-6 columns kontakti">
@@ -31,7 +31,7 @@
 <div class="row">
   <div class="large-12 columns">
     <h4 style="display:inline;">Aparati</h4>
-      <a href="" class="tiny round button" data-reveal-id="novi-instrument">Dodaj</a>
+      <a href="" class="tiny round button add" data-reveal-id="novi-instrument">Dodaj</a>
 
       <ul>
         % for instrument in instruments:
