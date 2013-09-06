@@ -18,7 +18,7 @@ $(document).ready(function() {
         button.off('click');
     });
 
-    $('#cancel-instrument-add').on('click', function (e) {
+    $('.cancel').on('click', function (e) {
         e.preventDefault();
         $(this).foundation('reveal', 'close');
     });
