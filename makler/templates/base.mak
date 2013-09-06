@@ -25,7 +25,10 @@
 
   <body>
     <div class="container">
+      <div class="row header">
       <img src="/public/img/header-logo.gif" id="logo" />
+    </div>
+    <div class="page">
     <div class="row">
       <div class="large-12 columns">
         <%block name="header">
@@ -64,6 +67,7 @@
       });
     </script>
   </div>
+</div>
   </body>
 </html>
 

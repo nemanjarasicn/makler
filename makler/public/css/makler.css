@@ -3,12 +3,24 @@ body {
 }
 .container {
     background: url('../img/bck.jpg') top center no-repeat;
+
+}
+.page {
+    background: #fff;
+    border-radius: 15px 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header{
+    position: relative;
+    padding-top: 300px;
 }
 
 #logo {
     position: absolute;
     top: 60px;
-    left: 300px;
+    left: 0px;
 }
 
 ul li {
