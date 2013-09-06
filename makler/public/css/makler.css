@@ -1,20 +1,36 @@
 body {
     background: url('../img/bck.gif') repeat-x;
 }
-.container {
-    background: url('../img/bck.jpg') top center no-repeat;
 
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+
+h1 {
+    font-size: 2em;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+a {
+  color: #9a3539;
+}
+
+a:hover {
+    color: #691316;
 }
 .page {
     background: #fff;
     border-radius: 15px 15px;
-    max-width: 1000px;
+    max-width: 1024px;
     margin: 0 auto;
+    padding-top: 15px;
 }
 
 .header{
     position: relative;
-    padding-top: 300px;
+    padding-top: 130px;
 }
 
 #logo {
@@ -35,6 +51,12 @@ ul li {
     margin-top: 30px;
 }
 
+.ustanova th {
+    padding: 1em 0.625em;;
+    background-color: #a2494f;
+    color: #fff;
+}
+
 .delete, .delete:hover {
     background: url('../img/trash.png') no-repeat;
     height: 16px;
@@ -50,4 +72,14 @@ ul li {
 
 .kontakti{
       font-size: 0.875em;
+}
+
+button, .button {
+    background-color: #9a3539;
+    border-color: #691316;
+}
+
+button, .button:hover{
+        background-color: #691316;
+    border-color: #691316;
 }

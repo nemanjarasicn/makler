@@ -21,3 +21,6 @@ class Institution(Base):
     city = Column("city", types.String(50))
     address = Column("address", types.String(50))
     phone = Column("phone", types.String(15))
+    institution_type = Column("type", types.String(50))
+    pib = Column("pib", types.Integer)
+    account = Column("account", types.String(50))

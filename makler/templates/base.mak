@@ -24,7 +24,6 @@
 </head>
 
   <body>
-    <div class="container">
       <div class="row header">
         <img src="/public/img/header-logo.gif" id="logo" />
       </div>
@@ -63,7 +62,6 @@
           });
         </script>
       </div>
-    </div>
 
     <%block name="modals"></%block>
 

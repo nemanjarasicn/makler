@@ -8,6 +8,50 @@
   <div class="large-6 columns">
     ${form.institution_form(institution, request.route_path('institution', id=institution.id))}
   </div>
+
+  <div class="large-6 columns">
+    <h4 style="display:inline;">Kontakti</h4>
+    <a href="" class="tiny round button" data-reveal-id="novi-kontakt">Dodaj</a>
+    % for contact in institution.contacts:
+    <div class="row">
+      <div class="large-6 columns kontakti">
+        <p>${contact.name}</p>
+      </div>
+      <div class="large-3 columns">
+        <p>${contact.telephone}</p>
+      </div>
+      <div class="large-3 columns">
+        <input type="button" class="delete" data-id="${contact.id}" style="display:inline; position:relative; top: 4px;" />
+      </div>
+    </div>
+    % endfor
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <h4 style="display:inline;">Aparati</h4>
+      <a href="" class="tiny round button" data-reveal-id="novi-instrument">Dodaj</a>
+
+      <ul>
+        % for instrument in instruments:
+        <li>
+          <input class="instrument-activation"
+                type="checkbox" name="${instrument.id}"
+                ${'checked' if instrument.active else ''} />
+          <a class="instrument" data-id="${instrument.id}"
+             href="${request.route_path('instrument', id=instrument.id)}">
+             ${instrument.instrument_type.manufacturer} ${instrument.instrument_type.name} ${instrument.description} ${instrument.installed}
+          </a>
+
+          <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
+            <input type="hidden" name="id" value="${instrument.id}" />
+              <button class="delete" type="submit"></button>
+          </form>
+       </li>
+        % endfor
+      </ul>
+  </div>
 </div>
 
 <%block name="modals">

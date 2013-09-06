@@ -28,7 +28,7 @@
           </div>
           <div class="small-9 columns">
             <input type="text" name="installed" class="right-label" placeholder="Datum instalacije"
-                   value="${instrument.name}">
+                   value="${instrument.installed}">
         </input>
           </div>
         </div>
