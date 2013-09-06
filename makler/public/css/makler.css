@@ -80,6 +80,11 @@ button, .button {
 }
 
 button, .button:hover{
-        background-color: #691316;
+    background-color: #691316;
     border-color: #691316;
+}
+
+.disabled {
+    background-color: #a2494f !important;
+    border-color: #9a3539 !important;
 }
