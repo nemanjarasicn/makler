@@ -25,12 +25,12 @@
 
   <body>
       <div class="row header">
-        <img src="/public/img/header-logo.gif" id="logo" />
+        <a href="/"><img src="/public/img/header-logo.gif" id="logo" /></a>
       </div>
       <div class="page">
         <div class="row">
           <div class="large-12 columns">
-            <%block name="header"><h1> ${self.title()} </h1></%block>
+            <%block name="header"><h1>${self.title()}</h1></%block>
           </div>
         </div>
 
@@ -52,7 +52,7 @@
         </div>
 
         <script src="${request.static_url('makler:public/js/vendor/jquery.min.js')}"></script>
-        <script src="${request.static_url('makler:public/js/foundation.min.js')}"></script>
+        <script src="${request.static_url('makler:public/js/vendor/foundation.min.js')}"></script>
         <%block name="javascripts"></%block>
 
         <script>

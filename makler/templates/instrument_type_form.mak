@@ -45,7 +45,7 @@
       </div>
 
     </fieldset>
-    <button type="submit" class="small round">Sačuvaj</button>
+    <button type="submit" class="small round button">Sačuvaj</button>
     <a href="${request.route_path('home')}" class="button small round">Odustani</a>
 
   </form>

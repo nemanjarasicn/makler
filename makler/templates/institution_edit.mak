@@ -21,7 +21,10 @@
         <p>${contact.telephone}</p>
       </div>
       <div class="large-3 columns">
-        <input type="button" class="delete" data-id="${contact.id}" style="display:inline; position:relative; top: 4px;" />
+        <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline">
+          <input type="hidden" name="id" value="${contact.id}" />
+            <button class="delete" type="submit"></button>
+        </form>
       </div>
     </div>
     % endfor
@@ -65,7 +68,7 @@
         <option value="${instrument_type.id}">${instrument_type.name}</option>
         % endfor
       </select>
-      <button class="small round disabled" type="submit" style="margin-top:10px;">Dodaj</button>
+      <button class="small round button disabled" type="submit" style="margin-top:10px;">Dodaj</button>
       <a class="small round cancel button">Odustani</a>
     </form>
     <a class="close-reveal-modal">&#215;</a>

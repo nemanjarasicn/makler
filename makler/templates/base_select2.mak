@@ -1,4 +1,4 @@
-## base.mak
+## base_select2.mak
 ## -*- coding: utf-8 -*-
 <%inherit file="base.mak"/>
 
