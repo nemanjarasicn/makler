@@ -93,6 +93,7 @@ def institution_update(request):
     institution.city = request.POST['city']
 
     try:
+        Session.flush()
         Session.commit()
     except:
         Session.rollback()

@@ -82,16 +82,12 @@ def instrument_type_update(request):
     if not instrument_type:
         raise HTTPNotFound
 
-    print request.POST
-
     if 'name' in request.POST and request.POST['name']:
         instrument_type.name = request.POST['name']
     if 'type' in request.POST and request.POST['type']:
         instrument_type.type = request.POST['type']
     if 'manufacturer' in request.POST and request.POST['manufacturer']:
         instrument_type.manufacturer = request.POST['manufacturer']
-        print request.POST['manufacturer']
-        print instrument_type.manufacturer
 
     try:
         Session.flush()
@@ -100,4 +96,4 @@ def instrument_type_update(request):
         Session.rollback()
         raise HTTPInternalServerError
 
-    return HTTPFound(location=request.route_path('home'))
+    return HTTPFound(location=request.route_path('instrument_type', id=id))
