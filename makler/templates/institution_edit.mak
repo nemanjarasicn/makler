@@ -36,24 +36,42 @@
     <h4 style="display:inline;">Aparati</h4>
       <a href="" class="tiny round button add" data-reveal-id="novi-instrument">Dodaj</a>
 
-      <ul>
-        % for instrument in instruments:
-        <li>
-          <input class="instrument-activation"
-                type="checkbox" name="${instrument.id}"
-                ${'checked' if instrument.active else ''} />
-          <a class="instrument" data-id="${instrument.id}"
-             href="${request.route_path('instrument', id=instrument.id)}">
-             ${instrument.instrument_type.manufacturer} ${instrument.instrument_type.name} ${instrument.description} ${instrument.installed}
-          </a>
+      <table>
+        <thead>
+          <tr>
+            <th>Aktivan</th>
+            <th>Proizvođač</th>
+            <th>Ima analizatora</th>
+            <th>Starost</th>
+            <th>Broj uzoraka</th>
+            <th>Komentar</th>
+            <th>Briši</th>
+          </tr>
+        </thead>
+        <tbody>
+          % for instrument in instruments:
+          <tr>
+            <td>
+              <input class="instrument-activation"
+                    type="checkbox" name="${instrument.id}"
+                    ${'checked' if instrument.active else ''} />
+            </td>
+            <td>${instrument.instrument_type.manufacturer}</td>
+            <td><a href="${request.route_path('instrument', id=instrument.id)}">${instrument.instrument_type.name}</td>
+            <td></td>
+            <td></td>
+            <td>${instrument.description}</td>
+            <td>
+              <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
+                <input type="hidden" name="id" value="${instrument.id}" />
+                  <button class="delete" type="submit"></button>
+              </form>
+            </td>
+          </tr>
+            % endfor
+        </tbody>
 
-          <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
-            <input type="hidden" name="id" value="${instrument.id}" />
-              <button class="delete" type="submit"></button>
-          </form>
-       </li>
-        % endfor
-      </ul>
+      </table>
   </div>
 </div>
 
