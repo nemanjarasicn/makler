@@ -12,7 +12,9 @@ from ..model.institution import Institution
 def home(request):
     instruments = Session.query(Instrument).all()
     institutions = Session.query(Institution).all()
-    instrument_types = Session.query(InstrumentType).all()
+
+    instrument_types = (Session.query(InstrumentType)
+                        .order_by(InstrumentType.manufacturer).all())
 
     return {
         'instrument_types': instrument_types,

@@ -28,7 +28,7 @@
             <thead>
               <tr>
                 <th>Dom zdravlja</th>
-                <th width="200">Adresa</th>
+                <th>Adresa</th>
                 <th>Telefon</th>
                 ##<th>Kontakt osoba</th>
               </tr>
@@ -89,7 +89,15 @@
         </div>
       </div>
     </div>
+  </section>
 
+  <section>
+     <p class="title" data-section-title><a href="#panel3">Izveštaji</a></p>
+    <div class="content" data-section-content>
+     <p>Ukupno instaliranih aparata: ${len(instruments)}</p>
+
+
+    </div>
   </section>
 </div>
 

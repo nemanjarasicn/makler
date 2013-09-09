@@ -44,4 +44,4 @@ class Instrument(Base):
     description = Column("description", types.Text)
 
     instrument_type = relationship(InstrumentType, uselist=False)
-    institution = relationship(Institution, uselist=False)
+    institution = relationship(Institution, backref="instruments", uselist=False)
