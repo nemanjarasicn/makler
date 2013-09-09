@@ -70,5 +70,6 @@
       <a href="${request.route_path('institution', id=instrument.institution.id)}" class="button small round">Odustani</a>
 
     </form>
+
     </div>
   </div>

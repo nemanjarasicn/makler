@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from itertools import groupby
+
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
@@ -39,6 +41,7 @@ def instrument_type_edit(request):
 
     return {
         'instrument_type': instrument_type,
+        #'institution_groups': groupby(instrument_type.institutions, lambda x: x.name)
     }
 
 

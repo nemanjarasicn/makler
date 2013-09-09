@@ -1,4 +1,7 @@
 ## -*- coding: utf-8 -*-
+
+<%! from itertools import groupby %>
+
 <%def name="instrument_type_form(instrument_type, form_action)">
   <form action="${form_action}" method="post">
     <input type="hidden" name="id" value="${instrument_type.id}" />
@@ -49,4 +52,11 @@
     <a href="${request.route_path('home')}" class="button small round">Odustani</a>
 
   </form>
+  <p>Ukupno instaliranih analizatora: ${len(instrument_type.instruments)}</p>
+
+  % for institution, instruments in groupby(instrument_type.instruments, lambda x: x.institution.name):
+    <% instruments = list(instruments) %>
+    <h3><a href="${request.route_path('institution', id=instruments[0].institution.id)}">${institution} (${len(instruments)})</a></h3>
+  % endfor
+
 </%def>

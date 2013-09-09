@@ -68,7 +68,7 @@
       </div>
       <div class="row">
         <div class="large-12 columns">
-          <table class="ustanova">
+          <table class="ustanova full-width">
             <thead>
               <tr>
                 <th>Proizvođač</th>
@@ -96,6 +96,18 @@
     <div class="content" data-section-content>
      <p>Ukupno instaliranih aparata: ${len(instruments)}</p>
 
+      % for manufacturer, types in instrument_types_grouped:
+        <h5>${manufacturer}</h5>
+          <ul class="two-columns panel radius">
+        % for t in types:
+           % if t.instruments:
+          <li><strong><a href="${request.route_path('instrument_type', id=t.id)}">${t.name} (${len(t.instruments)})</a></strong></li>
+           % else:
+           <li><a href="${request.route_path('instrument_type', id=t.id)}">${t.name}</a></li>
+           % endif
+        % endfor
+      </ul>
+      % endfor
 
     </div>
   </section>

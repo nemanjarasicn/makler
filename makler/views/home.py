@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from itertools import groupby
+
 from pyramid.view import view_config
 from ..model.session import Session
 from ..model.instrument import Instrument
@@ -14,10 +16,13 @@ def home(request):
     institutions = Session.query(Institution).all()
 
     instrument_types = (Session.query(InstrumentType)
-                        .order_by(InstrumentType.manufacturer).all())
+                        .order_by(InstrumentType.manufacturer))
 
     return {
         'instrument_types': instrument_types,
         'instruments': instruments,
         'institutions': institutions,
+        'instrument_types_grouped': groupby(
+            instrument_types, lambda x: x.manufacturer)
+
     }

@@ -4,6 +4,7 @@ from sqlalchemy import types
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.schema import UniqueConstraint
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref
 
 from .base import Base
 from .institution import Institution
@@ -44,6 +45,8 @@ class Instrument(Base):
     age = Column("age", types.Integer)
     sample_numbers = Column("sample_numbers", types.Integer)
 
-    instrument_type = relationship(InstrumentType, uselist=False)
-    institution = relationship(Institution,
-                               backref="instruments", uselist=False)
+    instrument_type = relationship(
+        InstrumentType, backref=backref("instruments", order_by="Instrument.institution_id"), uselist=False)
+
+    institution = relationship(
+        Institution, backref="instruments", uselist=False)
