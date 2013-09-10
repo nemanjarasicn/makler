@@ -31,7 +31,6 @@ class Instrument(Base):
     id = Column("id", types.Integer, nullable=False, primary_key=True)
     name = Column("name", types.String(50))
     active = Column("active", types.Boolean)
-    installed = Column("installed", types.DateTime)
     institution_id = Column("institution_id",
                             types.Integer,
                             ForeignKey('institutions.id'),
@@ -42,6 +41,9 @@ class Instrument(Base):
         ForeignKey('instrument_types.id')
     )
     description = Column("description", types.Text)
+    age = Column("age", types.Integer)
+    sample_numbers = Column("sample_numbers", types.Integer)
 
     instrument_type = relationship(InstrumentType, uselist=False)
-    institution = relationship(Institution, backref="instruments", uselist=False)
+    institution = relationship(Institution,
+                               backref="instruments", uselist=False)

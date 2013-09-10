@@ -44,7 +44,7 @@ ul li {
 }
 
 .full-width {
-    width: 100%
+    width: 100%;
 }
 
 .ustanova {
@@ -57,17 +57,25 @@ ul li {
     color: #fff;
 }
 
+.aparati{
+    padding: 0px;
+    margin: 0px;
+}
+
+.aparati tr td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .delete, .delete:hover {
-    background: url('../img/trash.png') no-repeat;
-    height: 16px;
-    width: 16px;
+    background: url('../img/trash.png') center center no-repeat;
     border: none;
-    bottom: 0px;
-    margin-left: 10px;
+   /* top: 10px;*/
+
 }
 
 .delete:hover {
-    background: url('../img/trash-over.png') no-repeat;
+    background: url('../img/trash-over.png') center center no-repeat;
 }
 
 .kontakti{

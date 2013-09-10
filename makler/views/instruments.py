@@ -108,6 +108,12 @@ def instrument_update(request):
     if 'description' in request.POST:
         instrument.description = request.POST['description']
 
+    if 'age' in request.POST:
+        instrument.age = request.POST['age']
+
+    if 'sample_numbers' in request.POST:
+        instrument.sample_numbers = request.POST['sample_numbers']
+
     # TODO: Is there a better way to handle this?
     if 'active' in request.POST and request.POST['active']:
         instrument.active = True

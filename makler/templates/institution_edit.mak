@@ -36,7 +36,7 @@
     <h4 style="display:inline;">Aparati</h4>
       <a href="" class="tiny round button add" data-reveal-id="novi-instrument">Dodaj</a>
 
-      <table>
+      <table class="aparati full-width">
         <thead>
           <tr>
             <th>Aktivan</th>
@@ -58,8 +58,8 @@
             </td>
             <td>${instrument.instrument_type.manufacturer}</td>
             <td><a href="${request.route_path('instrument', id=instrument.id)}">${instrument.instrument_type.name}</td>
-            <td></td>
-            <td></td>
+            <td>${instrument.age}</td>
+            <td>${instrument.sample_numbers}</td>
             <td>${instrument.description}</td>
             <td>
               <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">

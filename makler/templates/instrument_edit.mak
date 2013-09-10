@@ -24,21 +24,32 @@
 
         <div class="row">
           <div class="small-3 columns">
-            <label class="right inline">Datum instalacije</label>
+            <label class="right inline">Starost</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="installed" class="right-label" placeholder="Datum instalacije"
-                   value="${instrument.installed}">
-        </input>
+            <input type="text" name="age" class="right-label" placeholder="Starost opreme"
+                      value="${instrument.age}">
+            </input>
           </div>
         </div>
 
         <div class="row">
           <div class="small-3 columns">
-            <label class="right inline">Opis</label>
+            <label class="right inline">Broj uzoraka</label>
           </div>
           <div class="small-9 columns">
-            <textarea name="description" placeholder="Opis"
+            <input type="text" name="sample_numbers" class="right-label" placeholder="Broj uzoraka"
+                      value="${instrument.sample_numbers}">
+            </input>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="small-3 columns">
+            <label class="right inline">Komentar</label>
+          </div>
+          <div class="small-9 columns">
+            <textarea name="description" placeholder="Komentar"
                       value="${instrument.description}">
             </textarea>
           </div>
@@ -53,7 +64,7 @@
                    ${'checked' if instrument.active else ''}
                    style="position:absolute; top:6px;" />
           </div>
-
+        </div>
       </fieldset>
       <button type="submit" class="small round">Sačuvaj</button>
       <a href="${request.route_path('institution', id=instrument.institution.id)}" class="button small round">Odustani</a>
