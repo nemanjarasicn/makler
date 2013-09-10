@@ -68,4 +68,4 @@
   </body>
 </html>
 
-<%def name="title()">Untitled Makler</%def>
+<%def name="title()"></%def>

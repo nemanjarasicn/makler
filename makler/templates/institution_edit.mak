@@ -2,7 +2,21 @@
 <%inherit file="base_select2.mak"/>
 <%namespace name="form" file="institution_form.mak" />
 
-<%def name="title()">Ustanova ${institution.name}</%def>
+<%def name="title()"></%def>
+
+<div class="row">
+  <div class="large-6 columns">
+    <h3>Ustanova ${institution.name}</h3>
+  </div>
+
+  <div class="large-3 columns">
+    <h3>Kontakti</h3>
+  </div>
+
+  <div class="large-3 columns">
+    <h5><a href="" class="tiny round button right" data-reveal-id="novi-kontakt">Dodaj</a></h5>
+  </div>
+</div>
 
 <div class="row">
   <div class="large-6 columns">
@@ -10,24 +24,31 @@
   </div>
 
   <div class="large-6 columns">
-    <h4 style="display:inline;">Kontakti</h4>
-    <a href="" class="tiny round button add" data-reveal-id="novi-kontakt">Dodaj</a>
-    % for contact in institution.contacts:
-    <div class="row">
-      <div class="large-6 columns kontakti">
-        <p>${contact.name}</p>
-      </div>
-      <div class="large-3 columns">
-        <p>${contact.telephone}</p>
-      </div>
-      <div class="large-3 columns">
-        <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline">
-          <input type="hidden" name="id" value="${contact.id}" />
-            <button class="delete" type="submit"></button>
-        </form>
-      </div>
-    </div>
-    % endfor
+
+    <table class="aparati full-width">
+      <thead>
+        <tr>
+          <th>Ime i prezime</th>
+          <th>Telefon</th>
+          <th>Briši</th>
+        </tr>
+      </thead>
+      <tbody>
+            % for contact in institution.contacts:
+        <tr>
+          <td>${contact.name}</td>
+          <td>${contact.telephone}</td>
+          <td>
+            <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline">
+              <input type="hidden" name="id" value="${contact.id}" />
+              <button class="delete" type="submit"></button>
+            </form>
+          </td>
+        </tr>
+            % endfor
+      </tbody>
+    </table>
+
   </div>
 </div>
 
