@@ -16,6 +16,7 @@
     <title>${self.title()}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/x-icon" href="/public/img/favicon.ico?v5" />
     <script src="${request.static_url('makler:public/js/vendor/custom.modernizr.js')}"></script>
     <link rel="stylesheet" href="${request.static_url('makler:public/css/normalize.css')}">
     <link rel="stylesheet" href="${request.static_url('makler:public/css/foundation.css')}">

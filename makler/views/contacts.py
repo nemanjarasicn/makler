@@ -5,7 +5,6 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.instrument import Instrument
 from ..model.contact import Contact
 from ..model.session import Session
 
@@ -22,6 +21,15 @@ def contact_new(request):
             safe_data[key] = data[key]
 
     contact = Contact(**safe_data)
+
+    # If name/phone combination already exists, do nothing
+    if (Session.query(Contact)
+            .filter(Contact.name == contact.name)
+            .filter(Contact.institution_id == contact.institution_id)
+            .filter(Contact.telephone == contact.telephone)
+            .all()):
+        return HTTPFound(location=request.route_path(
+                         'institution', id=data['institution_id']))
 
     try:
         Session.add(contact)
