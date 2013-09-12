@@ -100,8 +100,14 @@
         <h5>${manufacturer}</h5>
           <ul class="two-columns panel radius">
         % for t in types:
+           <%
+              active = 0
+              for i in t.instruments:
+                if i.active:
+                  active += 1
+           %>
            % if t.instruments:
-          <li><strong><a href="${request.route_path('instrument_type', id=t.id)}">${t.name} (${len(t.instruments)})</a></strong></li>
+           <li><strong><a href="${request.route_path('instrument_type', id=t.id)}">${t.name} (${len(t.instruments)}/${active})</a></strong></li>
            % else:
            <li><a href="${request.route_path('instrument_type', id=t.id)}">${t.name}</a></li>
            % endif
