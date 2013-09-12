@@ -1,6 +1,8 @@
 from pyramid.config import Configurator
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
+
 from sqlalchemy import engine_from_config
+from zope.sqlalchemy import ZopeTransactionExtension
 
 from .model.session import init_session
 
@@ -9,7 +11,7 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
-    init_session(engine)
+    init_session(engine, extension=ZopeTransactionExtension())
 
     my_session_factory = UnencryptedCookieSessionFactoryConfig('makler')
 
