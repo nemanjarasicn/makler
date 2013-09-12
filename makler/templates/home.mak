@@ -24,7 +24,7 @@
 
       <div class="row">
         <div class="large-12 columns">
-          <table class="ustanova">
+          <table class="makler">
             <thead>
               <tr>
                 <th>Dom zdravlja</th>
@@ -68,7 +68,7 @@
       </div>
       <div class="row">
         <div class="large-12 columns">
-          <table class="ustanova full-width">
+          <table class="makler full-width">
             <thead>
               <tr>
                 <th>Proizvođač</th>

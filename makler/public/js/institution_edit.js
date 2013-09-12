@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         url = $(this).parent().attr('action');
         data = $(this).parent().serialize();
-        row = $(this).parent().parent().parent();
+        row = $(this).parents().eq(2);
 
         $.post(url, data, function (d) {
             row.fadeOut();

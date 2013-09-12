@@ -25,7 +25,7 @@
 
   <div class="large-6 columns">
 
-    <table class="aparati full-width">
+    <table class="makler aparati full-width">
       <thead>
         <tr>
           <th>Ime i prezime</th>
@@ -57,7 +57,7 @@
     <h4 style="display:inline;">Aparati</h4>
       <a href="" class="tiny round button add" data-reveal-id="novi-instrument">Dodaj</a>
 
-      <table class="aparati full-width">
+      <table class="makler aparati full-width">
         <thead>
           <tr>
             <th>Aktivan</th>
@@ -81,7 +81,15 @@
             <td><a href="${request.route_path('instrument', id=instrument.id)}">${instrument.instrument_type.name}</td>
             <td>${instrument.age}</td>
             <td>${instrument.sample_numbers}</td>
-            <td>${instrument.description}</td>
+
+            <%
+              if instrument.description and len(str(instrument.description)) > 20:
+                  short_description = instrument.description[:20] + "..."
+              else:
+                  short_description = instrument.description
+            %>
+
+            <td>${short_description}</td>
             <td>
               <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
                 <input type="hidden" name="id" value="${instrument.id}" />
@@ -101,6 +109,7 @@
     <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
       <input type="hidden" name="institution_id" value="${institution.id}" />
       <h4>Dodaj novi aparat</h4>
+
       <select id="instrument-types-list" name="instrument_type_id" class="full-width">
         <option></option>
         % for instrument_type in instrument_types:
@@ -114,24 +123,31 @@
   </div>
 
   <div id="novi-kontakt" class="small reveal-modal">
-    <h4>Dodaj novi kontakt</h4>
+    <div class="row">
+      <div class="large-12 columns">
+        <h4>Dodaj novi kontakt</h4>
+      </div>
+    </div>
+
+  <div class="row">
     <form action="${request.route_path('contact_new', id=institution.id)}" method="POST" style="display:inline;">
-      <div class="row">
-        <input type="hidden" name="institution_id" value="${institution.id}" />
         <div class="large-6 columns">
-          <input type="text" name="name" placeholder="Ime" />
+          <input type="hidden" name="institution_id" value="${institution.id}" />
+          <input type="text" name="name" placeholder="Ime i prezime" />
         </div>
         <div class="large-6 columns">
           <input type="text" name="telephone" placeholder="Broj telefona" />
         </div>
-      </div>
-      <div class="row">
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
       <button type="submit" class="small round button">Dodaj</button>
       <a class="small round cancel button">Odustani</a>
-      </div>
     </form>
-    <a class="close-reveal-modal">&#215;</a>
   </div>
+    <a class="close-reveal-modal">&#215;</a>
+
 </%block>
 
 <%block name="javascripts">
