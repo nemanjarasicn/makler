@@ -20,6 +20,11 @@ a {
 a:hover {
     color: #691316;
 }
+
+td {
+    word-break:break-all;
+}
+
 .page {
     background: #fff;
     border-radius: 15px 15px;
@@ -71,7 +76,7 @@ ul li {
 .delete, .delete:hover {
     background: url('../img/trash.png') center center no-repeat;
     border: none;
-   /* top: 10px;*/
+    top: 7px;
 
 }
 
@@ -109,4 +114,8 @@ button, .button:hover{
     -moz-column-count:2;
     -webkit-column-count:2;
   }
+}
+
+input[type="file"], input[type="checkbox"], input[type="radio"], select {
+    margin: 0px;
 }

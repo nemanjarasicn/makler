@@ -49,7 +49,7 @@
             <label class="right inline">Komentar</label>
           </div>
           <div class="small-9 columns">
-            <textarea name="description" placeholder="Komentar">${instrument.description}</textarea>
+            <textarea name="description" placeholder="Komentar" sryle="word-break:break-all;">${instrument.description}</textarea>
           </div>
         </div>
 

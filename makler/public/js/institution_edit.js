@@ -23,6 +23,18 @@ $(document).ready(function() {
         $(this).foundation('reveal', 'close');
     });
 
+    $('.delete').on('click', function (e) {
+        e.preventDefault();
+
+        url = $(this).parent().attr('action');
+        data = $(this).parent().serialize();
+        row = $(this).parent().parent().parent();
+
+        $.post(url, data, function (d) {
+            row.fadeOut();
+        });
+    });
+
     $('.instrument-activation').click(function () {
         var url = '/instrument/' + $(this).attr('name');
 
