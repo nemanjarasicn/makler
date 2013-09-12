@@ -49,9 +49,7 @@
             <label class="right inline">Komentar</label>
           </div>
           <div class="small-9 columns">
-            <textarea name="description" placeholder="Komentar"
-                      value="${instrument.description}">
-            </textarea>
+            <textarea name="description" placeholder="Komentar">${instrument.description}</textarea>
           </div>
         </div>
 
@@ -66,7 +64,7 @@
           </div>
         </div>
       </fieldset>
-      <button type="submit" class="small round">Sačuvaj</button>
+      <button type="submit" class="small round button">Sačuvaj</button>
       <a href="${request.route_path('institution', id=instrument.institution.id)}" class="button small round">Odustani</a>
 
     </form>
