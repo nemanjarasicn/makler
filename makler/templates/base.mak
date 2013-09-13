@@ -22,50 +22,50 @@
     <link rel="stylesheet" href="${request.static_url('makler:public/css/foundation.css')}">
     <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}">
     <%block name="stylesheets"></%block>
-</head>
-
+  </head>
   <body>
-      <div class="row header">
-        <a href="/"><img src="/public/img/header-logo.gif" id="logo" /></a>
+
+    <div class="row header">
+      <a href="/"><img src="/public/img/header-logo.gif" id="logo" /></a>
+    </div>
+
+    <div class="page">
+      <div class="row">
+        <div class="large-12 columns">
+          <%block name="header"><h1>${self.title()}</h1></%block>
+        </div>
       </div>
-      <div class="page">
-        <div class="row">
-          <div class="large-12 columns">
-            <%block name="header"><h1>${self.title()}</h1></%block>
+
+      <div id="flash-messages" class="row">
+        <div class="large-12 columns">
+          % if flash:
+          <div data-alert id="flash-message" class="alert-box ${'alert' if errors else ''} radius">
+            ${flash}
+            <a href="#" class="close">&times;</a>
           </div>
+          % endif
         </div>
-
-        <div id="flash-messages" class="row">
-          <div class="large-12 columns">
-            % if flash:
-            <div data-alert id="flash-message" class="alert-box ${'alert' if errors else ''} radius">
-              ${flash}
-              <a href="#" class="close">&times;</a>
-            </div>
-            % endif
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="large-12 columns">
-            ${next.body()}
-          </div>
-        </div>
-
-        <script src="${request.static_url('makler:public/js/vendor/jquery.min.js')}"></script>
-        <script src="${request.static_url('makler:public/js/vendor/foundation.min.js')}"></script>
-        <%block name="javascripts"></%block>
-
-        <script>
-          $(document).foundation();
-          $(document).ready(function() {
-          <%block name="ready"></%block>
-          });
-        </script>
       </div>
+
+      <div class="row">
+        <div class="large-12 columns">
+          ${next.body()}
+        </div>
+      </div>
+    </div>
 
     <%block name="modals"></%block>
 
+    <script src="${request.static_url('makler:public/js/vendor/jquery.min.js')}"></script>
+    <script src="${request.static_url('makler:public/js/vendor/foundation.min.js')}"></script>
+    <%block name="javascripts"></%block>
+
+    <script>
+      $(document).foundation();
+      $(document).ready(function() {
+      <%block name="ready"></%block>
+      });
+    </script>
   </body>
 </html>
 
