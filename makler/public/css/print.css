@@ -54,3 +54,12 @@ section.active {
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
+.model {
+    float: left !important;
+    margin-bottom: 0px !important;
+}
+
+.analizator {
+    margin: 0px 0px 0px 15px;
+}

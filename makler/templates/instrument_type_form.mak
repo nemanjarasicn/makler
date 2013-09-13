@@ -11,7 +11,7 @@
 
       <div class="row">
         <div class="small-3 columns">
-          <label class="right inline">Proizvođač</label>
+          <label class="right inline model">Proizvođač</label>
         </div>
         <div class="small-9 columns">
           <input type="text" name="manufacturer" class="right-label" placeholder="Proizvođač"
@@ -22,10 +22,10 @@
 
       <div class="row">
         <div class="small-3 columns">
-          <label class="right inline">Naziv</label>
+          <label class="right inline model">Naziv</label>
         </div>
         <div class="small-9 columns">
-          <input type="text" name="name" class="" placeholder="Naziv modela"
+          <input type="text" name="name" class="model" placeholder="Naziv modela"
                  value="${instrument_type.name}">
         </input>
         </div>
@@ -33,7 +33,7 @@
 
       <div class="row">
         <div class="small-3 columns">
-          <label class="right inline">Tip</label>
+          <label class="right inline model">Tip</label>
         </div>
         <div class="small-9 columns">
           <select name="type" class="select2 full-width">
@@ -48,11 +48,11 @@
       </div>
 
     </fieldset>
-    <button type="submit" class="small round button">Sačuvaj</button>
-    <a href="${request.route_path('home')}" class="button small round">Odustani</a>
+    <button type="submit" class="small round button no-print">Sačuvaj</button>
+    <a href="${request.route_path('home')}" class="button small round no-print">Odustani</a>
 
   </form>
-  <p>Ukupno instaliranih analizatora: ${len(instrument_type.instruments)}</p>
+  <h5>Ukupno instaliranih analizatora: ${len(instrument_type.instruments)}</h5>
 
   % for institution, instruments in groupby(instrument_type.instruments, lambda x: x.institution.name):
     <%
@@ -62,7 +62,11 @@
         if i.active:
             active += 1
     %>
-    <h3><a href="${request.route_path('institution', id=instruments[0].institution.id)}">${institution} (${len(instruments)}/${active})</a></h3>
+    <ul class="analizator">
+      <li>
+        <a href="${request.route_path('institution', id=instruments[0].institution.id)}">${institution} (${len(instruments)}/${active})</a>
+      </li>
+    </ul>
   % endfor
 
 </%def>
