@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import transaction
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
@@ -33,11 +34,8 @@ def contact_new(request):
 
     try:
         Session.add(contact)
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
-        raise
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -57,10 +55,8 @@ def contact_delete(request):
     institution_id = contact.institution.id
     try:
         Session.delete(contact)
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
         raise HTTPInternalServerError
 
     return HTTPFound(

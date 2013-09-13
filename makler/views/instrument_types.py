@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import transaction
 from itertools import groupby
 
 from pyramid.view import view_config
@@ -65,10 +65,9 @@ def instrument_type_create(request):
 
     try:
         Session.add(instrument_type)
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
+        raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path('home'))
 
@@ -93,10 +92,8 @@ def instrument_type_update(request):
         instrument_type.manufacturer = request.POST['manufacturer']
 
     try:
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path('instrument_type', id=id))

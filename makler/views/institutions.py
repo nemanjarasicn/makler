@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import transaction
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..model.institution import Institution
 from ..model.instrument import Instrument
@@ -64,15 +66,17 @@ def institution_create(request):
             safe_data[key] = data[key]
 
     institution = Institution(**safe_data)
+    Session.add(institution)
+    Session.flush()
+    id = institution.id
+
     try:
-        Session.add(institution)
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
+        raise HTTPInternalServerError
 
     return HTTPFound(
-        location=request.route_path('institution', id=institution.id))
+        location=request.route_path('institution', id=id))
 
 
 @view_config(route_name='institution',
@@ -91,11 +95,11 @@ def institution_update(request):
     institution.name = request.POST['name']
     institution.address = request.POST['address']
     institution.city = request.POST['city']
+    institution.phone = request.POST['phone']
 
     try:
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
+        raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path('institution', id=id))

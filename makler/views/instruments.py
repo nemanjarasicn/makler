@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import transaction
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
@@ -80,10 +81,8 @@ def instrument_create(request):
 
     try:
         Session.add(instrument)
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -98,6 +97,8 @@ def instrument_update(request):
     instrument = (Session.query(Instrument)
                   .filter(Instrument.id == id)
                   .first())
+
+    institution_id = instrument.institution.id
 
     if not instrument:
         raise HTTPNotFound
@@ -121,13 +122,12 @@ def instrument_update(request):
         instrument.active = False
 
     try:
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
+        raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
-        'institution', id=instrument.institution_id))
+        'institution', id=institution_id))
 
 
 @view_config(route_name='instrument_delete',
@@ -142,10 +142,8 @@ def instrument_delete(request):
     institution_id = instrument.institution.id
     try:
         Session.delete(instrument)
-        Session.flush()
-        Session.commit()
+        transaction.commit()
     except:
-        Session.rollback()
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
