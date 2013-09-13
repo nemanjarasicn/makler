@@ -1,0 +1,56 @@
+body {
+    margin:0;
+    padding:0;
+    line-height: 1.4em;
+    word-spacing:1px;
+    letter-spacing:0.2px;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: #000;
+}
+
+.no-print {
+    display: none;
+}
+
+table td {
+    border: 1px solid black;
+    padding: 2px;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:after {
+    content: "" !important;
+}
+
+.two-columns {
+    column-count:2;
+    -moz-column-count:2;
+    -webkit-column-count:2;
+}
+
+.page {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.section-container.auto {
+    border: none;
+}
+
+section {
+    display: none;
+}
+
+section.active {
+    display: block;
+}
+
+.panel {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

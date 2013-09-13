@@ -18,14 +18,15 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" type="image/x-icon" href="/public/img/favicon.ico?v5" />
     <script src="${request.static_url('makler:public/js/vendor/custom.modernizr.js')}"></script>
-    <link rel="stylesheet" href="${request.static_url('makler:public/css/normalize.css')}">
-    <link rel="stylesheet" href="${request.static_url('makler:public/css/foundation.css')}">
-    <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}">
+    <link rel="stylesheet" href="${request.static_url('makler:public/css/normalize.css')} " type="text/css" />
+    <link rel="stylesheet" href="${request.static_url('makler:public/css/foundation.css')}" type="text/css" />
+    <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="${request.static_url('makler:public/css/print.css')}" type="text/css" media="print" />
     <%block name="stylesheets"></%block>
   </head>
   <body>
 
-    <div class="row header">
+    <div class="row header no-print">
       <a href="/"><img src="/public/img/header-logo.gif" id="logo" /></a>
     </div>
 
@@ -36,7 +37,7 @@
         </div>
       </div>
 
-      <div id="flash-messages" class="row">
+      <div id="flash-messages" class="row no-print">
         <div class="large-12 columns">
           % if flash:
           <div data-alert id="flash-message" class="alert-box ${'alert' if errors else ''} radius">

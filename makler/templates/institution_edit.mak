@@ -7,55 +7,55 @@
 <div class="row">
   <div class="large-6 columns">
     <h3>Ustanova ${institution.name}</h3>
-  </div>
-
-  <div class="large-3 columns">
-    <h3>Kontakti</h3>
-  </div>
-
-  <div class="large-3 columns">
-    <h5><a href="" class="tiny round button right" data-reveal-id="novi-kontakt">Dodaj</a></h5>
-  </div>
-</div>
-
-<div class="row">
-  <div class="large-6 columns">
     ${form.institution_form(institution, request.route_path('institution', id=institution.id))}
   </div>
 
   <div class="large-6 columns">
 
-    <table class="makler aparati full-width">
-      <thead>
-        <tr>
-          <th>Ime i prezime</th>
-          <th>Telefon</th>
-          <th>Briši</th>
-        </tr>
-      </thead>
-      <tbody>
-            % for contact in institution.contacts:
-        <tr>
-          <td>${contact.name}</td>
-          <td>${contact.telephone}</td>
-          <td>
-            <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline">
-              <input type="hidden" name="id" value="${contact.id}" />
-              <button class="delete" type="submit"></button>
-            </form>
-          </td>
-        </tr>
-            % endfor
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="large-6 columns">
+        <h3>Kontakti</h3>
+      </div>
 
+      <div class="large-6 columns no-print">
+        <h5><a href="" class="tiny round button right" data-reveal-id="novi-kontakt">Dodaj</a></h5>
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="large-12 columns">
+        <table class="makler aparati full-width">
+          <thead>
+            <tr>
+              <th>Ime i prezime</th>
+              <th>Telefon</th>
+              <th width="50" class="no-print">Briši</th>
+            </tr>
+          </thead>
+          <tbody>
+            % for contact in institution.contacts:
+            <tr>
+              <td>${contact.name}</td>
+              <td>${contact.telephone}</td>
+              <td class="no-print">
+                <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline">
+                  <input type="hidden" name="id" value="${contact.id}" />
+                  <button class="delete" type="submit"></button>
+                </form>
+              </td>
+            </tr>
+            % endfor
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="large-12 columns">
     <h4 style="display:inline;">Aparati</h4>
-      <a href="" class="tiny round button add" data-reveal-id="novi-instrument">Dodaj</a>
+      <a href="" class="tiny round button add no-print" data-reveal-id="novi-instrument">Dodaj</a>
 
       <table class="makler aparati full-width">
         <thead>
@@ -66,7 +66,7 @@
             <th>Starost</th>
             <th>Broj uzoraka</th>
             <th>Komentar</th>
-            <th>Briši</th>
+            <th width="50" class="no-print">Briši</th>
           </tr>
         </thead>
         <tbody>
@@ -81,16 +81,8 @@
             <td><a href="${request.route_path('instrument', id=instrument.id)}">${instrument.instrument_type.name}</td>
             <td>${instrument.age}</td>
             <td>${instrument.sample_numbers}</td>
-
-            <%
-              if instrument.description and len(str(instrument.description)) > 20:
-                  short_description = instrument.description[:20] + "..."
-              else:
-                  short_description = instrument.description
-            %>
-
-            <td>${short_description}</td>
-            <td>
+            <td>${instrument.description}</td>
+            <td class="no-print">
               <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
                 <input type="hidden" name="id" value="${instrument.id}" />
                   <button class="delete" type="submit"></button>
@@ -105,7 +97,7 @@
 </div>
 
 <%block name="modals">
-  <div id="novi-instrument" class="small reveal-modal">
+  <div id="novi-instrument" class="small reveal-modal no-print">
     <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
       <input type="hidden" name="institution_id" value="${institution.id}" />
       <h4>Dodaj novi aparat</h4>
@@ -122,7 +114,7 @@
     <a class="close-reveal-modal">&#215;</a>
   </div>
 
-  <div id="novi-kontakt" class="small reveal-modal">
+  <div id="novi-kontakt" class="small reveal-modal no-print">
     <div class="row">
       <div class="large-12 columns">
         <h4>Dodaj novi kontakt</h4>

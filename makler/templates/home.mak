@@ -7,7 +7,7 @@
   <section>
     <p class="title" data-section-title><a href="#panel1">Ustanove</a></p>
     <div class="content" data-section-content>
-      <div class="row">
+      <div class="row no-print">
         <div class="large-8 columns">
           <select id="institutions-list" class="full-width">
             <option></option>
@@ -51,7 +51,7 @@
   <section>
     <p class="title" data-section-title><a href="#panel2">Modeli aparata</a></p>
     <div class="content" data-section-content>
-      <div class="row">
+      <div class="row no-print">
         <div class="large-8 columns">
           <select id="instrument-types-list" class="full-width">
             <option></option>

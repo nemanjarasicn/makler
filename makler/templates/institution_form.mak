@@ -24,8 +24,8 @@
       </div>
     </div>
 
-  <button type="submit" class="small round button">Sačuvaj</button>
-  <a href="${request.route_path('home')}" class="button small round">Odustani</a>
+  <button type="submit" class="small round button no-print">Sačuvaj</button>
+  <a href="${request.route_path('home')}" class="button small round no-print">Odustani</a>
 </form>
 
 </%def>
