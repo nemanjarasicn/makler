@@ -24,6 +24,8 @@ class InstrumentType(Base):
     manufacturer = Column("manufacturer", types.String(50))
     name = Column("name", types.String(10))
 
+    # backrefs: instruments (Instrument)
+
 
 class Instrument(Base):
 
@@ -36,6 +38,7 @@ class Instrument(Base):
                             types.Integer,
                             ForeignKey('institutions.id'),
                             nullable=False)
+
     instrument_type_id = Column(
         "instrument_type_id",
         types.Integer,
@@ -47,7 +50,8 @@ class Instrument(Base):
     department = Column("department", types.String(50))
 
     instrument_type = relationship(
-        InstrumentType, backref=backref("instruments", order_by="Instrument.institution_id"), uselist=False)
+        InstrumentType,
+        backref=backref("instruments", order_by="Instrument.name"))
 
     institution = relationship(
-        Institution, backref="instruments", uselist=False)
+        Institution, backref="instruments")
