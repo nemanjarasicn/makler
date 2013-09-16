@@ -95,7 +95,7 @@
   <section>
      <p class="title" data-section-title><a href="#panel3">Izveštaji</a></p>
     <div class="content" data-section-content>
-     <p>Ukupno instaliranih aparata: ${len(instruments)}</p>
+     <p>Ukupno instaliranih aparata: ${no_instruments}</p>
 
       % for manufacturer, types in instrument_types_grouped:
         <h5>${manufacturer}</h5>
