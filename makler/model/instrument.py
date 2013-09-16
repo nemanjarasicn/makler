@@ -44,6 +44,7 @@ class Instrument(Base):
     description = Column("description", types.Text)
     age = Column("age", types.Integer)
     sample_numbers = Column("sample_numbers", types.Integer)
+    department = Column("department", types.String(50))
 
     instrument_type = relationship(
         InstrumentType, backref=backref("instruments", order_by="Instrument.institution_id"), uselist=False)
