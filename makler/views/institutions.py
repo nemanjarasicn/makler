@@ -36,18 +36,26 @@ def institution_edit(request):
                    .filter(Institution.id == id)
                    .first())
 
-    instruments = (Session.query(Instrument)
-                   .filter(Instrument.institution_id == id)
-                   .all())
-    instrument_types = Session.query(InstrumentType).all()
-
     if not institution:
         raise HTTPNotFound
 
+    instruments_query = (
+        Session.query(Instrument)
+        .join(Instrument.instrument_type)
+        .filter(Instrument.institution_id == id)
+        .order_by(InstrumentType.manufacturer,
+                  InstrumentType.name)
+    )
+
+    instrument_types = (
+        Session.query(InstrumentType)
+        .order_by(InstrumentType.name)
+    )
+
     return {
         'institution': institution,
-        'instruments': instruments,
-        'instrument_types': instrument_types,
+        'instruments': instruments_query.all(),
+        'instrument_types': instrument_types.all(),
     }
 
 
