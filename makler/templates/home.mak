@@ -48,6 +48,7 @@
       </div>
     </div>
   </section>
+
   <section>
     <p class="title" data-section-title><a href="#panel2">Modeli aparata</a></p>
     <div class="content" data-section-content>
@@ -99,15 +100,9 @@
       % for manufacturer, types in instrument_types_grouped:
         <h5>${manufacturer}</h5>
           <ul class="two-columns panel radius">
-        % for t in types:
-           <%
-              active = 0
-              for i in t.instruments:
-                if i.active:
-                  active += 1
-           %>
-           % if t.instruments:
-           <li><strong><a href="${request.route_path('instrument_type', id=t.id)}">${t.name} (${len(t.instruments)}/${active})</a></strong></li>
+        % for t, active, installed in types:
+           % if installed:
+           <li><strong><a href="${request.route_path('instrument_type', id=t.id)}">${t.name} (${installed}/${active})</a></strong></li>
            % else:
            <li><a href="${request.route_path('instrument_type', id=t.id)}">${t.name}</a></li>
            % endif
