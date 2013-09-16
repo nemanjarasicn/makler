@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="large-6 columns">
-    <h3>Ustanova ${institution.name}</h3>
+    <h3>${institution.name}</h3>
     ${form.institution_form(institution, request.route_path('institution', id=institution.id))}
   </div>
 
@@ -70,6 +70,7 @@
           </tr>
         </thead>
         <tbody>
+
           % for instrument in instruments:
           <tr>
             <td>
