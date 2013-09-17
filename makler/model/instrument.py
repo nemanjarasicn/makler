@@ -35,7 +35,6 @@ class InstrumentType(Base):
     )
 
     id = Column("id", types.Integer, nullable=False, primary_key=True)
-    type = Column("type", types.String(50))
     category_id = Column("category_id", types.Integer,
                          ForeignKey('instrument_type_categories.id'))
     manufacturer = Column("manufacturer", types.String(50))

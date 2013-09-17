@@ -8,6 +8,7 @@ from pyramid.view import view_config
 from ..model.session import Session
 from ..model.instrument import Instrument
 from ..model.instrument import InstrumentType
+from ..model.instrument import InstrumentTypeCategory
 from ..model.institution import Institution
 
 
@@ -55,15 +56,16 @@ def home(request):
 
     instrument_type_no = (
         Session.query(
-            InstrumentType.type,
+            InstrumentTypeCategory.name,
             sql.func.count()
         )
         .join(Instrument.instrument_type)
-        .group_by(InstrumentType.type)
-        .order_by(InstrumentType.type)
+        .join(InstrumentTypeCategory)
+        .group_by(InstrumentType.category_id)
+        .order_by(InstrumentType.category_id)
     )
-
     print instrument_type_no
+
     active_installed = [
         (t, active, installed)
         for t, installed, active in itg]
