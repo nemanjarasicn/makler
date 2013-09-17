@@ -65,6 +65,7 @@
             <th>Ima analizatora</th>
             <th>Starost</th>
             <th>Broj uzoraka</th>
+            <th>Odeljenje</th>
             <th>Komentar</th>
             <th width="50" class="no-print">Briši</th>
           </tr>
@@ -82,6 +83,7 @@
             <td><a href="${request.route_path('instrument', id=instrument.id)}">${instrument.instrument_type.name}</td>
             <td>${instrument.age}</td>
             <td>${instrument.sample_numbers}</td>
+            <td>${instrument.department}</td>
             <td>${instrument.description}</td>
             <td class="no-print">
               <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
