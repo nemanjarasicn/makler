@@ -19,9 +19,11 @@ def instrument_type_new(request):
     """Display a form for creating instrument type.
     """
     instrument_type = InstrumentType()
+    categories = (Session.query(InstrumentTypeCategory))
 
     return {
         'instrument_type': instrument_type,
+        'instrument_type_categories': categories.all()
     }
 
 
