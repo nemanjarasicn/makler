@@ -86,7 +86,7 @@
               <tr>
                 <td><a href="${request.route_path('instrument_type', id=instrument_type.id)}">${instrument_type.manufacturer}</td></a>
                 <td><a href="${request.route_path('instrument_type', id=instrument_type.id)}">${instrument_type.name}</td></a>
-                <td><a href="${request.route_path('instrument_type', id=instrument_type.id)}">${instrument_type.category.name}</td></a>
+                <td><a href="${request.route_path('instrument_type', id=instrument_type.id)}">${instrument_type.category.name if instrument_type.category else ''}</td></a>
                 % endfor
               </tr>
             </tbody>
