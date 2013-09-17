@@ -36,7 +36,11 @@
             <tbody>
               % for institution in institutions:
               <tr>
-                <td><a href="${request.route_path('institution', id=institution.id)}">${institution.name}</td></a>
+                % if institution.instruments:
+                    <td><a href="${request.route_path('institution', id=institution.id)}"><strong>${institution.name}</strong></td></a>
+                % else:
+                    <td><a href="${request.route_path('institution', id=institution.id)}">${institution.name}</td></a>
+                % endif
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.address}</td></a>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.phone}</td></a>
                 ##<td><a href="${request.route_path('institution', id=institution.id)}">${institution.contacts[0].name (institution.contacts[0].phone) if institution.contacts else ''} </td></a>
@@ -95,8 +99,12 @@
   <section>
      <p class="title" data-section-title><a href="#panel3">Izveštaji</a></p>
     <div class="content" data-section-content>
-     <p>Ukupno instaliranih aparata: ${no_instruments}</p>
-
+     <p>Ukupno instaliranih aparata: <strong>${no_instruments}</strong></p>
+     <ul>
+      % for i in instrument_type_no:
+        <li class="instrument_tip">${i[0]}: <strong>${i[1]}</strong></li>
+      % endfor
+      </ul>
       % for manufacturer, types in instrument_types_grouped:
         <h5>${manufacturer}</h5>
           <ul class="two-columns panel radius">

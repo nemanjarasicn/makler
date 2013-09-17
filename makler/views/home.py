@@ -53,6 +53,17 @@ def home(request):
 
     no_instruments = Session.query(sql.func.count(Instrument.id)).scalar()
 
+    instrument_type_no = (
+        Session.query(
+            InstrumentType.type,
+            sql.func.count()
+        )
+        .join(Instrument.instrument_type)
+        .group_by(InstrumentType.type)
+        .order_by(InstrumentType.type)
+    )
+
+    print instrument_type_no
     active_installed = [
         (t, active, installed)
         for t, installed, active in itg]
@@ -63,6 +74,7 @@ def home(request):
     return {
         'institutions': institutions_q.all(),
         'instrument_types': instrument_types_q.all(),
+        'instrument_type_no': instrument_type_no.all(),
         'no_instruments': no_instruments,
         'instrument_types_grouped': instrument_types_grouped
     }

@@ -123,3 +123,8 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
 .analizator{
     margin: 0px;
 }
+
+.instrument_tip {
+    display: inline;
+    padding-right: 5px;
+}
