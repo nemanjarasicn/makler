@@ -37,12 +37,9 @@
         </div>
         <div class="small-9 columns">
           <select name="type" class="select2 full-width">
-            <option ${'selected' if instrument_type.type == "biohemijski" else ''} value="biohemijski">Biohemijski</option>
-            <option ${'selected' if instrument_type.type == "imunohemijski" else ''} value="imunohemijski">Imunohemijski</option>
-            <option ${'selected' if instrument_type.type == "hematoloski" else ''} value="hematoloski">Hematološki</option>
-            <option ${'selected' if instrument_type.type == "gasni" else ''} value="gasni">Gasni</option>
-            <option ${'selected' if instrument_type.type == "hemostaticki" else ''} value="gasni">Hemostatički</option>
-            <option ${'selected' if instrument_type.type == "urinski" else ''} value="urinski">Urinski</option>
+            % for c in instrument_type_categories:
+              <option ${'selected' if instrument_type.category_id == c.id else ''} value=${c.id}>${c.name}</option>
+            % endfor
           </select>
         </div>
       </div>

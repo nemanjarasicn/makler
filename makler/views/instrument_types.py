@@ -8,6 +8,7 @@ from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..model.instrument import InstrumentType
+from ..model.instrument import InstrumentTypeCategory
 from ..model.session import Session
 
 
@@ -35,12 +36,14 @@ def instrument_type_edit(request):
     instrument_type = (Session.query(InstrumentType)
                        .filter(InstrumentType.id == id)
                        .first())
+    instrument_type_categories = (Session.query(InstrumentTypeCategory))
 
     if not instrument_type:
         raise HTTPNotFound
 
     return {
         'instrument_type': instrument_type,
+        'instrument_type_categories': instrument_type_categories.all(),
         #'institution_groups': groupby(instrument_type.institutions, lambda x: x.name)
     }
 
@@ -60,8 +63,6 @@ def instrument_type_create(request):
             safe_data[key] = data[key]
 
     instrument_type = InstrumentType(**safe_data)
-
-    print instrument_type.manufacturer
 
     try:
         Session.add(instrument_type)
@@ -87,7 +88,7 @@ def instrument_type_update(request):
     if 'name' in request.POST and request.POST['name']:
         instrument_type.name = request.POST['name']
     if 'type' in request.POST and request.POST['type']:
-        instrument_type.type = request.POST['type']
+        instrument_type.category_id = request.POST['type']
     if 'manufacturer' in request.POST and request.POST['manufacturer']:
         instrument_type.manufacturer = request.POST['manufacturer']
 

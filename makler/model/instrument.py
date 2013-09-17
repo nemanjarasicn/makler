@@ -10,6 +10,21 @@ from .base import Base
 from .institution import Institution
 
 
+class InstrumentTypeCategory(Base):
+
+    __tablename__ = 'instrument_type_categories'
+    __table_args__ = (
+        UniqueConstraint('name',
+                         name="instrument_type_category_true_pk"),
+        {}
+    )
+
+    id = Column("id", types.Integer, nullable=False, primary_key=True)
+    name = Column("name", types.String(50))
+
+    # backrefs: instrument_types (InstrumentType)
+
+
 class InstrumentType(Base):
 
     __tablename__ = 'instrument_types'
@@ -21,8 +36,15 @@ class InstrumentType(Base):
 
     id = Column("id", types.Integer, nullable=False, primary_key=True)
     type = Column("type", types.String(50))
+    category_id = Column("category_id", types.Integer,
+                         ForeignKey('instrument_type_categories.id'))
     manufacturer = Column("manufacturer", types.String(50))
     name = Column("name", types.String(10))
+
+    category = relationship(
+        InstrumentTypeCategory, uselist=False,
+        backref="instrument_types"
+    )
 
     # backrefs: instruments (Instrument)
 
