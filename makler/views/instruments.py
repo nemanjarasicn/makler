@@ -119,7 +119,7 @@ def instrument_update(request):
         instrument.sample_numbers = request.POST['sample_numbers']
 
     if 'department' in request.POST:
-        instrument.deparatment = request.POST['department']
+        instrument.department = request.POST['department']
 
     # TODO: Is there a better way to handle this?
     if 'active' in request.POST and request.POST['active']:
