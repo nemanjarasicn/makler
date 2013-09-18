@@ -47,8 +47,8 @@ def home(request):
             inst.c.installed,
             actv.c.active
         )
-        .join(inst, InstrumentType.id == inst.c.instrument_type_id)
-        .join(actv, InstrumentType.id == actv.c.instrument_type_id)
+        .outerjoin(inst, InstrumentType.id == inst.c.instrument_type_id)
+        .outerjoin(actv, InstrumentType.id == actv.c.instrument_type_id)
         .order_by(InstrumentType.manufacturer)
     )
 

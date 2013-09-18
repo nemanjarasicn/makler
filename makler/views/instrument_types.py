@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import transaction
-from itertools import groupby
+
+from sqlalchemy import sql
+from sqlalchemy import orm
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
@@ -8,6 +10,8 @@ from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..model.instrument import InstrumentType
+from ..model.instrument import Instrument
+from ..model.instrument import Institution
 from ..model.instrument import InstrumentTypeCategory
 from ..model.session import Session
 
@@ -38,15 +42,54 @@ def instrument_type_edit(request):
     instrument_type = (Session.query(InstrumentType)
                        .filter(InstrumentType.id == id)
                        .first())
-    instrument_type_categories = (Session.query(InstrumentTypeCategory))
 
     if not instrument_type:
         raise HTTPNotFound
 
+    instrument_type_categories = (Session.query(InstrumentTypeCategory))
+
+    act = (
+        orm.Query([
+            Instrument.institution_id,
+            sql.func.count().label('active')])
+        .filter(Instrument.active == 1)
+        .filter(Instrument.instrument_type_id == id)
+        .group_by(Instrument.institution_id)
+        .subquery()
+    )
+
+    installed = (
+        orm.Query([
+            Instrument.institution_id,
+            sql.func.count().label('installed')])
+        .filter(Instrument.instrument_type_id == id)
+        .group_by(Instrument.institution_id)
+        .subquery()
+    )
+
+    instruments_no = (
+        Session.query(sql.func.sum(installed.c.installed)).scalar())
+
+    instruments_active = (Session.query(sql.func.sum(act.c.active)).scalar())
+
+    instruments = (
+        Session.query(
+            Institution.id,
+            Institution.name,
+            installed.c.installed,
+            act.c.active
+        )
+        .join(installed, Institution.id == installed.c.institution_id)
+        .outerjoin(act, installed.c.institution_id == act.c.institution_id)
+        .order_by(Institution.name)
+    )
+
     return {
         'instrument_type': instrument_type,
         'instrument_type_categories': instrument_type_categories.all(),
-        #'institution_groups': groupby(instrument_type.institutions, lambda x: x.name)
+        'instruments_no': instruments_no,
+        'instruments_active': instruments_active,
+        'instruments': instruments.all(),
     }
 
 

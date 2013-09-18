@@ -62,7 +62,7 @@
           <tr>
             <th>Aktivan</th>
             <th>Proizvođač</th>
-            <th>Ima analizatora</th>
+            <th>Ime analizatora</th>
             <th>Starost</th>
             <th>Broj uzoraka</th>
             <th>Odeljenje</th>

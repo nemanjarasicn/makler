@@ -49,21 +49,4 @@
     <a href="${request.route_path('home')}" class="button small round no-print">Odustani</a>
 
   </form>
-  <h5>Ukupno instaliranih analizatora: ${len(instrument_type.instruments)}</h5>
-
-  % for institution, instruments in groupby(instrument_type.instruments, lambda x: x.institution.name):
-    <%
-      instruments = list(instruments)
-      active = 0
-      for i in instruments:
-        if i.active:
-            active += 1
-    %>
-    <ul class="analizator">
-      <li>
-        <a href="${request.route_path('institution', id=instruments[0].institution.id)}">${institution} (${len(instruments)}/${active})</a>
-      </li>
-    </ul>
-  % endfor
-
 </%def>
