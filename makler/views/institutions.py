@@ -43,7 +43,7 @@ def institution_edit(request):
         Session.query(Instrument)
         .join(Instrument.instrument_type)
         .filter(Instrument.institution_id == id)
-        .order_by(InstrumentType.manufacturer,
+        .order_by(Instrument.department, InstrumentType.manufacturer,
                   InstrumentType.name)
     )
 

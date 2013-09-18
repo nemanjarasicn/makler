@@ -21,7 +21,7 @@ def home(request):
 
     instrument_types_q = (
         Session.query(InstrumentType)
-        .order_by(InstrumentType.manufacturer))
+        .order_by(InstrumentType.manufacturer, InstrumentType.name))
 
     i1 = orm.aliased(Instrument)
     i2 = orm.aliased(Instrument)
@@ -49,7 +49,7 @@ def home(request):
         )
         .outerjoin(inst, InstrumentType.id == inst.c.instrument_type_id)
         .outerjoin(actv, InstrumentType.id == actv.c.instrument_type_id)
-        .order_by(InstrumentType.manufacturer)
+        .order_by(InstrumentType.manufacturer, InstrumentType.name)
     )
 
     no_instruments = Session.query(sql.func.count(Instrument.id)).scalar()
@@ -64,7 +64,6 @@ def home(request):
         .group_by(InstrumentType.category_id)
         .order_by(InstrumentType.category_id)
     )
-    print instrument_type_no
 
     active_installed = [
         (t, active, installed)

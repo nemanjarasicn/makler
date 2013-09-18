@@ -44,7 +44,7 @@
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.address}</td></a>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.phone}</td></a>
                 ##<td><a href="${request.route_path('institution', id=institution.id)}">${institution.contacts[0].name (institution.contacts[0].phone) if institution.contacts else ''} </td></a>
-                % endfor
+              % endfor
               </tr>
             </tbody>
           </table>
@@ -61,7 +61,7 @@
           <select id="instrument-types-list" class="full-width">
             <option></option>
             % for instrument_type in instrument_types:
-            <option value="${instrument_type.id}">${instrument_type.name}</option>
+            <option value="${instrument_type.id}">${instrument_type.manufacturer} &nbsp; ${instrument_type.name}</option>
             % endfor
           </select>
         </div>
