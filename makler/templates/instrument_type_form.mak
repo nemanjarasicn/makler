@@ -36,7 +36,7 @@
           <label class="right inline model">Tip</label>
         </div>
         <div class="small-9 columns">
-          <select name="type" class="select2 full-width">
+          <select name="category_id" class="select2 full-width">
             % for c in instrument_type_categories:
               <option ${'selected' if instrument_type.category_id == c.id else ''} value=${c.id}>${c.name}</option>
             % endfor

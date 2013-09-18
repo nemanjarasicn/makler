@@ -57,7 +57,7 @@ def instrument_type_create(request):
     safe_keys = [
         'manufacturer',
         'name',
-        'type']
+        'category_id']
     safe_data = {}
 
     for key in data.keys():
@@ -89,8 +89,8 @@ def instrument_type_update(request):
 
     if 'name' in request.POST and request.POST['name']:
         instrument_type.name = request.POST['name']
-    if 'type' in request.POST and request.POST['type']:
-        instrument_type.category_id = request.POST['type']
+    if 'category_id' in request.POST and request.POST['category_id']:
+        instrument_type.category_id = request.POST['category_id']
     if 'manufacturer' in request.POST and request.POST['manufacturer']:
         instrument_type.manufacturer = request.POST['manufacturer']
 

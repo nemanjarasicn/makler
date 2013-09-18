@@ -59,9 +59,11 @@ def instrument_create(request):
     safe_keys = [
         'instrument_type_id',
         'institution_id',
-        'name',
         'active',
-        'type',
+        'department',
+        'age',
+        'sample_numbers',
+        'category_id',
         'description']
     safe_data = {}
 
@@ -83,6 +85,7 @@ def instrument_create(request):
         Session.add(instrument)
         transaction.commit()
     except:
+        raise
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -114,6 +117,9 @@ def instrument_update(request):
 
     if 'sample_numbers' in request.POST:
         instrument.sample_numbers = request.POST['sample_numbers']
+
+    if 'department' in request.POST:
+        instrument.deparatment = request.POST['department']
 
     # TODO: Is there a better way to handle this?
     if 'active' in request.POST and request.POST['active']:

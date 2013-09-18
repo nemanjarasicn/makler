@@ -105,14 +105,65 @@
       <input type="hidden" name="institution_id" value="${institution.id}" />
       <h4>Dodaj novi aparat</h4>
 
-      <select id="instrument-types-list" name="instrument_type_id" class="full-width">
-        <option></option>
-        % for instrument_type in instrument_types:
-        <option value="${instrument_type.id}">${instrument_type.name}</option>
-        % endfor
-      </select>
-      <button class="small round button disabled" type="submit" style="margin-top:10px;">Dodaj</button>
-      <a class="small round cancel button">Odustani</a>
+      <div class="row" style="margin-bottom: 10px;">
+        <div class="large-12 columns">
+          <select id="instrument-types-list" name="instrument_type_id" class="full-width">
+            <option></option>
+            % for instrument_type in instrument_types:
+            <option value="${instrument_type.id}">${instrument_type.name}</option>
+            % endfor
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-3 columns">
+          <label class="right inline">Odeljenje</label>
+        </div>
+        <div class="small-9 columns">
+          <input type="text" name="department" class="right-label" placeholder="Odeljenje" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-3 columns">
+          <label class="right inline">Starost</label>
+        </div>
+        <div class="small-9 columns">
+          <input type="text" name="age" class="right-label" placeholder="Starost opreme">
+          </input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-3 columns">
+          <label class="right inline">Broj uzoraka</label>
+        </div>
+        <div class="small-9 columns">
+          <input type="text" name="sample_numbers" class="right-label" placeholder="Broj uzoraka">
+          </input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-3 columns">
+          <label class="right inline">Komentar</label>
+        </div>
+        <div class="small-9 columns">
+          <textarea name="description" placeholder="Komentar" style="word-break:break-all;"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-3 columns">
+          <label class="right inline">Aktivan</label>
+        </div>
+        <div class="small-9 columns">
+          <input type="checkbox" value="1" name="active" style="position:absolute; top:6px;" />
+        </div>
+      </div>
+    <button class="small round button disabled" type="submit" style="margin-top:10px;">Dodaj</button>
+    <a class="small round cancel button">Odustani</a>
     </form>
     <a class="close-reveal-modal">&#215;</a>
   </div>

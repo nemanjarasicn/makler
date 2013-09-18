@@ -13,12 +13,12 @@
 
         <div class="row">
           <div class="small-3 columns">
-            <label class="right inline">Ime</label>
+            <label class="right inline">Odeljenje</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" name="name" class="right-label" placeholder="Ime analizatora"
-                   value="${instrument.name}">
-        </input>
+            <input type="text" name="department" class="right-label" placeholder="Odeljenje"
+                      value="${instrument.department}">
+            </input>
           </div>
         </div>
 
