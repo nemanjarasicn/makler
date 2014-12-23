@@ -9,6 +9,7 @@ from pyramid.httpexceptions import HTTPInternalServerError
 from ..model.institution import Institution
 from ..model.instrument import Instrument
 from ..model.instrument import InstrumentType
+from ..model.lis import LabInformationSystem
 from ..model.session import Session
 
 
@@ -52,10 +53,13 @@ def institution_edit(request):
         .order_by(InstrumentType.name)
     )
 
+    lis_list = Session.query(LabInformationSystem)
+
     return {
         'institution': institution,
         'instruments': instruments_query.all(),
         'instrument_types': instrument_types.all(),
+        'lis': lis_list.all()
     }
 
 

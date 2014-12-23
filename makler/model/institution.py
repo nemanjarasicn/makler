@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from sqlalchemy import types
-from sqlalchemy.schema import Column
+from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.schema import UniqueConstraint
 
 from .base import Base
@@ -24,3 +24,5 @@ class Institution(Base):
     institution_type = Column("type", types.String(50))
     pib = Column("pib", types.Integer)
     account = Column("account", types.String(50))
+    lis_id = Column("lis_id", types.Integer,
+                    ForeignKey('lis.id'), nullable=True)

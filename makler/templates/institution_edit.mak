@@ -2,7 +2,7 @@
 <%inherit file="base_select2.mak"/>
 <%namespace name="form" file="institution_form.mak" />
 
-<%def name="title()"></%def>
+<%def name="title()">Ustanove</%def>
 
 <div class="row">
   <div class="large-6 columns">
@@ -12,9 +12,27 @@
 
   <div class="large-6 columns">
 
+    ## Informacioni sistem
+    <div class="row">
+      <div class="large-12 columns">
+        <h4>Laboratorijski informacioni sistem</h4>
+      </div>
+
+        <div class="large-8 columns">
+          ${institution.lis.name if institution.lis else 'Nema'}
+        </div>
+        <div class="large-4 columns">
+          <h5><a href="" class="tiny round button right" data-reveal-id="izmeni-lis">Izmeni</a></h5>
+        </div>
+        <div class="large-12 columns">
+          <p style="border-bottom: 1px solid #ccc;"></p>
+        </div>
+    </div>
+
+    ## Kontakti
     <div class="row">
       <div class="large-6 columns">
-        <h3>Kontakti</h3>
+        <h4>Kontakti</h4>
       </div>
 
       <div class="large-6 columns no-print">
@@ -22,8 +40,8 @@
       </div>
     </div>
 
-      <div class="row">
-        <div class="large-12 columns">
+    <div class="row">
+      <div class="large-12 columns">
         <table class="makler aparati full-width">
           <thead>
             <tr>
@@ -49,6 +67,8 @@
         </table>
       </div>
     </div>
+  ##  / Kontakti
+
   </div>
 </div>
 
@@ -175,8 +195,8 @@
       </div>
     </div>
 
-  <div class="row">
-    <form action="${request.route_path('contact_new', id=institution.id)}" method="POST" style="display:inline;">
+    <div class="row">
+      <form action="${request.route_path('contact_new', id=institution.id)}" method="POST" style="display:inline;">
         <div class="large-6 columns">
           <input type="hidden" name="institution_id" value="${institution.id}" />
           <input type="text" name="name" placeholder="Ime i prezime" />
@@ -184,16 +204,56 @@
         <div class="large-6 columns">
           <input type="text" name="telephone" placeholder="Broj telefona" />
         </div>
-  </div>
+    </div>
 
-  <div class="row">
-    <div class="large-12 columns">
-      <button type="submit" class="small round button">Dodaj</button>
-      <a class="small round cancel button">Odustani</a>
-    </form>
-  </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <button type="submit" class="small round button">Dodaj</button>
+        <a class="small round cancel button">Odustani</a>
+      </div>
+      </form>
+    </div>
+
     <a class="close-reveal-modal">&#215;</a>
+  </div>
 
+  <div id="izmeni-lis" class="small reveal-modal no-print">
+    <div class="row">
+      <div class="large-12 columns">
+        <h4>Izaberi lab. informacioni sistem</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <form action="${request.route_path('lis_edit', id=institution.id)}" method="POST" style="display:inline;">
+          <input type="hidden" name="institution_id" value="${institution.id}" />
+
+          <select id="lis_list" name="lis_id" class="full-width">
+          % for i in lis:
+            <option value="${i.id}">${i.name}</option>
+          % endfor
+          </select>
+
+          <button type="submit" class="small round button" style="margin-top:20px;">Sačuvaj</button>
+          <a class="small round cancel button" style="margin-top:20px;">Odustani</a>
+          <a class="small round button right" data-reveal-id="novi-lis" style="margin-top:20px;">Dodaj novi</a>
+        </form>
+      </div>
+    </div><a class="close-reveal-modal">&#215;</a>
+  </div>
+
+  <div id="novi-lis" class="small reveal-modal">
+    <div class="row">
+      <div class="large-12 columns">
+        <form action="${request.route_path('lis_new')}" method="POST">
+          <input type="text" name="name" placeholder="Unesite naziv lab informacionog sistema "></input>
+
+        </form>
+      </div>
+    </div>
+  <a class="close-reveal-modal">&#215;</a>
+  </div>
 </%block>
 
 <%block name="javascripts">

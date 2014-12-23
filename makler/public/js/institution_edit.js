@@ -18,6 +18,11 @@ $(document).ready(function() {
         button.off('click');
     });
 
+    $('#lis_list').select2({
+        'placeholder': 'Izaberite lis',
+        'formatNoMatches': noResults
+    });
+
     $('.cancel').on('click', function (e) {
         e.preventDefault();
         $(this).foundation('reveal', 'close');

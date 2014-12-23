@@ -77,5 +77,5 @@ def home(request):
         'instrument_types': instrument_types_q.all(),
         'instrument_type_no': instrument_type_no.all(),
         'no_instruments': no_instruments,
-        'instrument_types_grouped': instrument_types_grouped
+        'instrument_types_grouped': instrument_types_grouped,
     }

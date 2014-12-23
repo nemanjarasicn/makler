@@ -35,5 +35,8 @@ def main(global_config, **settings):
     config.add_route('instrument_type_new', '/instrument_type')
     config.add_route('instrument_type', '/instrument_type/{id}')
 
+    config.add_route('lis_edit', '/institution/{id}/lis')
+    config.add_route('lis_new', '/lis')
+
     config.scan('.views')
     return config.make_wsgi_app()
