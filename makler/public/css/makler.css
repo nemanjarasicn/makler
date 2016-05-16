@@ -67,7 +67,7 @@ ul li {
 
 .aparati{
     padding: 0px;
-    margin: 0px;
+    margin: 0 0 1em;
 }
 
 .aparati tr td {
@@ -80,7 +80,6 @@ ul li {
     background: url('../img/trash.png') center center no-repeat;
     border: none;
     top: 7px;
-
 }
 
 .delete:hover {
@@ -130,4 +129,107 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
 .instrument_tip {
     display: inline;
     padding-right: 5px;
+}
+
+.ugovori{
+    padding: 0px;
+    margin: 0px;
+}
+
+.ugovori tr td {
+    /*padding-top: 0px;
+    padding-bottom: 0px;
+    */word-break: break-word;
+}
+
+.dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ADADAD;
+    background: #ddd;
+    border-radius: 100%;
+    position: absolute;
+    margin: -2px 0 0 -8px;
+}
+
+.still_active {
+    background: #26ca28;
+}
+
+.expires_soon {
+    background: #FFFF00;
+    background-image: url('../img/exclamation-mark.png');
+    background-size: cover;
+}
+
+.expired {
+    background: #ECECEC;
+    border: 1px solid #E8E8E8;
+}
+
+.contract_date {
+    width:14%;
+}
+
+.contract_name {
+    width:28%;
+}
+.contract_description {
+    width:16%;
+}
+
+.contract_value {
+    width:10%;
+}
+
+button .document, button .document:active, button .document:focus, button .document:visited,
+.button .document, .button .document:active, .button .document:focus, .button .document:visited,
+.document, .document:active, .document:focus, .document:visited {
+    background: url('../img/pdf-icon.png') center center no-repeat;
+    border: none;
+    top: 7px;
+}
+
+button .document:hover, .button .document:hover, .document:hover {
+    background: url('../img/pdf-icon-hover.png') center center no-repeat;
+}
+
+.until {
+    margin: 20px;
+}
+
+.float_right {
+    float: right;
+}
+
+input.file_input_with_replacement {
+      display: none;
+}
+input.file_input_replacement {
+    background: #e2e2e2;
+    padding: 10px;
+    border: none;
+    position: absolute;
+    width: 65%;
+}
+
+button.file_input_replacement {
+    background: #252525;
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 20px;
+    border: none;
+}
+
+.w65 {
+    width: 65%;
+}
+
+.w25 {
+    width: 25%;
+}
+
+.top_px {
+    margin-top: 30px;
 }

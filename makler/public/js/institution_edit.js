@@ -56,3 +56,22 @@ $(document).ready(function() {
         $.post(url, data)
     });
 });
+
+// Thi function is for uploading files
+$(function(){
+    $('.file_input_replacement').click(function(){
+        //This will make the element with class file_input_replacement launch the select file dialog.
+        var assocInput = $(this).siblings("input[type=file]");
+        console.log(assocInput);
+        assocInput.click();
+    });
+    $('.file_input_with_replacement').change(function(){
+        //This portion can be used to trigger actions once the file was selected or changed. In this case, if the element triggering the select file dialog is an input, it fills it with the filename
+        var thisInput = $(this);
+        var assocInput = thisInput.siblings("input.file_input_replacement");
+        if (assocInput.length > 0) {
+          var filename = (thisInput.val()).replace(/^.*[\\\/]/, '');
+          assocInput.val(filename);
+        }
+    });
+});

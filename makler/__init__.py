@@ -38,5 +38,11 @@ def main(global_config, **settings):
     config.add_route('lis_edit', '/institution/{id}/lis')
     config.add_route('lis_new', '/lis')
 
+    config.add_route('contract_delete', '/delete/contract')
+    config.add_route('contract_new', '/contract_new/{id}')
+
+    config.add_route('document_upload', '/document_upload')
+    config.add_route('document_download', '/document_download/{id}')
+
     config.scan('.views')
     return config.make_wsgi_app()
