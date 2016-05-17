@@ -43,4 +43,4 @@ def lis_new(request):
     except:
         raise HTTPInternalServerError
 
-    return HTTPFound(location=request.route_path('home'))
+    return HTTPFound(location=request.referer)
