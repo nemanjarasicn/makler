@@ -141,7 +141,7 @@
             <th class="contract_description">Komentar</th>
             <th class="contract_value">Vrednost</th>
             <th width="50" class="no-print">Dokumenti</th>
-            <th width="50" class="no-print">Briši</th>
+            <th width="50" class="no-print">Izmeni</th>
           </tr>
         </thead>
         <tbody>
@@ -150,7 +150,7 @@
               Config = ConfigParser.ConfigParser()
               Config.read("development.ini")
               days_remain = int(Config.get('contract_date','days_to_expire'))
-              contract_expires = co.time_updated.date() + timedelta(days=365)
+              contract_expires = co.valid_until.date()
               about_to_expire = contract_expires - timedelta(days=days_remain)
           %>
           <tr>
@@ -176,10 +176,7 @@
             </td>
             ## / Upload
             <td class="no-print">
-              <form action="${request.route_path('contract_delete')}" method="POST" style="display:inline">
-                <input type="hidden" name="id" value="${co.id}" />
-                  <button class="delete" type="submit"></button>
-              </form>
+              <a href="" class="round  add no-print" data-reveal-id="izmeni-dokument-${co.id}"  style="display:inline"><button class="edit"></button></a>
             </td>
           </tr>
           % endfor
@@ -192,6 +189,81 @@
 
 
 <%block name="modals">
+
+  % for co in contracts:
+  <div id="izmeni-dokument-${co.id}" class="small reveal-modal no-print">
+    <form action="${request.route_path('contract_edit', id=institution.id)}" method="post">
+      <input type="hidden" name="institution_id" value="${institution.id}" />
+      <input type="hidden" name="id" value="${co.id}" />
+      <h4>Izmeni ugovor</h4>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Datum objavljivanja JN</label>
+        </div>
+        <div class="small-8 columns">
+          <input type="text" name="time_created" class="right-label" placeholder="dd.mm.yyyy"
+                 value="${co.time_created.strftime('%d.%m.%Y') if co.time_created != None else None}">
+          </input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Datum potpisivanja JN</label>
+        </div>
+        <div class="small-8 columns">
+          <input type="text" name="time_updated" class="right-label" placeholder="dd.mm.yyyy"
+                 value="${co.time_updated.strftime('%d.%m.%Y') if co.time_created != None else None}">
+          </input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Ugovor važi do</label>
+        </div>
+        <div class="small-8 columns">
+          <input type="text" name="valid_until" class="right-label" placeholder="dd.mm.yyyy"
+                 value="${co.valid_until.strftime('%d.%m.%Y') if co.time_created != None else None}">
+          </input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Naziv ugovora</label>
+        </div>
+        <div class="small-8 columns">
+          <textarea name="name" placeholder="Naziv ugovora" style="word-break:break-all;">${co.name}</textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Komentar</label>
+        </div>
+        <div class="small-8 columns">
+          <textarea name="description" placeholder="Komentar" style="word-break:break-all;">${co.description}</textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Vrednost</label>
+        </div>
+        <div class="small-8 columns">
+          <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${co.value}">
+          </input>
+        </div>
+      </div>
+    <button class="small round button" type="submit" style="margin-top:10px;">Izmeni</button>
+    <a class="small round cancel button">Odustani</a>
+    </form>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+  % endfor
+
   % for co in contracts:
     <div id="novi-dokument-${co.id}" class="small reveal-modal no-print">
       <h4>${co.name}</h4>
@@ -257,6 +329,16 @@
 
       <div class="row">
         <div class="small-4 columns">
+          <label class="right inline">Ugovor važi do</label>
+        </div>
+        <div class="small-8 columns">
+          <input type="text" name="valid_until" class="right-label" placeholder="dd.mm.yyyy">
+          </input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
           <label class="right inline">Naziv ugovora</label>
         </div>
         <div class="small-8 columns">
@@ -288,7 +370,7 @@
     <a class="close-reveal-modal">&#215;</a>
   </div>
 
-  <div id="novi-instrument" class="small reveal-modal no-print">
+<div id="novi-instrument" class="small reveal-modal no-print">
     <form action="${request.route_path('instrument_new', id=institution.id)}" method="post">
       <input type="hidden" name="institution_id" value="${institution.id}" />
       <h4>Dodaj novi aparat</h4>

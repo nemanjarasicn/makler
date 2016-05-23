@@ -14,10 +14,10 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'waitress',
-    ]
+]
 
 setup(name='makler',
-      version='0.3.2',
+      version='0.3.3',
       description='makler',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
@@ -25,7 +25,7 @@ setup(name='makler',
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
+      ],
       author='',
       author_email='',
       url='',

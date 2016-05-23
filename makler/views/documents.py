@@ -8,8 +8,6 @@ from datetime import date
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
-from pyramid.httpexceptions import HTTPNotFound
-from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..model.contract import Contract
@@ -42,15 +40,15 @@ def document_upload(request):
     contract = Session.query(Contract).filter(Contract.id == co_id).first()
 
     upload_date = date.today()
-    document = Document(original_name=filename, code_name=uuid_name, contract=contract, upload_date=upload_date)
+    document = Document(original_name=filename, code_name=uuid_name,
+                        contract=contract, upload_date=upload_date)
     Session.add(document)
     inst_id = contract.institution.id
 
     try:
         Session.flush()
         transaction.commit()
-    except Exception, err:
-        print err
+    except:
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -58,7 +56,7 @@ def document_upload(request):
 
 
 @view_config(route_name='document_download',
-         request_method='GET')
+             request_method='GET')
 def document_download(request):
 
     dir_name = 'makler/documents/'
@@ -66,7 +64,8 @@ def document_download(request):
     doc_id = request.matchdict['id']
     document = Session.query(Document).filter(Document.id == doc_id).first()
 
-    path_to_file_code_name = dir_name + document.code_name[0:1] + '/' + document.code_name[1:2] + '/' + document.code_name
+    path_to_file_code_name = dir_name + document.code_name[0:1] + '/' + \
+        document.code_name[1:2] + '/' + document.code_name
     path_to_file = dir_name + 'temp/' + str(document.original_name)
     shutil.copy2(path_to_file_code_name, path_to_file)
     response = FileResponse(path_to_file, request)
