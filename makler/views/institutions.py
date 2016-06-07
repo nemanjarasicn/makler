@@ -49,6 +49,8 @@ def institution_edit(request):
                   InstrumentType.name)
     )
 
+    days_remain = int(request.registry.settings.get('days_remain', 30))
+
     instrument_types = (
         Session.query(InstrumentType)
         .order_by(InstrumentType.name)
@@ -66,7 +68,8 @@ def institution_edit(request):
         'instruments': instruments_query.all(),
         'instrument_types': instrument_types.all(),
         'lis': lis_list.all(),
-        'contracts': contracts.all()
+        'contracts': contracts.all(),
+        'days_remain': days_remain
     }
 
 

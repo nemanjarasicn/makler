@@ -6,7 +6,6 @@ import datetime
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
-from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..model.contract import Contract
@@ -21,19 +20,20 @@ def contract_new(request):
     try:
         data['time_created'] = (
             datetime.datetime.strptime(
-                data.get('time_created'), "%d.%m.%Y").date()
+                data.get('time_created'), "%d.%m.%Y")
         )
         data['time_updated'] = (
             datetime.datetime.strptime(
-                data.get('time_updated'), "%d.%m.%Y").date()
+                data.get('time_updated'), "%d.%m.%Y")
         )
         data['valid_until'] = (
             datetime.datetime.strptime(
-                data.get('valid_until'), "%d.%m.%Y").date()
+                data.get('valid_until'), "%d.%m.%Y")
         )
 
     except (KeyError, ValueError):
-        return HTTPBadRequest('Datum nije u odgovarajucem formatu')
+        return HTTPFound(location=request.route_path(
+                         'institution', id=institution_id))
 
     contract = Contract(**data)
     Session.add(contract)
@@ -55,22 +55,24 @@ def contract_edit(request):
 
     data = dict(request.params)
     institution_id = data.get('institution_id')
+
     try:
         data['time_created'] = (
             datetime.datetime.strptime(
-                data.get('time_created'), "%d.%m.%Y").date()
-        )
+                data.get('time_created'), "%d.%m.%Y")
+            )
         data['time_updated'] = (
             datetime.datetime.strptime(
-                data.get('time_updated'), "%d.%m.%Y").date()
-        )
+                data.get('time_updated'), "%d.%m.%Y")
+            )
         data['valid_until'] = (
             datetime.datetime.strptime(
-                data.get('valid_until'), "%d.%m.%Y").date()
-        )
+                data.get('valid_until'), "%d.%m.%Y")
+            )
 
     except (KeyError, ValueError):
-        return HTTPBadRequest('Datum nije u odgovarajucem formatu')
+        return HTTPFound(location=request.route_path(
+                         'institution', id=institution_id))
 
     contract = Contract(**data)
 

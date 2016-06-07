@@ -37,12 +37,12 @@
               % for institution in institutions:
               <tr>
                 % if institution.instruments:
-                    <td><a href="${request.route_path('institution', id=institution.id)}"><strong>${institution.name}</strong></td></a>
+                    <td><a href="${request.route_path('institution', id=institution.id)}"><strong>${institution.name}</strong></a></td>
                 % else:
-                    <td><a href="${request.route_path('institution', id=institution.id)}">${institution.name}</td></a>
+                    <td><a href="${request.route_path('institution', id=institution.id)}">${institution.name}</a></td>
                 % endif
-                <td><a href="${request.route_path('institution', id=institution.id)}">${institution.address}</td></a>
-                <td><a href="${request.route_path('institution', id=institution.id)}">${institution.phone}</td></a>
+                <td><a href="${request.route_path('institution', id=institution.id)}">${institution.address}</a></td>
+                <td><a href="${request.route_path('institution', id=institution.id)}">${institution.phone}</a></td>
                 ##<td><a href="${request.route_path('institution', id=institution.id)}">${institution.contacts[0].name (institution.contacts[0].phone) if institution.contacts else ''} </td></a>
               % endfor
               </tr>

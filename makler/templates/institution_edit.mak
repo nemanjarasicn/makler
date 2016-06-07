@@ -1,9 +1,6 @@
 ## -*- coding: utf-8 -*-
 <%!
-    import datetime
     from datetime import date, timedelta
-    import ConfigParser
-    import shutil
 %>
 
 <%inherit file="base_select2.mak"/>
@@ -146,25 +143,18 @@
         </thead>
         <tbody>
           % for co in contracts:
-          <%
-              Config = ConfigParser.ConfigParser()
-              Config.read("development.ini")
-              days_remain = int(Config.get('contract_date','days_to_expire'))
-              contract_expires = co.valid_until.date()
-              about_to_expire = contract_expires - timedelta(days=days_remain)
-          %>
           <tr>
             <td>${co.time_created.strftime('%d.%m.%Y') if co.time_created != None else None}</td>
             <td>${co.time_updated.strftime('%d.%m.%Y') if co.time_updated != None else None}</td>
             <td>
-              % if (about_to_expire < date.today()) and (contract_expires > date.today()):
-                  <span class="dot expires_soon"></span><span class="until">${contract_expires.strftime('%d.%m.%Y')}</span>
-              % elif contract_expires > date.today():
-                  <span class="dot still_active"></span><span class="until">${contract_expires.strftime('%d.%m.%Y')}</span>
-              % elif contract_expires < date.today():
-                  <span class="dot expired"></span><span class="until">${contract_expires.strftime('%d.%m.%Y')}</span>
+              % if (co.valid_until.date() - timedelta(days=days_remain) < date.today()) and (co.valid_until.date() > date.today()):
+                  <span class="dot expires_soon"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
+              % elif co.valid_until.date() > date.today():
+                  <span class="dot still_active"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
+              % elif co.valid_until.date() < date.today():
+                  <span class="dot expired"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
               % else:
-                  ${contract_expires} <span></span>
+                  <span class="dot expired_today"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
               % endif
             </td>
             <td>${co.name}</td>
@@ -202,9 +192,10 @@
           <label class="right inline">Datum objavljivanja JN</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="time_created" class="right-label" placeholder="dd.mm.yyyy"
-                 value="${co.time_created.strftime('%d.%m.%Y') if co.time_created != None else None}">
-          </input>
+          <input type="text" name="time_created" class="right-label" placeholder="dd.mm.yyyy" required
+                 value="${co.time_created.strftime('%d.%m.%Y') if co.time_created != None else None}"
+                 pattern="[0-3][0-9].[0-1][0-9].[0-9][0-9][0-9][0-9]"
+                 title="Unesite datum u formatu dd.mm.yyyy (e.g. 22.07.2011)" />
         </div>
       </div>
 
@@ -213,9 +204,10 @@
           <label class="right inline">Datum potpisivanja JN</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="time_updated" class="right-label" placeholder="dd.mm.yyyy"
-                 value="${co.time_updated.strftime('%d.%m.%Y') if co.time_created != None else None}">
-          </input>
+          <input type="text" name="time_updated" class="right-label" placeholder="dd.mm.yyyy" required
+                 value="${co.time_updated.strftime('%d.%m.%Y') if co.time_updated != None else None}"
+                 pattern="[0-3][0-9].[0-1][0-9].[0-9][0-9][0-9][0-9]"
+                 title="Unesite datum u formatu dd.mm.yyyy (e.g. 22.07.2011)" />
         </div>
       </div>
 
@@ -224,9 +216,10 @@
           <label class="right inline">Ugovor važi do</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="valid_until" class="right-label" placeholder="dd.mm.yyyy"
-                 value="${co.valid_until.strftime('%d.%m.%Y') if co.time_created != None else None}">
-          </input>
+          <input type="text" name="valid_until" class="right-label" placeholder="dd.mm.yyyy" required
+                 value="${co.valid_until.strftime('%d.%m.%Y') if co.valid_until != None else None}"
+                 pattern="[0-3][0-9].[0-1][0-9].[0-9][0-9][0-9][0-9]"
+                 title="Unesite datum u formatu dd.mm.yyyy (e.g. 22.07.2011)" />
         </div>
       </div>
 
@@ -253,8 +246,7 @@
           <label class="right inline">Vrednost</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${co.value}">
-          </input>
+          <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${co.value}" />
         </div>
       </div>
     <button class="small round button" type="submit" style="margin-top:10px;">Izmeni</button>
@@ -292,9 +284,9 @@
 
       <form action="${request.route_path('document_upload')}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
           <h4 class="top_px">Upload</h4>
-          <input type="text" name="document" value="" size="40" class="file_input_replacement" placeholder="Izaberi dokument">
-          <input type="file" name="document" class="file_input_with_replacement">
-          <input type="text" name="coid" value="${co.id}" style="display: none;">
+          <input type="text" name="document" value="" size="40" class="file_input_replacement" placeholder="Izaberi dokument" />
+          <input type="file" name="document" class="file_input_with_replacement" />
+          <input type="text" name="coid" value="${co.id}" style="display: none;" />
           <input class="small round button float_right"  type="submit" value="Dodaj" />
       </form>
 
@@ -313,7 +305,9 @@
           <label class="right inline">Datum objavljivanja JN</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="time_created" class="right-label" placeholder="dd.mm.yyyy" />
+          <input type="text" name="time_created" class="right-label" placeholder="dd.mm.yyyy" required
+          pattern="[0-3][0-9].[0-1][0-9].[0-9][0-9][0-9][0-9]"
+          title="Unesite datum u formatu dd.mm.yyyy (e.g. 22.07.2011)" />
         </div>
       </div>
 
@@ -322,8 +316,9 @@
           <label class="right inline">Datum potpisivanja JN</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="time_updated" class="right-label" placeholder="dd.mm.yyyy">
-          </input>
+          <input type="text" name="time_updated" class="right-label" placeholder="dd.mm.yyyy" required
+          pattern="[0-3][0-9].[0-1][0-9].[0-9][0-9][0-9][0-9]"
+          title="Unesite datum u formatu dd.mm.yyyy (e.g. 22.07.2011)" />
         </div>
       </div>
 
@@ -332,8 +327,9 @@
           <label class="right inline">Ugovor važi do</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="valid_until" class="right-label" placeholder="dd.mm.yyyy">
-          </input>
+          <input type="text" name="valid_until" class="right-label" placeholder="dd.mm.yyyy" required
+          pattern="[0-3][0-9].[0-1][0-9].[0-9][0-9][0-9][0-9]"
+          title="Unesite datum u formatu dd.mm.yyyy (e.g. 22.07.2011)" />
         </div>
       </div>
 
@@ -360,8 +356,7 @@
           <label class="right inline">Vrednost</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="value" class="right-label" placeholder="Vrednost">
-          </input>
+          <input type="text" name="value" class="right-label" placeholder="Vrednost" />
         </div>
       </div>
     <button class="small round button" type="submit" style="margin-top:10px;">Dodaj</button>
@@ -400,8 +395,7 @@
           <label class="right inline">Starost</label>
         </div>
         <div class="small-9 columns">
-          <input type="text" name="age" class="right-label" placeholder="Starost opreme">
-          </input>
+          <input type="text" name="age" class="right-label" placeholder="Starost opreme" />
         </div>
       </div>
 
@@ -410,8 +404,7 @@
           <label class="right inline">Broj uzoraka</label>
         </div>
         <div class="small-9 columns">
-          <input type="text" name="sample_numbers" class="right-label" placeholder="Broj uzoraka">
-          </input>
+          <input type="text" name="sample_numbers" class="right-label" placeholder="Broj uzoraka" />
         </div>
       </div>
 
@@ -497,7 +490,7 @@
     <div class="row">
       <div class="large-12 columns">
         <form action="${request.route_path('lis_new')}" method="POST">
-          <input type="text" name="name" placeholder="Unesite naziv lab informacionog sistema "></input>
+          <input type="text" name="name" placeholder="Unesite naziv lab informacionog sistema" />
 
         </form>
       </div>

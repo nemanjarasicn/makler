@@ -166,19 +166,27 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
     border: 1px solid #E8E8E8;
 }
 
+.expired_today {
+    background: none;
+    background-image: url('../img/warning-triangle.png');
+    background-size: cover;
+    border: 0px;
+    border-radius: 0;
+}
+
 .contract_date {
     width:14%;
 }
 
 .contract_name {
-    width:28%;
+    width:25%;
 }
 .contract_description {
-    width:16%;
+    width:13%;
 }
 
 .contract_value {
-    width:10%;
+    width:14%;
 }
 
 button .document, button .document:active, button .document:focus, button .document:visited,
@@ -187,6 +195,7 @@ button .document, button .document:active, button .document:focus, button .docum
     background: url('../img/pdf-icon.png') center center no-repeat;
     border: none;
     top: 7px;
+    left: 30px;
 }
 
 button .document:hover, .button .document:hover, .document:hover {

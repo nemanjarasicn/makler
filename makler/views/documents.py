@@ -66,10 +66,12 @@ def document_download(request):
 
     path_to_file_code_name = dir_name + document.code_name[0:1] + '/' + \
         document.code_name[1:2] + '/' + document.code_name
-    path_to_file = dir_name + 'temp/' + str(document.original_name)
+    path_to_file = dir_name + 'temp/' + \
+        str(document.original_name.encode('utf8'))
     shutil.copy2(path_to_file_code_name, path_to_file)
     response = FileResponse(path_to_file, request)
-    attachment_path = str("attachment; filename=" + document.original_name)
+    attachment_path = \
+        str("attachment; filename=" + document.original_name.encode('utf8'))
     response.headers['Content-Disposition'] = attachment_path
     os.remove(path_to_file)
 
