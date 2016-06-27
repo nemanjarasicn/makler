@@ -148,7 +148,6 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
     background: #ddd;
     border-radius: 100%;
     position: absolute;
-    margin: -2px 0 0 -8px;
 }
 
 .still_active {
@@ -175,6 +174,14 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
 }
 
 .contract_date {
+    width:12%;
+}
+
+.contract_date_created {
+    width:10%;
+}
+
+.contract_date_until {
     width:14%;
 }
 
@@ -186,7 +193,7 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
 }
 
 .contract_value {
-    width:14%;
+    width:16%;
 }
 
 button .document, button .document:active, button .document:focus, button .document:visited,
@@ -249,4 +256,22 @@ button.file_input_replacement {
 
 .edit:hover {
     background: url('../img/edit-icon-hover.png') center center no-repeat;
+}
+
+.contract_warning_small {
+    margin: 10px;
+}
+
+.contract_warning_home {
+    width: 110px;
+    padding-left: 10px;
+}
+
+.narrow {
+    margin: 0px -22px 0 10px;
+}
+
+.descript {
+  font-size: 13px;
+  word-break: inherit;
 }

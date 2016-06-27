@@ -7,24 +7,20 @@ from sqlalchemy.schema import ForeignKey
 
 from .base import Base
 from .institution import Institution
-from sqlalchemy.sql import func
 
 
 class Contract(Base):
 
     __tablename__ = 'contracts'
 
-    id = Column("id", types.Integer, nullable=False, primary_key=True)
+    id = Column(types.Integer, nullable=False, primary_key=True)
     institution_id = Column(types.Integer,
                             ForeignKey('institutions.id'),
                             nullable=False)
-    name = Column("name", types.String(50))
-    time_created = Column("time_created", types.DateTime(timezone=True),
-                          server_default=func.now())
-    time_updated = Column("time_updated", types.DateTime(timezone=True),
-                          onupdate=func.now())
-    valid_until = Column("valid_until", types.DateTime(timezone=True),
-                         server_default=func.now())
-    description = Column("description", types.String(50))
-    value = Column("value", types.String(50))
+    name = Column(types.String(50))
+    announced = Column(types.DateTime(timezone=True))
+    created = Column(types.DateTime(timezone=True))
+    valid_until = Column(types.DateTime(timezone=True))
+    description = Column(types.String(50))
+    value = Column(types.Integer)
     institution = relationship(Institution, backref="contracts", uselist=False)

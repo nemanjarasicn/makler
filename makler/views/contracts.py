@@ -18,13 +18,13 @@ def contract_new(request):
     data = dict(request.params)
     institution_id = data.get('institution_id')
     try:
-        data['time_created'] = (
+        data['announced'] = (
             datetime.datetime.strptime(
-                data.get('time_created'), "%d.%m.%Y")
+                data.get('announced'), "%d.%m.%Y")
         )
-        data['time_updated'] = (
+        data['created'] = (
             datetime.datetime.strptime(
-                data.get('time_updated'), "%d.%m.%Y")
+                data.get('created'), "%d.%m.%Y")
         )
         data['valid_until'] = (
             datetime.datetime.strptime(
@@ -57,13 +57,13 @@ def contract_edit(request):
     institution_id = data.get('institution_id')
 
     try:
-        data['time_created'] = (
+        data['announced'] = (
             datetime.datetime.strptime(
-                data.get('time_created'), "%d.%m.%Y")
+                data.get('announced'), "%d.%m.%Y")
             )
-        data['time_updated'] = (
+        data['created'] = (
             datetime.datetime.strptime(
-                data.get('time_updated'), "%d.%m.%Y")
+                data.get('created'), "%d.%m.%Y")
             )
         data['valid_until'] = (
             datetime.datetime.strptime(
@@ -87,8 +87,8 @@ def contract_edit(request):
     contract.name = request.POST['name']
     contract.description = request.POST['description']
     contract.value = request.POST['value']
-    contract.time_created = data['time_created']
-    contract.time_updated = data['time_updated']
+    contract.announced = data['announced']
+    contract.created = data['created']
     contract.valid_until = data['valid_until']
 
     try:

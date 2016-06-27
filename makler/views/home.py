@@ -72,10 +72,13 @@ def home(request):
     instrument_types_grouped = groupby(
         active_installed, lambda x: x[0].manufacturer)
 
+    days_remain = int(request.registry.settings.get('days_remain', 30))
+
     return {
         'institutions': institutions_q.all(),
         'instrument_types': instrument_types_q.all(),
         'instrument_type_no': instrument_type_no.all(),
         'no_instruments': no_instruments,
         'instrument_types_grouped': instrument_types_grouped,
+        'days_remain': days_remain
     }
