@@ -147,16 +147,9 @@
             <td>${co.announced.strftime('%d.%m.%Y') if co.announced != None else None}</td>
             <td>${co.created.strftime('%d.%m.%Y') if co.created != None else None}</td>
             <td>
-              % if (co.valid_until != None):
-                % if (co.valid_until.date() - timedelta(days=days_remain) < date.today()) and (co.valid_until.date() > date.today()):
-                  <span class="dot expires_soon"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
-                % elif co.valid_until.date() > date.today():
-                  <span class="dot still_active"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
-                % elif co.valid_until.date() < date.today():
-                  <span class="dot expired"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
-                % else:
-                  <span class="dot expired_today"></span><span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
-                % endif
+              % if co.valid_until != None:
+                  <span class='dot ${is_valid(co.valid_until.date(),days_remain)}'></span>
+                  <span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
               % endif
             </td>
             <td>${co.name}</td>
@@ -508,3 +501,17 @@ ${parent.javascripts()}
 <script src="${request.static_url('makler:public/js/institution_edit.js')}"></script>
 
 </%block>
+
+<%def name="is_valid(until, days_remain)">
+<%
+    today = date.today()
+    if until - timedelta(days=days_remain) < today and until > today:
+        return "expires_soon"
+    elif until > today:
+        return "still_active"
+    elif until < today:
+        return "expired"
+    else:
+        return "expires_today"
+%>
+</%def>

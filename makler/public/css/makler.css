@@ -76,7 +76,7 @@ ul li {
     word-break: break-word;
 }
 
-.delete, .delete:hover {
+.delete {
     background: url('../img/trash.png') center center no-repeat;
     border: none;
     top: 7px;
@@ -90,7 +90,7 @@ ul li {
       font-size: 0.875em;
 }
 
-button, .button, .button:focus {
+button, button:focus, .button, .button:focus {
     background-color: #9a3539;
     border-color: #691316;
 }
@@ -165,7 +165,7 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
     border: 1px solid #E8E8E8;
 }
 
-.expired_today {
+.expires_today {
     background: none;
     background-image: url('../img/warning-triangle.png');
     background-size: cover;
@@ -196,16 +196,14 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
     width:16%;
 }
 
-button .document, button .document:active, button .document:focus, button .document:visited,
-.button .document, .button .document:active, .button .document:focus, .button .document:visited,
-.document, .document:active, .document:focus, .document:visited {
+.document{
     background: url('../img/pdf-icon.png') center center no-repeat;
     border: none;
     top: 7px;
     left: 30px;
 }
 
-button .document:hover, .button .document:hover, .document:hover {
+.document:hover {
     background: url('../img/pdf-icon-hover.png') center center no-repeat;
 }
 
@@ -248,7 +246,7 @@ button.file_input_replacement {
     margin-top: 30px;
 }
 
-.edit, .edit:hover {
+.edit {
     background: url('../img/edit-icon.png') center center no-repeat;
     border: none;
     top: 7px;
@@ -256,10 +254,6 @@ button.file_input_replacement {
 
 .edit:hover {
     background: url('../img/edit-icon-hover.png') center center no-repeat;
-}
-
-.contract_warning_small {
-    margin: 10px;
 }
 
 .contract_warning_home {

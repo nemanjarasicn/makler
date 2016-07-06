@@ -34,7 +34,6 @@
                 <th class="contract_warning_home">Ugovor</th>
                 <th>Adresa</th>
                 <th>Telefon</th>
-                ##<th>Kontakt osoba</th>
               </tr>
             </thead>
             <tbody>
@@ -47,16 +46,14 @@
                 % endif
                 <td class="contract_warning_home">
                   % for co in institution.contracts:
-                    % if (co.valid_until != None):
+                    % if co.valid_until != None:
                       % if (co.valid_until.date() - timedelta(days=days_remain) < date.today()) and (co.valid_until.date() > date.today()):
                         <a href="${request.route_path('institution', id=institution.id)}">
-                          <span class="dot expires_soon"></span><span class="contract_warning_small"></span>
+                          <span class="dot expires_soon"></span><span style="margin:10px"></span>
                         </a>
-                      % elif co.valid_until.date() > date.today():
-                      % elif co.valid_until.date() < date.today():
-                      % else:
+                      % elif co.valid_until.date() == date.today():
                         <a href="${request.route_path('institution', id=institution.id)}">
-                          <span class="dot expired_today"></span><span style="margin:10px"></span>
+                          <span class="dot expires_today"></span><span style="margin:10px"></span>
                         </a>
                       % endif
                     % endif
@@ -64,7 +61,6 @@
                 </td>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.address}</a></td>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.phone}</a></td>
-                ##<td><a href="${request.route_path('institution', id=institution.id)}">${institution.contacts[0].name (institution.contacts[0].phone) if institution.contacts else ''} </td></a>
               % endfor
               </tr>
             </tbody>
