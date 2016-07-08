@@ -22,8 +22,16 @@ def document_upload(request):
 
     dir_name = 'makler/documents/'
 
-    filename = request.POST['document'].filename
     co_id = request.POST['coid']
+    contract = Session.query(Contract).filter(Contract.id == co_id).first()
+    inst_id = contract.institution.id
+
+    try:
+        filename = request.POST['document'].filename
+    except:
+        return HTTPFound(location=request.route_path(
+                         'institution', id=inst_id))
+
     input_file = request.POST['document'].file
     uuid_name = os.path.join('%s' % uuid.uuid4())
     path = dir_name + uuid_name[0:1] + '/' + uuid_name[1:2]
@@ -37,13 +45,10 @@ def document_upload(request):
 
     os.rename(temp_file_path, file_path)
 
-    contract = Session.query(Contract).filter(Contract.id == co_id).first()
-
     upload_date = date.today()
     document = Document(original_name=filename, code_name=uuid_name,
                         contract=contract, upload_date=upload_date)
     Session.add(document)
-    inst_id = contract.institution.id
 
     try:
         Session.flush()

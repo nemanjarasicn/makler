@@ -1,7 +1,5 @@
 ## -*- coding: utf-8 -*-
-<%!
-  from datetime import date, timedelta
-%>
+
 <%inherit file="base_select2.mak"/>
 
 <%def name="title()">Makler DB</%def>
@@ -45,19 +43,11 @@
                     <td><a href="${request.route_path('institution', id=institution.id)}">${institution.name}</a></td>
                 % endif
                 <td class="contract_warning_home">
-                  % for co in institution.contracts:
-                    % if co.valid_until != None:
-                      % if (co.valid_until.date() - timedelta(days=days_remain) < date.today()) and (co.valid_until.date() > date.today()):
-                        <a href="${request.route_path('institution', id=institution.id)}">
-                          <span class="dot expires_soon"></span><span style="margin:10px"></span>
-                        </a>
-                      % elif co.valid_until.date() == date.today():
-                        <a href="${request.route_path('institution', id=institution.id)}">
-                          <span class="dot expires_today"></span><span style="margin:10px"></span>
-                        </a>
-                      % endif
-                    % endif
-                  % endfor
+                  % if institution.num_of_contr_exp > 0:
+                    <a href="${request.route_path('institution', id=institution.id)}" title="Broj ugovora koji uskoro ističu: ${institution.num_of_contr_exp}">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    </a>
+                  % endif
                 </td>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.address}</a></td>
                 <td><a href="${request.route_path('institution', id=institution.id)}">${institution.phone}</a></td>

@@ -59,10 +59,10 @@
             <tr>
               <td>${contact.name}</td>
               <td>${contact.telephone}</td>
-              <td class="no-print">
+              <td class="no-print tac">
                 <form action="${request.route_path('contact_delete')}" method="POST" style="display:inline">
                   <input type="hidden" name="id" value="${contact.id}" />
-                  <button class="delete" type="submit"></button>
+                  <a class="delete" type="submit"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
                 </form>
               </td>
             </tr>
@@ -107,11 +107,11 @@
           <td>${instrument.age}</td>
           <td>${instrument.sample_numbers}</td>
           <td>${instrument.department}</td>
-          <td style="font-size: 13px;">${instrument.description}</td>
-          <td class="no-print">
+          <td class="descript">${instrument.description}</td>
+          <td class="no-print tac">
             <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
               <input type="hidden" name="id" value="${instrument.id}" />
-              <button class="delete" type="submit"></button>
+              <a class="delete" type="submit"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
             </form>
           </td>
         </tr>
@@ -137,8 +137,8 @@
             <th class="contract_name">Naziv ugovora</th>
             <th class="contract_description">Komentar</th>
             <th class="contract_value">Vrednost</th>
-            <th width="50" class="no-print"><span class="narrow">Dokument</span></th>
-            <th width="50" class="no-print"><span class="narrow">Izmeni</span></th>
+            <th class="no-print tac"></th>
+            <th class="no-print tac"></th>
           </tr>
         </thead>
         <tbody>
@@ -148,7 +148,7 @@
             <td>${co.created.strftime('%d.%m.%Y') if co.created != None else None}</td>
             <td>
               % if co.valid_until != None:
-                  <span class='dot ${is_valid(co.valid_until.date(),days_remain)}'></span>
+                  <i class="fa ${is_valid(co.valid_until.date(),days_remain)}" aria-hidden="true"></i>
                   <span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
               % endif
             </td>
@@ -156,12 +156,16 @@
             <td class="descript">${co.description}</td>
             <td>${co.value}</td>
             ## Upload
-            <td class="no-print">
-              <a href="" class="round  add no-print" data-reveal-id="novi-dokument-${co.id}"  style="display:inline"><button class="document"></button></a>
+            <td class="no-print tac">
+              <a href="" class="round no-print" data-reveal-id="novi-dokument-${co.id}" style="display:inline" title="Dokumenti koji su vezani za ugovor">
+                <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+              </a>
             </td>
             ## / Upload
-            <td class="no-print">
-              <a href="" class="round  add no-print" data-reveal-id="izmeni-ugovor-${co.id}"  style="display:inline"><button class="edit"></button></a>
+            <td class="no-print tac">
+              <a href="" class="round no-print" data-reveal-id="izmeni-ugovor-${co.id}" style="display:inline" title="Izmena ugovora">
+                 <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+               </a>
             </td>
           </tr>
           % endfor
@@ -260,7 +264,7 @@
         <thead>
           <tr>
             <th class="w65">Naziv Dokumenta</th>
-            <th class="w25">Datum postavljanja</th>
+            <th>Datum postavljanja</th>
             <th>Preuzmi</th>
           </tr>
         </thead>
@@ -270,7 +274,9 @@
             <td>${doc.original_name}</td>
             <td>${doc.upload_date.strftime('%d.%m.%Y') if doc.upload_date != None else None}</td>
             <td style="margin: 8px 0; display: block; text-align: center;">
-              <a href="${request.route_path('document_download', id=doc.id)}"><img src="/public/img/download.png"/></a>
+              <a href="${request.route_path('document_download', id=doc.id)}">
+                <i class="fa fa-download fa-2x" aria-hidden="true"></i>
+              </a>
             </td>
 
           </tr>
@@ -283,7 +289,7 @@
           <input type="text" name="document" value="" size="40" class="file_input_replacement" placeholder="Izaberi dokument" />
           <input type="file" name="document" class="file_input_with_replacement" />
           <input type="text" name="coid" value="${co.id}" style="display: none;" />
-          <input class="small round button float_right"  type="submit" value="Dodaj" />
+          <input class="small round button float_right" type="submit" value="Dodaj" disabled />
       </form>
 
       <a class="close-reveal-modal">&#215;</a>
@@ -506,12 +512,12 @@ ${parent.javascripts()}
 <%
     today = date.today()
     if until - timedelta(days=days_remain) < today and until > today:
-        return "expires_soon"
+        return "fa-exclamation-triangle color_yellow"
     elif until > today:
-        return "still_active"
+        return "fa-circle color_green"
     elif until < today:
-        return "expired"
+        return "fa-ban color_grey"
     else:
-        return "expires_today"
+        return "fa-exclamation-triangle color_red"
 %>
 </%def>

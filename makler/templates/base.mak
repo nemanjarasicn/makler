@@ -20,8 +20,9 @@
     <script src="${request.static_url('makler:public/js/vendor/custom.modernizr.js')}"></script>
     <link rel="stylesheet" href="${request.static_url('makler:public/css/normalize.css')} " type="text/css" />
     <link rel="stylesheet" href="${request.static_url('makler:public/css/foundation.css')}" type="text/css" />
-    <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}" type="text/css" media="screen" />
     <link rel="stylesheet" href="${request.static_url('makler:public/css/print.css')}" type="text/css" media="print" />
+    <link rel="stylesheet" href="${request.static_url('makler:public/css/font-awesome.css')}" />
+    <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}" type="text/css" media="screen" />
     <%block name="stylesheets"></%block>
   </head>
   <body>

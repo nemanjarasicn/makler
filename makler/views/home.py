@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from itertools import groupby
+from datetime import date, timedelta
 
 from sqlalchemy import sql
 from sqlalchemy import orm
@@ -18,6 +19,16 @@ from ..model.institution import Institution
 def home(request):
 
     institutions_q = Session.query(Institution)
+
+    days_remain = int(request.registry.settings.get('days_remain', 30))
+
+    institution_list = []
+    for inst in institutions_q:
+        inst.num_of_contr_exp = 0
+        institution_list.append(inst)
+        for co in inst.contracts:
+            if (co.valid_until.date() - timedelta(days=days_remain) < date.today()) and (co.valid_until.date() >= date.today()):  # NOQA
+                inst.num_of_contr_exp += 1
 
     instrument_types_q = (
         Session.query(InstrumentType)
@@ -72,10 +83,8 @@ def home(request):
     instrument_types_grouped = groupby(
         active_installed, lambda x: x[0].manufacturer)
 
-    days_remain = int(request.registry.settings.get('days_remain', 30))
-
     return {
-        'institutions': institutions_q.all(),
+        'institutions': institution_list,
         'instrument_types': instrument_types_q.all(),
         'instrument_type_no': instrument_type_no.all(),
         'no_instruments': no_instruments,
