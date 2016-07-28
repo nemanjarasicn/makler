@@ -107,7 +107,7 @@
           <td>${instrument.age}</td>
           <td>${instrument.sample_numbers}</td>
           <td>${instrument.department}</td>
-          <td class="descript">${instrument.description}</td>
+          <td class="comment_text">${instrument.description}</td>
           <td class="no-print tac">
             <form action="${request.route_path('instrument_delete')}" method="POST" style="display:inline">
               <input type="hidden" name="id" value="${instrument.id}" />
@@ -124,7 +124,6 @@
 
 <div class="row">
   <div class="large-12 columns top_px">
-
     ##  Ugovori
     <h4 style="display:inline;">Ugovor</h4>
       <a href="" class="tiny round button add no-print" data-reveal-id="novi-ugovor">Dodaj</a>
@@ -137,6 +136,7 @@
             <th class="contract_name">Naziv ugovora</th>
             <th class="contract_description">Komentar</th>
             <th class="contract_value">Vrednost</th>
+            <th class="contract_supplier">Isporučilac</th>
             <th class="no-print tac"></th>
             <th class="no-print tac"></th>
           </tr>
@@ -152,9 +152,30 @@
                   <span class="until">${co.valid_until.date().strftime('%d.%m.%Y')}</span>
               % endif
             </td>
-            <td>${co.name}</td>
-            <td class="descript">${co.description}</td>
-            <td>${co.value}</td>
+            <td class="relative">
+              % if co.name != None:
+                <span class="col-span-2">${co.name[0:16]}</span><span class="more-fold" style="word-break: break-word;">${co.name[16:]}</span>
+                % if co.name != '' and co.name != co.name[0:16]:
+                  <a class="more-toggle btn expand" title="Izmena veličine prikaza"><i class="fa fa-plus fa-1x color_light_grey" aria-hidden="true"></i></a>
+                % endif
+              % endif
+            </td>
+            <td class="relative explanation comment_text">
+              % if co.description != None:
+                <span class="col-span-2">${co.description[0:16]}</span><span class="more-fold" style="word-break: break-word;">${co.description[16:]}</span>
+                % if co.description != '' and co.description != co.description[0:16]:
+                  <a class="more-toggle btn expand" title="Izmena veličine prikaza"><i class="fa fa-plus fa-1x color_light_grey" aria-hidden="true"></i></a>
+                % endif
+              % endif
+            </td>
+            <td class="value">${price(co.value)}</td>
+            <td>
+              % for su in suppliers:
+                 % if co.supplier_id == su.id:
+                   ${su.name}
+                 % endif
+              % endfor
+            </td>
             ## Upload
             <td class="no-print tac">
               <a href="" class="round no-print" data-reveal-id="novi-dokument-${co.id}" style="display:inline" title="Dokumenti koji su vezani za ugovor">
@@ -246,9 +267,33 @@
         </div>
         <div class="small-8 columns">
           <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${co.value}"
-                 pattern="^[0-9]*" title="Samo cifre mogu biti unete"/>
+                 pattern="^[0-9]*" title="Samo cifre mogu biti unete" required/>
         </div>
       </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Isporučilac</label>
+        </div>
+        <div class="small-7 columns">
+          <select name="supplier_id" class="full-width form-control supplier_list">
+            <option></option>
+            % for su in suppliers:
+              % if co.supplier_id == su.id:
+                <option value="${su.id}" selected>${su.name}</option>
+              % else:
+                <option value="${su.id}">${su.name}</option>
+              % endif
+            % endfor
+          </select>
+        </div>
+        <div class="small-1 columns">
+          <a data-reveal-id="novi-isporucilac" title="Unesi naziv novog isporučioca">
+            <i class="fa fa-plus fa-2x fa_plus" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
     <button class="small round button" type="submit" style="margin-top:10px;">Izmeni</button>
     <a class="small round cancel button">Odustani</a>
     </form>
@@ -359,9 +404,33 @@
         </div>
         <div class="small-8 columns">
           <input type="text" name="value" class="right-label" placeholder="Vrednost"
-                 pattern="^[0-9]*" title="Samo cifre mogu biti unete" />
+                 pattern="^[0-9]*" title="Samo cifre mogu biti unete" required/>
         </div>
       </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          <label class="right inline">Isporučilac</label>
+        </div>
+        <div class="small-7 columns">
+          <select name="supplier_id" class="full-width supplier_list">
+            <option></option>
+            % for sup in suppliers:
+              % if supplier_id == sup.id:
+                <option value="${sup.id}" selected>${sup.name}</option>
+              % else:
+                <option value="${sup.id}">${sup.name}</option>
+              % endif
+            % endfor
+          </select>
+        </div>
+        <div class="small-1 columns">
+          <a data-reveal-id="novi-isporucilac" title="Unesi naziv novog isporučioca">
+            <i class="fa fa-plus fa-2x fa_plus" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
     <button class="small round button" type="submit" style="margin-top:10px;">Dodaj</button>
     <a class="small round cancel button">Odustani</a>
     </form>
@@ -476,6 +545,7 @@
           <input type="hidden" name="institution_id" value="${institution.id}" />
 
           <select id="lis_list" name="lis_id" class="full-width">
+          <option></option>
           % for i in lis:
             <option value="${i.id}">${i.name}</option>
           % endfor
@@ -500,6 +570,18 @@
     </div>
   <a class="close-reveal-modal">&#215;</a>
   </div>
+
+  <div id="novi-isporucilac" class="small reveal-modal">
+    <div class="row">
+      <div class="large-12 columns">
+        <form action="${request.route_path('supplier_new')}" method="POST">
+          <input type="text" name="name" placeholder="Unesi naziv novog isporučioca" />
+        </form>
+      </div>
+    </div>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+
 </%block>
 
 <%block name="javascripts">
@@ -519,5 +601,15 @@ ${parent.javascripts()}
         return "fa-ban color_grey"
     else:
         return "fa-exclamation-triangle color_red"
+%>
+</%def>
+
+<%def name="price(cost)">
+<%
+    if type(cost) != int:
+        return cost
+    else:
+        cost = '{:,.2f}'.format(cost)
+    return cost
 %>
 </%def>

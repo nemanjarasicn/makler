@@ -127,6 +127,10 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
     margin: 0px;
 }
 
+.ugovori tr {
+    vertical-align: top;
+}
+
 .contract_date {
     width: 112px;
 }
@@ -140,15 +144,24 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
 }
 
 .contract_name {
-    width: 230px;
+    width: 150px;
 }
 
 .contract_description {
-    width: 190px;
+    width: 150px;
 }
 
 .contract_value {
     width: 150px;
+    padding-left: 80px !important;
+}
+
+.contract_supplier {
+    width: 134px;
+}
+
+.comment_text {
+    font-size: 13px;
 }
 
 .until {
@@ -184,9 +197,12 @@ input.file_input_replacement {
     text-align: center;
 }
 
-.descript {
-    font-size: 13px;
+.explanation {
     word-break: inherit;
+}
+
+.relative {
+    position: relative;
 }
 
 .color_yellow {
@@ -203,6 +219,10 @@ input.file_input_replacement {
 
 .color_grey {
     color: #e6e6e6;
+}
+
+.color_light_grey {
+  color: #e9e9e9;
 }
 
 .fa-2x {
@@ -222,10 +242,29 @@ input.file_input_replacement {
 }
 
 .button[disabled], .button[disabled]:hover {
-  background-color: #C79195;
-  border-color: #CD9A9C;
+    background-color: #C79195;
+    border-color: #CD9A9C;
 }
 
 .delete {
     cursor: pointer;
+}
+
+.fa_plus {
+    color: #bbbbbb;
+    cursor: pointer;
+    padding-top: 3px;
+    margin-left: -6px;
+}
+
+.expand {
+    float: right;
+    position: absolute;
+    right: 0;
+    top: 8px;
+    cursor: pointer;
+}
+
+.value {
+    float: right;
 }

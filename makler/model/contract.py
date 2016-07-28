@@ -23,4 +23,6 @@ class Contract(Base):
     valid_until = Column(types.DateTime(timezone=True))
     description = Column(types.String(50))
     value = Column(types.Integer)
+    supplier_id = Column(types.Integer,
+                         ForeignKey('suppliers.id'), nullable=True)
     institution = relationship(Institution, backref="contracts", uselist=False)

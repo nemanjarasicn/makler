@@ -23,6 +23,11 @@ $(document).ready(function() {
         'formatNoMatches': noResults
     });
 
+    $('.supplier_list').select2({
+        'placeholder': 'Izaberite isporučioca',
+        'formatNoMatches': noResults
+    });
+
     $('.cancel').on('click', function (e) {
         e.preventDefault();
         $(this).foundation('reveal', 'close');
@@ -85,4 +90,23 @@ $(document).ready(
                 }
             }
         );
+});
+
+$(document).ready(function() {
+  var toogleText = jQuery(".more-toggle").html();
+  jQuery(".more-toggle").prev().hide();
+  jQuery(".more-toggle").addClass('closed');
+  jQuery(".more-toggle").click(function() {
+    jQuery(this).prev().slideToggle(100, function() {
+      if ($(this).is(':hidden')) {
+        jQuery(this).next().removeClass('open');
+        jQuery(this).next().addClass('closed');
+        jQuery(this).next().html(toogleText);
+      } else {
+        jQuery(this).next().removeClass('closed');
+        jQuery(this).next().addClass('open');
+        jQuery(this).next().html('<i class="fa fa-minus fa-1x color_light_grey" aria-hidden="true"></i>');
+      }
+    });
+  });
 });

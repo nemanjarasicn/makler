@@ -44,5 +44,7 @@ def main(global_config, **settings):
     config.add_route('document_upload', '/document_upload')
     config.add_route('document_download', '/document_download/{id}')
 
+    config.add_route('supplier_new', '/supplier')
+
     config.scan('.views')
     return config.make_wsgi_app()

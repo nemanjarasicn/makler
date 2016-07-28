@@ -84,12 +84,13 @@ def contract_edit(request):
     if not contract:
         raise HTTPNotFound
 
-    contract.name = request.POST['name']
-    contract.description = request.POST['description']
-    contract.value = request.POST['value']
-    contract.announced = data['announced']
-    contract.created = data['created']
-    contract.valid_until = data['valid_until']
+    contract.name = data.get('name')
+    contract.description = data.get('description')
+    contract.value = data.get('value')
+    contract.announced = data.get('announced')
+    contract.created = data.get('created')
+    contract.valid_until = data.get('valid_until')
+    contract.supplier_id = data.get('supplier_id')
 
     try:
         transaction.commit()

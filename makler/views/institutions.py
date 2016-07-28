@@ -10,6 +10,7 @@ from ..model.institution import Institution
 from ..model.instrument import Instrument
 from ..model.instrument import InstrumentType
 from ..model.lis import LabInformationSystem
+from ..model.supplier import Supplier
 from ..model.contract import Contract
 from ..model.session import Session
 
@@ -63,13 +64,16 @@ def institution_edit(request):
         .filter(Contract.institution_id == id)
     )
 
+    supplier_list = Session.query(Supplier)
+
     return {
         'institution': institution,
         'instruments': instruments_query.all(),
         'instrument_types': instrument_types.all(),
         'lis': lis_list.all(),
         'contracts': contracts.all(),
-        'days_remain': days_remain
+        'days_remain': days_remain,
+        'suppliers': supplier_list
     }
 
 

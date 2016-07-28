@@ -26,9 +26,11 @@ def home(request):
     for inst in institutions_q:
         inst.num_of_contr_exp = 0
         institution_list.append(inst)
+
         for co in inst.contracts:
-            if (co.valid_until.date() - timedelta(days=days_remain) < date.today()) and (co.valid_until.date() >= date.today()):  # NOQA
-                inst.num_of_contr_exp += 1
+            if co.valid_until:
+                if (co.valid_until.date() - timedelta(days=days_remain) < date.today()) and (co.valid_until.date() >= date.today()):  # NOQA
+                    inst.num_of_contr_exp += 1
 
     instrument_types_q = (
         Session.query(InstrumentType)
