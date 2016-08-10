@@ -2,7 +2,7 @@
 
 <%inherit file="base_select2.mak"/>
 
-<%def name="title()">Makler DB</%def>
+<%def name="title()">Makler - Baza aparata</%def>
 
 <div class="section-container auto" data-section>
   <section>

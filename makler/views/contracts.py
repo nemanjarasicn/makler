@@ -2,6 +2,7 @@
 import transaction
 
 import datetime
+import decimal
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
@@ -12,40 +13,52 @@ from ..model.contract import Contract
 from ..model.session import Session
 
 
-@view_config(route_name='contract_new',
-             request_method="POST")
-def contract_new(request):
+@view_config(request_method='GET')
+def get_data(request):
+
     data = dict(request.params)
-    institution_id = data.get('institution_id')
+    data['institution_id'] = data.get('institution_id')
+
     try:
         data['announced'] = (
             datetime.datetime.strptime(
                 data.get('announced'), "%d.%m.%Y")
-        )
+            )
         data['created'] = (
             datetime.datetime.strptime(
                 data.get('created'), "%d.%m.%Y")
-        )
+            )
         data['valid_until'] = (
             datetime.datetime.strptime(
                 data.get('valid_until'), "%d.%m.%Y")
-        )
+            )
+        data['value'] = (
+            decimal.Decimal(data['value'])
+            )
 
     except (KeyError, ValueError):
         return HTTPFound(location=request.route_path(
-                         'institution', id=institution_id))
+            'institution', id=data['institution_id']))
 
-    contract = Contract(**data)
-    Session.add(contract)
-    Session.flush()
+    return data
+
+
+@view_config(route_name='contract_new',
+             request_method="POST")
+def contract_new(request):
+
+    data = get_data(request)
 
     try:
         transaction.commit()
+        contract = Contract(**data)
+        Session.add(contract)
+        Session.flush()
     except:
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
-        'institution', id=institution_id))
+        'institution', id=data['institution_id']))
 
 
 @view_config(route_name='contract_edit',
@@ -53,28 +66,7 @@ def contract_new(request):
 def contract_edit(request):
     """Updates contracts"""
 
-    data = dict(request.params)
-    institution_id = data.get('institution_id')
-
-    try:
-        data['announced'] = (
-            datetime.datetime.strptime(
-                data.get('announced'), "%d.%m.%Y")
-            )
-        data['created'] = (
-            datetime.datetime.strptime(
-                data.get('created'), "%d.%m.%Y")
-            )
-        data['valid_until'] = (
-            datetime.datetime.strptime(
-                data.get('valid_until'), "%d.%m.%Y")
-            )
-
-    except (KeyError, ValueError):
-        return HTTPFound(location=request.route_path(
-                         'institution', id=institution_id))
-
-    contract = Contract(**data)
+    data = get_data(request)
 
     id = request.POST['id']
     contract = (Session.query(Contract)
@@ -98,4 +90,4 @@ def contract_edit(request):
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
-        'institution', id=institution_id))
+        'institution', id=data['institution_id']))

@@ -22,7 +22,6 @@ a:hover {
 }
 
 td {
-    word-break:break-all;
     word-wrap: break-word;
     white-space:normal;
 }
@@ -71,8 +70,8 @@ ul li {
 }
 
 .aparati tr td {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     word-break: break-word;
     height: 2.2em;
 }
@@ -222,7 +221,7 @@ input.file_input_replacement {
 }
 
 .color_light_grey {
-  color: #e9e9e9;
+  color: #bbbbbb;
 }
 
 .fa-2x {
@@ -236,7 +235,6 @@ input.file_input_replacement {
     font-size: 0.8em;
 }
 
-/*  text_align_center */
 .tac {
     text-align: center;
 }
@@ -267,4 +265,12 @@ input.file_input_replacement {
 
 .value {
     float: right;
+}
+
+.margin_add_new {
+    margin: 10px 0;
+}
+
+.reveal-padding {
+    padding: 30px 30px 10px 30px;
 }

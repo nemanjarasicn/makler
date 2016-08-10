@@ -266,8 +266,8 @@
           <label class="right inline">Vrednost</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${co.value}"
-                 pattern="^[0-9]*" title="Samo cifre mogu biti unete" required/>
+          <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${dec_num(co.value)}"
+                 pattern="^[0-9]*\.?[0-9]*"  title="Samo cifre i tačka mogu biti unete" required/>
         </div>
       </div>
 
@@ -275,7 +275,7 @@
         <div class="small-4 columns">
           <label class="right inline">Isporučilac</label>
         </div>
-        <div class="small-7 columns">
+        <div class="small-8 columns">
           <select name="supplier_id" class="full-width form-control supplier_list">
             <option></option>
             % for su in suppliers:
@@ -287,15 +287,10 @@
             % endfor
           </select>
         </div>
-        <div class="small-1 columns">
-          <a data-reveal-id="novi-isporucilac" title="Unesi naziv novog isporučioca">
-            <i class="fa fa-plus fa-2x fa_plus" aria-hidden="true"></i>
-          </a>
-        </div>
       </div>
-
-    <button class="small round button" type="submit" style="margin-top:10px;">Izmeni</button>
-    <a class="small round cancel button">Odustani</a>
+      <button class="small round button" type="submit">Izmeni</button>
+      <a class="small round cancel button">Odustani</a>
+      <a href="" class="small round button right" style="right:20px;"data-reveal-id="novi-isporucilac" title="Unesi naziv novog isporučioca">Dodaj isporučioca</a>
     </form>
     <a class="close-reveal-modal">&#215;</a>
   </div>
@@ -404,7 +399,7 @@
         </div>
         <div class="small-8 columns">
           <input type="text" name="value" class="right-label" placeholder="Vrednost"
-                 pattern="^[0-9]*" title="Samo cifre mogu biti unete" required/>
+                 pattern="^[0-9]*\.?[0-9]*" title="Samo cifre i tačka mogu biti unete" required/>
         </div>
       </div>
 
@@ -412,7 +407,7 @@
         <div class="small-4 columns">
           <label class="right inline">Isporučilac</label>
         </div>
-        <div class="small-7 columns">
+        <div class="small-8 columns">
           <select name="supplier_id" class="full-width supplier_list">
             <option></option>
             % for sup in suppliers:
@@ -424,15 +419,10 @@
             % endfor
           </select>
         </div>
-        <div class="small-1 columns">
-          <a data-reveal-id="novi-isporucilac" title="Unesi naziv novog isporučioca">
-            <i class="fa fa-plus fa-2x fa_plus" aria-hidden="true"></i>
-          </a>
-        </div>
       </div>
-
-    <button class="small round button" type="submit" style="margin-top:10px;">Dodaj</button>
-    <a class="small round cancel button">Odustani</a>
+      <button class="small round button" type="submit">Dodaj</button>
+      <a class="small round cancel button">Odustani</a>
+      <a href="" class="small round button right" style="right:20px;" data-reveal-id="novi-isporucilac" title="Unesi naziv novog isporučioca">Dodaj isporučioca</a>
     </form>
     <a class="close-reveal-modal">&#215;</a>
   </div>
@@ -559,11 +549,18 @@
     </div><a class="close-reveal-modal">&#215;</a>
   </div>
 
-  <div id="novi-lis" class="small reveal-modal">
+  <div id="novi-lis" class="small reveal-modal reveal-padding">
     <div class="row">
       <div class="large-12 columns">
-        <form action="${request.route_path('lis_new')}" method="POST">
+        <h4>Dodaj novi laboratorijski informacioni sistem</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <form action="${request.route_path('lis_new')}" method="POST" class="margin_add_new">
           <input type="text" name="name" placeholder="Unesite naziv lab informacionog sistema" />
+          <button type="submit" class="small round button margin_add_new">Sačuvaj</button>
+          <a class="small round cancel button margin_add_new">Odustani</a>
 
         </form>
       </div>
@@ -571,11 +568,18 @@
   <a class="close-reveal-modal">&#215;</a>
   </div>
 
-  <div id="novi-isporucilac" class="small reveal-modal">
+  <div id="novi-isporucilac" class="small reveal-modal reveal-padding">
+  <div class="row">
+    <div class="large-12 columns">
+      <h4>Dodaj novog isporučioca</h4>
+    </div>
+  </div>
     <div class="row">
       <div class="large-12 columns">
-        <form action="${request.route_path('supplier_new')}" method="POST">
-          <input type="text" name="name" placeholder="Unesi naziv novog isporučioca" />
+        <form action="${request.route_path('supplier_new')}" method="POST" class="margin_add_new">
+          <input type="text" name="name" placeholder="Unesite naziv novog isporučioca" />
+          <button type="submit" class="small round button margin_add_new">Sačuvaj</button>
+          <a class="small round cancel button margin_add_new">Odustani</a>
         </form>
       </div>
     </div>
@@ -606,10 +610,17 @@ ${parent.javascripts()}
 
 <%def name="price(cost)">
 <%
-    if type(cost) != int:
-        return cost
-    else:
-        cost = '{:,.2f}'.format(cost)
-    return cost
+    worth = str(cost)
+    worth = str(worth[:-8])
+    worth = '{:,.2f}'.format(cost)
+    return worth
+%>
+</%def>
+
+<%def name="dec_num(number)">
+<%
+    number = str(number)
+    number = number[:-8]
+    return number
 %>
 </%def>

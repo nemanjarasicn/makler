@@ -22,7 +22,7 @@ class Contract(Base):
     created = Column(types.DateTime(timezone=True))
     valid_until = Column(types.DateTime(timezone=True))
     description = Column(types.String(50))
-    value = Column(types.Integer)
+    value = Column(types.Numeric)
     supplier_id = Column(types.Integer,
                          ForeignKey('suppliers.id'), nullable=True)
     institution = relationship(Institution, backref="contracts", uselist=False)
