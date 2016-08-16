@@ -23,18 +23,18 @@ def get_data(request):
         data['announced'] = (
             datetime.datetime.strptime(
                 data.get('announced'), "%d.%m.%Y")
-            )
+        )
         data['created'] = (
             datetime.datetime.strptime(
                 data.get('created'), "%d.%m.%Y")
-            )
+        )
         data['valid_until'] = (
             datetime.datetime.strptime(
                 data.get('valid_until'), "%d.%m.%Y")
-            )
+        )
         data['value'] = (
             decimal.Decimal(data['value'])
-            )
+        )
 
     except (KeyError, ValueError):
         return HTTPFound(location=request.route_path(
@@ -50,10 +50,10 @@ def contract_new(request):
     data = get_data(request)
 
     try:
-        transaction.commit()
         contract = Contract(**data)
         Session.add(contract)
         Session.flush()
+        transaction.commit()
     except:
         raise HTTPInternalServerError
 

@@ -17,7 +17,7 @@ requires = [
 ]
 
 setup(name='makler',
-      version='0.3.6',
+      version='0.3.7',
       description='makler',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
