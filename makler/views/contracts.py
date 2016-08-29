@@ -9,8 +9,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.contract import Contract
-from ..model.session import Session
+from ..models import Contract
 
 
 @view_config(request_method='GET')
@@ -51,10 +50,10 @@ def contract_new(request):
 
     try:
         contract = Contract(**data)
-        Session.add(contract)
-        Session.flush()
+        request.dbsession.add(contract)
         transaction.commit()
-    except:
+    except Exception as e:
+        print e
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -69,7 +68,7 @@ def contract_edit(request):
     data = get_data(request)
 
     id = request.POST['id']
-    contract = (Session.query(Contract)
+    contract = (request.dbsession.query(Contract)
                 .filter(Contract.id == id)
                 .first())
 

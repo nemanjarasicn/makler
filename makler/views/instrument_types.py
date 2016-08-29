@@ -9,11 +9,10 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.instrument import InstrumentType
-from ..model.instrument import Instrument
-from ..model.instrument import Institution
-from ..model.instrument import InstrumentTypeCategory
-from ..model.session import Session
+from ..models import InstrumentType
+from ..models import Instrument
+from ..models import Institution
+from ..models import InstrumentTypeCategory
 
 
 @view_config(route_name='instrument_type_new',
@@ -23,7 +22,7 @@ def instrument_type_new(request):
     """Display a form for creating instrument type.
     """
     instrument_type = InstrumentType()
-    categories = (Session.query(InstrumentTypeCategory))
+    categories = (request.dbsession.query(InstrumentTypeCategory))
 
     return {
         'instrument_type': instrument_type,
@@ -39,14 +38,15 @@ def instrument_type_edit(request):
     """
     id = request.matchdict['id']
 
-    instrument_type = (Session.query(InstrumentType)
+    instrument_type = (request.dbsession.query(InstrumentType)
                        .filter(InstrumentType.id == id)
                        .first())
 
     if not instrument_type:
         raise HTTPNotFound
 
-    instrument_type_categories = (Session.query(InstrumentTypeCategory))
+    instrument_type_categories = (request.dbsession.query(
+        InstrumentTypeCategory))
 
     act = (
         orm.Query([
@@ -68,12 +68,13 @@ def instrument_type_edit(request):
     )
 
     instruments_no = (
-        Session.query(sql.func.sum(installed.c.installed)).scalar())
+        request.dbsession.query(sql.func.sum(installed.c.installed)).scalar())
 
-    instruments_active = (Session.query(sql.func.sum(act.c.active)).scalar())
+    instruments_active = (request.dbsession.query(
+        sql.func.sum(act.c.active)).scalar())
 
     instruments = (
-        Session.query(
+        request.dbsession.query(
             Institution.id,
             Institution.name,
             installed.c.installed,
@@ -110,7 +111,7 @@ def instrument_type_create(request):
     instrument_type = InstrumentType(**safe_data)
 
     try:
-        Session.add(instrument_type)
+        request.dbsession.add(instrument_type)
         transaction.commit()
     except:
         raise HTTPInternalServerError
@@ -123,7 +124,7 @@ def instrument_type_create(request):
 def instrument_type_update(request):
     id = request.matchdict['id']
 
-    instrument_type = (Session.query(InstrumentType)
+    instrument_type = (request.dbsession.query(InstrumentType)
                        .filter(InstrumentType.id == id)
                        .first())
 

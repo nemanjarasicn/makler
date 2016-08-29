@@ -2,26 +2,23 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import os
+
+from ConfigParser import ConfigParser
+
 from sqlalchemy import create_engine
 
+from models import *
 
-def init_db(db_file="makler.db"):
-    cwd = os.path.dirname(os.path.realpath(__file__))
-    fullpath_db = os.path.abspath(
-        os.path.join(cwd, '../', db_file))
 
-    engine = create_engine(
-        'sqlite:///' + fullpath_db, echo=True)
+def init_db(config_filename):
 
-    from model.base import meta
-    from model import schema  # NOQA
+    config = ConfigParser()
+    config.read(config_filename)
+
+    engine_url = config.get('app:main', 'sqlalchemy.url')
+    engine = create_engine(engine_url)
+
     meta.create_all(bind=engine)
 
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        db_file = sys.argv[1]
-    else:
-        db_file = "makler.db"
-        init_db(db_file) or sys.exit(1)
+if __name__ == "__main__":
+    init_db(sys.argv[1])

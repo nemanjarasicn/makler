@@ -6,13 +6,12 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.institution import Institution
-from ..model.instrument import Instrument
-from ..model.instrument import InstrumentType
-from ..model.lis import LabInformationSystem
-from ..model.supplier import Supplier
-from ..model.contract import Contract
-from ..model.session import Session
+from ..models import Institution
+from ..models import Instrument
+from ..models import InstrumentType
+from ..models import LabInformationSystem
+from ..models import Supplier
+from ..models import Contract
 
 
 @view_config(route_name='institution_new',
@@ -35,7 +34,7 @@ def institution_edit(request):
     """Displays form for editing existing institution"""
 
     id = request.matchdict['id']
-    institution = (Session.query(Institution)
+    institution = (request.dbsession.query(Institution)
                    .filter(Institution.id == id)
                    .first())
 
@@ -43,7 +42,7 @@ def institution_edit(request):
         raise HTTPNotFound
 
     instruments_query = (
-        Session.query(Instrument)
+        request.dbsession.query(Instrument)
         .join(Instrument.instrument_type)
         .filter(Instrument.institution_id == id)
         .order_by(Instrument.department, InstrumentType.manufacturer,
@@ -53,18 +52,18 @@ def institution_edit(request):
     days_remain = int(request.registry.settings.get('days_remain', 30))
 
     instrument_types = (
-        Session.query(InstrumentType)
+        request.dbsession.query(InstrumentType)
         .order_by(InstrumentType.name)
     )
 
-    lis_list = Session.query(LabInformationSystem)
+    lis_list = request.dbsession.query(LabInformationSystem)
 
     contracts = (
-        Session.query(Contract)
+        request.dbsession.query(Contract)
         .filter(Contract.institution_id == id)
     )
 
-    supplier_list = Session.query(Supplier)
+    supplier_list = request.dbsession.query(Supplier)
 
     return {
         'institution': institution,
@@ -91,12 +90,12 @@ def institution_create(request):
         if key in safe_keys:
             safe_data[key] = data[key]
 
-    institution = Institution(**safe_data)
-    Session.add(institution)
-    Session.flush()
-    id = institution.id
-
     try:
+        institution = Institution(**safe_data)
+        request.dbsession.add(institution)
+        request.dbsession.flush()
+        id = institution.id
+        print "ID: ", id
         transaction.commit()
     except:
         raise HTTPInternalServerError
@@ -111,7 +110,7 @@ def institution_update(request):
     """Updates institutions"""
 
     id = request.POST['id']
-    institution = (Session.query(Institution)
+    institution = (request.dbsession.query(Institution)
                    .filter(Institution.id == id)
                    .first())
 

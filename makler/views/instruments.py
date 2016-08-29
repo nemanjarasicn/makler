@@ -6,10 +6,9 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.instrument import Instrument
-from ..model.instrument import InstrumentType
-from ..model.institution import Institution
-from ..model.session import Session
+from ..models import Instrument
+from ..models import InstrumentType
+from ..models import Institution
 
 
 @view_config(route_name='instrument_new',
@@ -20,11 +19,11 @@ def instrument_new(request):
     """
     id = request.matchdict['id']
 
-    institution = (Session.query(Institution)
+    institution = (request.dbsession.query(Institution)
                    .filter(Institution.id == id)
                    .first())
 
-    instrument_types = Session.query(InstrumentType).all()
+    instrument_types = request.dbsession.query(InstrumentType).all()
 
     if not institution:
         raise HTTPNotFound
@@ -40,7 +39,7 @@ def instrument_new(request):
              request_method='GET')
 def instrument_edit(request):
     id = request.matchdict['id']
-    instrument = (Session.query(Instrument)
+    instrument = (request.dbsession.query(Instrument)
                   .filter(Instrument.id == id)
                   .first())
 
@@ -75,14 +74,14 @@ def instrument_create(request):
 
     if not instrument.name:
         instrument_type = (
-            Session.query(InstrumentType)
+            request.dbsession.query(InstrumentType)
             .filter(InstrumentType.id == data['instrument_type_id'])
             .one())
 
         instrument.name = instrument_type.name
 
     try:
-        Session.add(instrument)
+        request.dbsession.add(instrument)
         transaction.commit()
     except:
         raise
@@ -97,7 +96,7 @@ def instrument_create(request):
 def instrument_update(request):
     id = request.matchdict['id']
 
-    instrument = (Session.query(Instrument)
+    instrument = (request.dbsession.query(Instrument)
                   .filter(Instrument.id == id)
                   .first())
 
@@ -140,14 +139,15 @@ def instrument_update(request):
              request_method="POST")
 def instrument_delete(request):
     id = request.POST['id']
-    instrument = Session.query(Instrument).filter(Instrument.id == id).first()
+    instrument = (request.dbsession.query(Instrument)
+                  .filter(Instrument.id == id).first())
 
     if not instrument:
         raise HTTPNotFound
 
     institution_id = instrument.institution.id
     try:
-        Session.delete(instrument)
+        request.dbsession.delete(instrument)
         transaction.commit()
     except:
         raise HTTPInternalServerError

@@ -1,24 +1,43 @@
+import zope.sqlalchemy
+
 from pyramid.config import Configurator
-from pyramid.session import UnencryptedCookieSessionFactoryConfig
+from pyramid.session import SignedCookieSessionFactory
 
 from sqlalchemy import engine_from_config
-from zope.sqlalchemy import ZopeTransactionExtension
+from sqlalchemy.orm import sessionmaker
 
-from .model.session import init_session
+
+def get_tm_session(session_factory, transaction_manager):
+    """
+    This function will hook the session to the transaction manager which
+    will take care of commiting any changes.
+    """
+    dbsession = session_factory()
+    zope.sqlalchemy.register(
+        dbsession, transaction_manager=transaction_manager)
+    return dbsession
 
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
-    init_session(engine, extension=ZopeTransactionExtension())
 
-    my_session_factory = UnencryptedCookieSessionFactoryConfig('makler')
+    session_factory = sessionmaker(bind=engine)
 
-    config = Configurator(
-        settings=settings,
-        session_factory=my_session_factory,
+    my_session_factory = SignedCookieSessionFactory('itsaseekreet')
+
+    config = Configurator(settings=settings,
+                          session_factory=my_session_factory)
+
+    config.registry['dbsession_factory'] = session_factory
+
+    config.add_request_method(
+        # r.tm is the transaction manager used by pyramid_tm
+        lambda r: get_tm_session(session_factory, r.tm),
+        'dbsession', reify=True
     )
+
     config.add_static_view('public', 'public', cache_max_age=3600)
     config.add_route('home', '/')
 

@@ -6,8 +6,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.contact import Contact
-from ..model.session import Session
+from ..models import Contact
 
 
 @view_config(route_name='contact_new',
@@ -24,7 +23,7 @@ def contact_new(request):
     contact = Contact(**safe_data)
 
     # If name/phone combination already exists, do nothing
-    if (Session.query(Contact)
+    if (request.dbsession.query(Contact)
             .filter(Contact.name == contact.name)
             .filter(Contact.institution_id == contact.institution_id)
             .filter(Contact.telephone == contact.telephone)
@@ -33,7 +32,7 @@ def contact_new(request):
                          'institution', id=data['institution_id']))
 
     try:
-        Session.add(contact)
+        request.dbsession.add(contact)
         transaction.commit()
     except:
         raise HTTPInternalServerError
@@ -47,14 +46,14 @@ def contact_new(request):
 def contact_delete(request):
 
     id = request.POST['id']
-    contact = Session.query(Contact).filter(Contact.id == id).first()
+    contact = request.dbsession.query(Contact).filter(Contact.id == id).first()
 
     if not contact:
         raise HTTPNotFound
 
     institution_id = contact.institution.id
     try:
-        Session.delete(contact)
+        request.dbsession.delete(contact)
         transaction.commit()
     except:
         raise HTTPInternalServerError

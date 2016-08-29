@@ -5,9 +5,8 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.institution import Institution
-from ..model.lis import LabInformationSystem
-from ..model.session import Session
+from ..models import Institution
+from ..models import LabInformationSystem
 
 
 @view_config(route_name='lis_edit',
@@ -17,7 +16,7 @@ def lis_edit(request):
     _id = request.POST['institution_id']
     lis_id = request.POST['lis_id']
 
-    institution = (Session.query(Institution)
+    institution = (request.dbsession.query(Institution)
                    .filter(Institution.id == _id).one())
 
     institution.lis_id = lis_id
@@ -34,11 +33,9 @@ def lis_new(request):
 
     data = dict(request.params)
 
-    lis = LabInformationSystem(**data)
-    Session.add(lis)
-    Session.flush()
-
     try:
+        lis = LabInformationSystem(**data)
+        request.dbsession.add(lis)
         transaction.commit()
     except:
         raise HTTPInternalServerError

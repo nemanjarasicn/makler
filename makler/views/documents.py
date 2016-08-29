@@ -10,9 +10,8 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..model.contract import Contract
-from ..model.document import Document
-from ..model.session import Session
+from ..models import Contract
+from ..models import Document
 from pyramid.response import FileResponse
 
 
@@ -23,7 +22,8 @@ def document_upload(request):
     dir_name = 'makler/documents/'
 
     co_id = request.POST['coid']
-    contract = Session.query(Contract).filter(Contract.id == co_id).first()
+    contract = (request.dbsession.query(Contract)
+                .filter(Contract.id == co_id).first())
     inst_id = contract.institution.id
 
     try:
@@ -48,16 +48,15 @@ def document_upload(request):
     upload_date = date.today()
     document = Document(original_name=filename, code_name=uuid_name,
                         contract=contract, upload_date=upload_date)
-    Session.add(document)
+    request.dbsession.add(document)
 
     try:
-        Session.flush()
+        request.dbsession.flush()
         transaction.commit()
     except:
         raise HTTPInternalServerError
 
-    return HTTPFound(location=request.route_path(
-            'institution', id=inst_id))
+    return HTTPFound(location=request.route_path('institution', id=inst_id))
 
 
 @view_config(route_name='document_download',
@@ -67,7 +66,8 @@ def document_download(request):
     dir_name = 'makler/documents/'
 
     doc_id = request.matchdict['id']
-    document = Session.query(Document).filter(Document.id == doc_id).first()
+    document = (request.dbsession.query(Document)
+                .filter(Document.id == doc_id).first())
 
     path_to_file_code_name = dir_name + document.code_name[0:1] + '/' + \
         document.code_name[1:2] + '/' + document.code_name

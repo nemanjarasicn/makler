@@ -6,11 +6,10 @@ from sqlalchemy import sql
 from sqlalchemy import orm
 
 from pyramid.view import view_config
-from ..model.session import Session
-from ..model.instrument import Instrument
-from ..model.instrument import InstrumentType
-from ..model.instrument import InstrumentTypeCategory
-from ..model.institution import Institution
+from ..models import Instrument
+from ..models import InstrumentType
+from ..models import InstrumentTypeCategory
+from ..models import Institution
 
 
 @view_config(route_name='home',
@@ -18,7 +17,7 @@ from ..model.institution import Institution
              request_method='GET')
 def home(request):
 
-    institutions_q = Session.query(Institution)
+    institutions_q = request.dbsession.query(Institution)
 
     days_remain = int(request.registry.settings.get('days_remain', 30))
 
@@ -33,7 +32,7 @@ def home(request):
                     inst.num_of_contr_exp += 1
 
     instrument_types_q = (
-        Session.query(InstrumentType)
+        request.dbsession.query(InstrumentType)
         .order_by(InstrumentType.manufacturer, InstrumentType.name))
 
     i1 = orm.aliased(Instrument)
@@ -55,7 +54,7 @@ def home(request):
         .subquery())
 
     itg = (
-        Session.query(
+        request.dbsession.query(
             InstrumentType,
             inst.c.installed,
             actv.c.active
@@ -65,16 +64,17 @@ def home(request):
         .order_by(InstrumentType.manufacturer, InstrumentType.name)
     )
 
-    no_instruments = Session.query(sql.func.count(Instrument.id)).scalar()
+    no_instruments = request.dbsession.query(
+        sql.func.count(Instrument.id)).scalar()
 
     instrument_type_no = (
-        Session.query(
+        request.dbsession.query(
             InstrumentTypeCategory.name,
             sql.func.count()
         )
         .join(Instrument.instrument_type)
         .join(InstrumentTypeCategory)
-        .group_by(InstrumentType.category_id)
+        .group_by(InstrumentType.category_id, InstrumentTypeCategory.name)
         .order_by(InstrumentType.category_id)
     )
 
