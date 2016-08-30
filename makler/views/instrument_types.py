@@ -52,7 +52,7 @@ def instrument_type_edit(request):
         orm.Query([
             Instrument.institution_id,
             sql.func.count().label('active')])
-        .filter(Instrument.active == 1)
+        .filter(Instrument.active == True) # NOQA
         .filter(Instrument.instrument_type_id == id)
         .group_by(Instrument.institution_id)
         .subquery()
