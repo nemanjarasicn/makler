@@ -325,11 +325,11 @@
       </table>
 
       <form action="${request.route_path('document_upload')}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-          <h4 class="top_px">Upload</h4>
-          <input type="text" name="document" value="" size="40" class="file_input_replacement" placeholder="Izaberi dokument" />
-          <input type="file" name="document" class="file_input_with_replacement" />
+          <h4 class="top_px">Dodaj dokument</h4>
+          <input type="text" size="40" class="file_input_replacement" placeholder="Izaberi dokument" />
+          <input type="file" class="file_input_with_replacement" name="document"/>
           <input type="text" name="coid" value="${co.id}" style="display: none;" />
-          <input class="small round button float_right" type="submit" value="Dodaj" disabled />
+          <input class="small round button float_right" type="submit" value="Potvrdi" />
       </form>
 
       <a class="close-reveal-modal">&#215;</a>

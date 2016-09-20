@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import transaction
 
+import logging
 import datetime
 import decimal
 
@@ -10,6 +11,8 @@ from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..models import Contract
+
+log = logging.getLogger(__name__)
 
 
 @view_config(request_method='GET')
@@ -53,7 +56,7 @@ def contract_new(request):
         request.dbsession.add(contract)
         transaction.commit()
     except Exception as e:
-        print e
+        log.error(e)
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(

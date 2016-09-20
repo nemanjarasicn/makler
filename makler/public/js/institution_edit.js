@@ -25,6 +25,7 @@ $(document).ready(function() {
 
     $('.supplier_list').select2({
         'placeholder': 'Izaberite isporučioca',
+        allowClear: true,
         'formatNoMatches': noResults
     });
 
