@@ -151,9 +151,9 @@ class Contract(Base):
                             ForeignKey('institutions.id'),
                             nullable=False)
     name = Column(types.String(250))
-    announced = Column(types.DateTime(timezone=True))
-    created = Column(types.DateTime(timezone=True))
-    valid_until = Column(types.DateTime(timezone=True))
+    announced = Column(types.DateTime)
+    created = Column(types.DateTime)
+    valid_until = Column(types.DateTime)
     description = Column(types.String(250))
     value = Column(types.Numeric)
     supplier_id = Column(types.Integer,

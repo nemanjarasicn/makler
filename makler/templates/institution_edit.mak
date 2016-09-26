@@ -266,7 +266,7 @@
           <label class="right inline">Vrednost</label>
         </div>
         <div class="small-8 columns">
-          <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${dec_num(co.value)}"
+          <input type="text" name="value" class="right-label" placeholder="Vrednost" value="${co.value}"
                  pattern="^[0-9]*\.?[0-9]*"  title="Samo cifre i tačka mogu biti unete" required/>
         </div>
       </div>
@@ -614,13 +614,5 @@ ${parent.javascripts()}
     worth = str(worth[:-8])
     worth = '{:,.2f}'.format(cost)
     return worth
-%>
-</%def>
-
-<%def name="dec_num(number)">
-<%
-    number = str(number)
-    number = number[:-8]
-    return number
 %>
 </%def>

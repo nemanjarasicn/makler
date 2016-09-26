@@ -88,7 +88,8 @@ def contract_edit(request):
 
     try:
         transaction.commit()
-    except:
+    except Exception as e:
+        log.error(e)
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
