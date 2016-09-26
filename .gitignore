@@ -2,3 +2,7 @@
 *egg-info
 makler.db
 dist/
+
+.vagrant/
+
+alembic.ini
