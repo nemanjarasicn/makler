@@ -6,3 +6,4 @@ dist/
 .vagrant/
 
 alembic.ini
+development.ini
