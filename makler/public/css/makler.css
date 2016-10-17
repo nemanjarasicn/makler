@@ -1,11 +1,10 @@
 body {
-    background: url('../img/bck.gif') repeat-x;
+    background:url('../img/bck.gif') repeat-x;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
-
 
 h1 {
     font-size: 2em;
@@ -37,17 +36,18 @@ td {
 
 .header{
     position: relative;
-    padding-top: 130px;
+    padding-top: 110px;
 }
 
 #logo {
     position: absolute;
-    top: 60px;
+    top: 64px;
     left: 0px;
 }
 
 ul li {
     list-style-type: none;
+    color: #691316;
 }
 
 .full-width {
@@ -88,6 +88,7 @@ button, button:focus, .button, .button:focus {
 button, .button:hover{
     background-color: #691316;
     border-color: #691316;
+
 }
 
 .disabled {
@@ -273,4 +274,52 @@ input.file_input_replacement {
 
 .reveal-padding {
     padding: 30px 30px 10px 30px;
+}
+.top-bar {
+	background:#932e34;
+  height: 23px;
+}
+
+.active {
+	color:#691316;
+}
+
+.top-bar-section ul {
+	background: #932e34;
+}
+
+.section-container.auto > section.active > .title {
+  border:none;
+}
+
+.section-container.auto > section .content {
+    border:none;
+}
+
+.top-bar-section ul li > a.button {
+  background: #932e34;
+}
+
+#drop li {
+  font-size:12px;
+  font-weight: bold;
+}
+
+#ugovor td {
+}
+
+#izvestaj {
+  position:relative;
+  bottom: 48px;
+  right: 90px;
+}
+
+#unos_apa {
+  position: relative;
+  left: 107px;
+  bottom: 48px;
+}
+
+#drop {
+   width:auto!important;
 }

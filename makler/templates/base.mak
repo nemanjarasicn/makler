@@ -23,19 +23,31 @@
     <link rel="stylesheet" href="${request.static_url('makler:public/css/print.css')}" type="text/css" media="print" />
     <link rel="stylesheet" href="${request.static_url('makler:public/css/font-awesome.css')}" />
     <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}" type="text/css" media="screen" />
-    <%block name="stylesheets"></%block>
+    <link rel="stylesheet" href="${request.static_url('makler:public/foundation-icons/foundation-icons.css')}" type="text/css" />
+
   </head>
   <body>
 
+
     <div class="row header no-print">
+      <a  id="izvestaj" class="small round right- button" data-dropdown="drop" style="float:right;">izveštaji &raquo;</a>
+      <ul id="drop" class="small f-dropdown" data-dropdown-content>
+        <li><a href="/reports">instalirani aparati</a></li>
+        <li><a href="/suppliers">isporučioci</a></li>
+      </ul>
+
+      <a id="unos_apa" href="/instruments" class="small button round right" id="aparati" title="unos novog aparata">
+        novi model
+      </a>
       <a href="/"><img src="/public/img/header-logo.gif" id="logo" /></a>
     </div>
 
-    <div class="page">
+     <div class="page">
       <div class="row">
         <div class="large-12 columns">
           <%block name="header"><h1>${self.title()}</h1></%block>
         </div>
+
       </div>
 
       <div id="flash-messages" class="row no-print">

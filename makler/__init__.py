@@ -40,6 +40,10 @@ def main(global_config, **settings):
 
     config.add_static_view('public', 'public', cache_max_age=3600)
     config.add_route('home', '/')
+    config.add_route('reports', '/reports')
+    config.add_route('instruments', '/instruments')
+    config.add_route('supplier', '/suppliers')
+    config.add_route('supplier_form', '/suppliers/{id}')
 
     config.add_route('institution_new', '/institution')
     config.add_route('institution', '/institution/{id}')
