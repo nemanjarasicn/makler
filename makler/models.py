@@ -9,6 +9,7 @@ from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.schema import UniqueConstraint
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
+from formencode import validators
 
 Base = declarative_base()
 meta = Base.metadata
@@ -191,6 +192,22 @@ class Supplier(Base):
     # backref: contracts (Contract)
 
 
+class UserValidator(formencode.Schema):
+
+    # Use for validation of user
+    ignore_key_missing = True
+    id = validators.Int(if_missing=None)
+    username = formencode.All(validators.UnicodeString(
+            not_empty=True), validators.Regex(regex='[a-zA-Z0-9]+'))
+    first_name = validators.Regex(not_empty=True, regex='[a-zA-Z\s]+')
+    last_name = validators.Regex(not_empty=True, regex='[a-zA-Z\s]+')
+    password = validators.Regex(if_empty='', regex='.{4,}')
+    confipass = validators.ByteString(if_empty='')
+    email = validators.Email(if_missing=None)
+    admin = validators.Bool(if_missing=False)
+    chained_validators = [validators.FieldsMatch('password', 'confipass')]
+
+
 class User(Base):
 
     __tablename__ = 'users'
@@ -202,8 +219,11 @@ class User(Base):
 
     id = Column(types.Integer, nullable=False, primary_key=True)
     username = Column(types.String(50))
-    name = Column(types.String(50))
+    first_name = Column(types.String(50))
+    last_name = Column(types.String(50))
     _password = Column("password", types.Unicode(80), nullable=False)
+    email = Column(types.String(50))
+    admin = Column(types.Boolean)
 
     def _get_password(self):
         """Return hashed password.
@@ -213,7 +233,7 @@ class User(Base):
     def _set_password(self, password):
         """Set password and hash on the fly.
         """
-        self._password = hashlib.sha1(password).hexdigest()
+        self._password = hashlib.sha1(password).hexdigest()[:80]
 
     password = synonym('_password', descriptor=property(_get_password,
                                                         _set_password))

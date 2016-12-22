@@ -23,10 +23,18 @@
     <link rel="stylesheet" href="${request.static_url('makler:public/css/print.css')}" type="text/css" media="print" />
     <link rel="stylesheet" href="${request.static_url('makler:public/css/font-awesome.css')}" />
     <link rel="stylesheet" href="${request.static_url('makler:public/css/makler.css')}" type="text/css" media="screen" />
-    <link rel="stylesheet" href="${request.static_url('makler:public/foundation-icons/foundation-icons.css')}" type="text/css" />
+
 
   </head>
   <body>
+
+      <div style='display:inline;'>
+          <a id="logout" href="/logout" class="small button round right" id="logout" title="logout">
+            logout
+          </a>
+          <a  href="${request.route_path('user_edit', id=request.user.id)}" class=" small button round right"  title="korisnik"><i class="fa fa-cog "></i>
+          </a>
+       </div>
 
 
     <div class="row header no-print">
