@@ -83,8 +83,7 @@ def instrument_create(request):
     try:
         request.dbsession.add(instrument)
         transaction.commit()
-    except:
-        raise
+    except Exception:
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -128,7 +127,7 @@ def instrument_update(request):
 
     try:
         transaction.commit()
-    except:
+    except Exception:
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -149,7 +148,7 @@ def instrument_delete(request):
     try:
         request.dbsession.delete(instrument)
         transaction.commit()
-    except:
+    except Exception:
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(

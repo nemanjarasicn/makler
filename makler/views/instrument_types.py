@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import transaction
+import logging
 
 from sqlalchemy import sql
 from sqlalchemy import orm
@@ -11,8 +12,10 @@ from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..models import InstrumentType
 from ..models import Instrument
-from ..models import Institution
+from ..models import Institution, log_info
 from ..models import InstrumentTypeCategory
+
+log = logging.getLogger(__name__)
 
 
 @view_config(route_name='instrument_type_new',
@@ -97,6 +100,7 @@ def instrument_type_edit(request):
 @view_config(route_name='instrument_type_new',
              request_method="POST")
 def instrument_type_create(request):
+
     data = dict(request.params)
     safe_keys = [
         'manufacturer',
@@ -109,11 +113,14 @@ def instrument_type_create(request):
             safe_data[key] = data[key]
 
     instrument_type = InstrumentType(**safe_data)
-
     try:
         request.dbsession.add(instrument_type)
+        request.dbsession.flush()
         transaction.commit()
-    except:
+        log_info(log, 'has made the new instrument with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to make new instrument')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path('home'))
@@ -127,7 +134,6 @@ def instrument_type_update(request):
     instrument_type = (request.dbsession.query(InstrumentType)
                        .filter(InstrumentType.id == id)
                        .first())
-
     if not instrument_type:
         raise HTTPNotFound
 
@@ -140,7 +146,9 @@ def instrument_type_update(request):
 
     try:
         transaction.commit()
-    except:
+        log_info(log, 'has edit instrumentt with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to edit instrument')
         raise HTTPInternalServerError
-
     return HTTPFound(location=request.route_path('instrument_type', id=id))

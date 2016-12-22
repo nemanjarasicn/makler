@@ -12,7 +12,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
 from ..models import Contract
-from ..models import Document
+from ..models import Document, log_info
 from pyramid.response import FileResponse
 from pyramid.response import Response
 
@@ -28,6 +28,7 @@ def document_upload(request):
             document - instance of FieldStorage class
 
     """
+
     dir_name = request.registry.settings.get('documents_path')
     if not dir_name:
         raise HTTPInternalServerError(u"Greška! Obratite se tehničkoj podršci")
@@ -68,13 +69,15 @@ def document_upload(request):
     upload_date = date.today()
     document = Document(original_name=filename, code_name=uuid_name,
                         contract=contract, upload_date=upload_date)
-
     try:
         request.dbsession.add(document)
         request.dbsession.flush()
+        id = document.id
         transaction.commit()
-    except Exception as e:
-        log.error(e)
+        log_info(log, 'has made the new document with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to make new documment')
         request.dbsession.rollback()
         raise HTTPInternalServerError
 

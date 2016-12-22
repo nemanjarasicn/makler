@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 import transaction
+import logging
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..models import Contact
+from ..models import Contact, log_info
+
+log = logging.getLogger(__name__)
 
 
 @view_config(route_name='contact_new',
@@ -30,11 +33,15 @@ def contact_new(request):
             .all()):
         return HTTPFound(location=request.route_path(
                          'institution', id=data['institution_id']))
-
     try:
         request.dbsession.add(contact)
+        request.dbsession.flush()
+        id = contact.id
         transaction.commit()
-    except:
+        log_info(log, 'has made the new contact with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to make new contact')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -51,12 +58,14 @@ def contact_delete(request):
     if not contact:
         raise HTTPNotFound
 
-    institution_id = contact.institution.id
     try:
         request.dbsession.delete(contact)
         transaction.commit()
-    except:
+        log_info(log, 'has delete contact with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to delete contact')
         raise HTTPInternalServerError
 
     return HTTPFound(
-        location=request.route_path('institution', id=institution_id))
+        location=request.route_path('institution', id))

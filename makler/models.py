@@ -15,6 +15,11 @@ Base = declarative_base()
 meta = Base.metadata
 
 
+# This function use for log info
+def log_info(log, message, id, user_login):
+    return log.info('User: %s ,' + '%s' + '%s', user_login, message, id)
+
+
 class Institution(Base):
 
     __tablename__ = 'institutions'

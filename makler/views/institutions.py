@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import transaction
+import logging
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
@@ -10,8 +11,10 @@ from ..models import Institution
 from ..models import Instrument
 from ..models import InstrumentType
 from ..models import LabInformationSystem
-from ..models import Supplier
+from ..models import Supplier, log_info
 from ..models import Contract
+
+log = logging.getLogger(__name__)
 
 
 @view_config(route_name='institution_new',
@@ -81,7 +84,6 @@ def institution_edit(request):
 def institution_create(request):
     """Creates an institution.
     """
-
     data = dict(request.params)
     safe_keys = ['city', 'address', 'name', 'contact_person', 'telephone']
     safe_data = {}
@@ -89,17 +91,18 @@ def institution_create(request):
     for key in data.keys():
         if key in safe_keys:
             safe_data[key] = data[key]
-
     try:
         institution = Institution(**safe_data)
         request.dbsession.add(institution)
         request.dbsession.flush()
         id = institution.id
-        print "ID: ", id
         transaction.commit()
-    except:
-        raise HTTPInternalServerError
+        log_info(log, 'has made the new institution with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to make new institution')
 
+        raise HTTPInternalServerError
     return HTTPFound(
         location=request.route_path('institution', id=id))
 
@@ -124,7 +127,9 @@ def institution_update(request):
 
     try:
         transaction.commit()
-    except:
+        log_info(log, 'has edit institution with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to edit institution')
         raise HTTPInternalServerError
-
     return HTTPFound(location=request.route_path('institution', id=id))

@@ -10,7 +10,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..models import Contract
+from ..models import Contract, log_info
 
 log = logging.getLogger(__name__)
 
@@ -50,13 +50,16 @@ def get_data(request):
 def contract_new(request):
 
     data = get_data(request)
-
     try:
         contract = Contract(**data)
         request.dbsession.add(contract)
+        request.dbsession.flush()
+        id = contract.id
         transaction.commit()
-    except Exception as e:
-        log.error(e)
+        log_info(log, 'has made the new contract with ID: ',
+                 id, request.authenticated_userid)
+    except Exception:
+        log.error('failed to make new contract')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -88,6 +91,8 @@ def contract_edit(request):
 
     try:
         transaction.commit()
+        log_info(log, 'has edit contract with ID: ',
+                 id, request.authenticated_userid)
     except Exception as e:
         log.error(e)
         raise HTTPInternalServerError
