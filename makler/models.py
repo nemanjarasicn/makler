@@ -9,15 +9,17 @@ from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.schema import UniqueConstraint
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
+import formencode
 from formencode import validators
+
 
 Base = declarative_base()
 meta = Base.metadata
+#This function use for log info
 
-
-# This function use for log info
-def log_info(log, message, id, user_login):
-    return log.info('User: %s ,' + '%s' + '%s', user_login, message, id)
+def log_info(log, message, user_login):
+    d ={'user': user_login}
+    return log.info(message, extra=d)
 
 
 class Institution(Base):

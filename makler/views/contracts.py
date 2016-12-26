@@ -53,13 +53,10 @@ def contract_new(request):
     try:
         contract = Contract(**data)
         request.dbsession.add(contract)
-        request.dbsession.flush()
-        id = contract.id
         transaction.commit()
-        log_info(log, 'has made the new contract with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has made the new contract  ', request.authenticated_userid)
     except Exception:
-        log.error('failed to make new contract')
+        log.exception('failed to make new contract')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -91,10 +88,9 @@ def contract_edit(request):
 
     try:
         transaction.commit()
-        log_info(log, 'has edit contract with ID: ',
-                 id, request.authenticated_userid)
-    except Exception as e:
-        log.error(e)
+        log_info(log, 'has edit contract ', request.authenticated_userid)
+    except Exception:
+        log.exception('filed to edit contract')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(

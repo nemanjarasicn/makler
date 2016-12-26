@@ -1,10 +1,15 @@
 #  -*- coding: utf-8 -*-
 import transaction
+import logging
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError, HTTPBadRequest
-from ..models import User, UserValidator
+from ..models import User, UserValidator, log_info
+
+
+
+log = logging.getLogger(__name__)
 
 
 @view_config(route_name='users',
@@ -47,10 +52,11 @@ def user_create(request):
     try:
             user = User(**user)
             request.dbsession.add(user)
-            request.dbsession.flush()
             transaction.commit()
+            log_info(log, 'has made the new user ', request.authenticated_userid)
             return HTTPFound(location=request.route_path('home'))
     except Exception:
+        log.exception('failed to make new user')
         raise HTTPInternalServerError(
                 u"Greška! Obratite se tehničkoj podršci")
 
@@ -84,6 +90,7 @@ def get_login_user(request):
         return user
 
 
+
 @view_config(route_name='user_edit',
              request_method="POST")
 def user_edit_update(request):
@@ -112,6 +119,8 @@ def user_edit_update(request):
     request.dbsession.query(User).filter(User.id == id).update(user_val)
     try:
         transaction.commit()
+        log_info(log, 'has edit user', request.authenticated_userid)
         return HTTPFound(location=request.route_path('home'))
     except Exception:
+        log.exception('failed to edit user')
         raise HTTPInternalServerError(u"Greška! Obratite se tehničkoj podršci")

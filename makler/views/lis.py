@@ -26,10 +26,9 @@ def lis_edit(request):
 
     try:
         transaction.commit()
-        log_info(log, 'has edit lis with ID: ',
-                 lis_id, request.authenticated_userid)
+        log_info(log, 'has edit lis ', request.authenticated_userid)
     except Exception:
-        log.error('failed to edit lis')
+        log.exception('failed to edit lis')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path('institution', id=_id))
@@ -43,13 +42,10 @@ def lis_new(request):
     try:
         lis = LabInformationSystem(**data)
         request.dbsession.add(lis)
-        request.dbsession.flush()
-        id = lis.id
         transaction.commit()
-        log_info(log, 'has made the new lis with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has made the new lis ', request.authenticated_userid)
     except Exception:
-        log.error('failed to make new lis')
+        log.exception('failed to make new lis')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.referer)

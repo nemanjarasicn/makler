@@ -6,7 +6,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPInternalServerError
 
-from ..models import Supplier
+from ..models import Supplier, log_info
 
 log = logging.getLogger(__name__)
 
@@ -15,16 +15,14 @@ log = logging.getLogger(__name__)
 def supplier_new(request):
 
     data = dict(request.params)
-    user_login = request.authenticated_userid
 
     try:
         suppliers = Supplier(**data)
         request.dbsession.add(suppliers)
-        request.dbsession.flush()
-        id = suppliers.id
         transaction.commit()
-        log.info('User: %s ,has made new supplier with ID: %s', user_login, id)
+        log_info(log, 'has make the new supplier ', request.authenticated_userid)
     except Exception:
+        log.exception('filed to make the new supplier')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.referer)

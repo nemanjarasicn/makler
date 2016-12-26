@@ -35,13 +35,10 @@ def contact_new(request):
                          'institution', id=data['institution_id']))
     try:
         request.dbsession.add(contact)
-        request.dbsession.flush()
-        id = contact.id
         transaction.commit()
-        log_info(log, 'has made the new contact with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has made the new contact ', request.authenticated_userid)
     except Exception:
-        log.error('failed to make new contact')
+        log.exception('failed to make new contact')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path(
@@ -61,11 +58,10 @@ def contact_delete(request):
     try:
         request.dbsession.delete(contact)
         transaction.commit()
-        log_info(log, 'has delete contact with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has delete contact ', request.authenticated_userid)
     except Exception:
-        log.error('failed to delete contact')
+        log.exception('failed to delete contact')
         raise HTTPInternalServerError
 
     return HTTPFound(
-        location=request.route_path('institution', id))
+        location=request.route_path('institution', id=contact.institution_id))

@@ -71,13 +71,10 @@ def document_upload(request):
                         contract=contract, upload_date=upload_date)
     try:
         request.dbsession.add(document)
-        request.dbsession.flush()
-        id = document.id
         transaction.commit()
-        log_info(log, 'has made the new document with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has made the new document ', request.authenticated_userid)
     except Exception:
-        log.error('failed to make new documment')
+        log.exception('filed to make new documment')
         request.dbsession.rollback()
         raise HTTPInternalServerError
 

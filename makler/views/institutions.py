@@ -14,6 +14,7 @@ from ..models import LabInformationSystem
 from ..models import Supplier, log_info
 from ..models import Contract
 
+
 log = logging.getLogger(__name__)
 
 
@@ -94,13 +95,10 @@ def institution_create(request):
     try:
         institution = Institution(**safe_data)
         request.dbsession.add(institution)
-        request.dbsession.flush()
-        id = institution.id
         transaction.commit()
-        log_info(log, 'has made the new institution with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has made the new institution', request.authenticated_userid)
     except Exception:
-        log.error('failed to make new institution')
+        log.exception('failed to make new institution')
 
         raise HTTPInternalServerError
     return HTTPFound(
@@ -124,12 +122,10 @@ def institution_update(request):
     institution.address = request.POST['address']
     institution.city = request.POST['city']
     institution.phone = request.POST['phone']
-
     try:
         transaction.commit()
-        log_info(log, 'has edit institution with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has edit institution ', request.authenticated_userid)
     except Exception:
-        log.error('failed to edit institution')
+        log.exception('failed to edit institution')
         raise HTTPInternalServerError
     return HTTPFound(location=request.route_path('institution', id=id))

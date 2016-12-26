@@ -115,12 +115,10 @@ def instrument_type_create(request):
     instrument_type = InstrumentType(**safe_data)
     try:
         request.dbsession.add(instrument_type)
-        request.dbsession.flush()
         transaction.commit()
-        log_info(log, 'has made the new instrument with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has made the new instrument ', request.authenticated_userid)
     except Exception:
-        log.error('failed to make new instrument')
+        log.exception('failed to make new instrument')
         raise HTTPInternalServerError
 
     return HTTPFound(location=request.route_path('home'))
@@ -146,9 +144,8 @@ def instrument_type_update(request):
 
     try:
         transaction.commit()
-        log_info(log, 'has edit instrumentt with ID: ',
-                 id, request.authenticated_userid)
+        log_info(log, 'has edit instrument ', request.authenticated_userid)
     except Exception:
-        log.error('failed to edit instrument')
+        log.exception('failed to edit instrument')
         raise HTTPInternalServerError
     return HTTPFound(location=request.route_path('instrument_type', id=id))
