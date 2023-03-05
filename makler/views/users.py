@@ -7,8 +7,6 @@ from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.httpexceptions import HTTPInternalServerError, HTTPBadRequest
 from ..models import User, UserValidator, log_info
 
-
-
 log = logging.getLogger(__name__)
 
 
@@ -53,7 +51,8 @@ def user_create(request):
             user = User(**user)
             request.dbsession.add(user)
             transaction.commit()
-            log_info(log, 'has made the new user ', request.authenticated_userid)
+            log_info(log, 'has made the new user ',
+                     request.authenticated_userid)
             return HTTPFound(location=request.route_path('home'))
     except Exception:
         log.exception('failed to make new user')
@@ -90,6 +89,10 @@ def get_login_user(request):
         return user
 
 
+def log_message(request):
+    d = {'user': request.authenticated_userid}
+    return log.info('has edit user', extra=d)
+
 
 @view_config(route_name='user_edit',
              request_method="POST")
@@ -101,7 +104,6 @@ def user_edit_update(request):
     user = (request.dbsession.query(User)
             .filter(User.id == id)
             .first())
-
     if not user:
         raise HTTPNotFound
 
@@ -114,12 +116,13 @@ def user_edit_update(request):
     if not user_val:
         raise HTTPNotFound
 
+
     del user_val['confipass']
 
     request.dbsession.query(User).filter(User.id == id).update(user_val)
     try:
         transaction.commit()
-        log_info(log, 'has edit user', request.authenticated_userid)
+        request.logmessage
         return HTTPFound(location=request.route_path('home'))
     except Exception:
         log.exception('failed to edit user')

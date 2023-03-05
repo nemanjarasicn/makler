@@ -1,0 +1,17 @@
+2017-01-16 08:57:33,977 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 09:21:07,285 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 09:21:37,787 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 09:22:19,512 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 09:32:44,768 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 09:33:33,525 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 10:55:43,548 INFO  [makler.views.users][waitress] User: dkakdkas , has edit user
+2017-01-16 11:01:32,762 INFO  [makler.views.users][waitress] User: dkakdkas , has edit user
+2017-01-16 11:06:43,007 ERROR [makler.views.users][waitress], failed to edit user
+Traceback (most recent call last):
+  File "/home/nemanja/makler/makler/views/users.py", line 125, in user_edit_update
+    log_message()
+TypeError: log_message() takes exactly 1 argument (0 given)
+2017-01-16 11:18:52,338 INFO  [makler.views.users][waitress] , has edit user:
+2017-01-16 11:20:53,472 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 13:58:56,140 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 13:59:49,574 INFO  [makler.views.users][waitress] User: n , has edit institution

@@ -15,10 +15,12 @@ from formencode import validators
 
 Base = declarative_base()
 meta = Base.metadata
-#This function use for log info
+
+# This function use for log info
+
 
 def log_info(log, message, user_login):
-    d ={'user': user_login}
+    d = {'user': user_login}
     return log.info(message, extra=d)
 
 

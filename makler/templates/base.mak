@@ -49,8 +49,8 @@
       </a>
       <a href="/"><img src="/public/img/header-logo.gif" id="logo" /></a>
     </div>
+    <div class="page">
 
-     <div class="page">
       <div class="row">
         <div class="large-12 columns">
           <%block name="header"><h1>${self.title()}</h1></%block>

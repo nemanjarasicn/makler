@@ -11,7 +11,7 @@ from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.security import Everyone
 
-from makler.views.users import get_login_user
+from makler.views.users import get_login_user, log_message
 
 
 class RootFactory(object):
@@ -69,6 +69,7 @@ def main(global_config, **settings):
         'dbsession', reify=True
     )
     config.add_request_method(get_login_user, 'user', reify=True)
+    config.add_request_method(log_message, 'logmessage', reify=True)
 
     config.add_static_view('public', 'public', cache_max_age=3600)
     config.add_route('home', '/')

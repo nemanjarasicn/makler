@@ -48,22 +48,18 @@
 
         </fieldset>
             <button  name='submit' style='background-color:#9a3539; border-color:#691316;' type="submit" class="small round button no-print">Prijavi se</button>
+            <script>
+            function InvalidMsg(textbox) {
+                if (textbox.value == '') {
+                   textbox.setCustomValidity('Polje ne sme biti prazno!');}
+                else if(textbox.validity.patternMismatch){
+                    textbox.setCustomValidity(textbox.getAttribute('data-mesg'));}
+                else {
+                textbox.setCustomValidity('');}
+            return true;}
+            </script>
           </form>
         </div>
     </div>
     </body>
 </html>
-<script>
-    function InvalidMsg(textbox) {
-        if (textbox.value == '') {
-            textbox.setCustomValidity('Polje ne sme biti prazno');
-        }
-        else if(textbox.validity.patternMismatch){
-            textbox.setCustomValidity(textbox.data-mesg);
-        }
-        else {
-            textbox.setCustomValidity('');
-        }
-        return true;
-    }
-</script>

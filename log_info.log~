@@ -1,0 +1,54 @@
+2016-12-28 13:22:52,763 INFO  [makler.views.users][waitress] User:, POST /user_edit/66 HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+Content-Length: 128
+Content-Type: application/x-www-form-urlencoded
+Cookie: auth_tkt=e6ef739b23c8f85ceb2314989bbe8126d915a04f58636743bg%3D%3D!userid_type:b64unicode; session=IldPOzavOs7Xf_dJc63k7mMSz2-tIicG8GJPZPDxyoRS04ElOHsJuZSQ2mw2cB0cAmOqygn2Pj4Zq0G1-l4oHYACSpuuY1hHQdYY2dDS-it9h3EBLg
+Host: localhost:6543
+Referer: http://localhost:6543/user_edit/66
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0
+
+id=66&username=dvdsgsg&first_name=dfsgsdgcvxdfsdfddfxczcvzvcv&last_name=gsdgs&password=&confipass=&email=&admin=False&admin=True
+2016-12-28 13:31:15,436 INFO  [makler.views.users][waitress] User:, POST /user_edit/66 HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: max-age=0
+Connection: keep-alive
+Content-Length: 128
+Content-Type: application/x-www-form-urlencoded
+Cookie: auth_tkt=e6ef739b23c8f85ceb2314989bbe8126d915a04f58636743bg%3D%3D!userid_type:b64unicode; session=RcoiljvJ0Z-JxPFQNVMoJlWDhiuoRWAoYB3BiyLT4QQCwzDxmPHqRMVjenU_OqKfJ6sGqOnZoP_UcOFfmhkOAIACSqyvY1hHQdYY2dDS-it9h3EBLg
+Host: localhost:6543
+Referer: http://localhost:6543/user_edit/66
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0
+
+id=66&username=dvdsgsg&first_name=dfsgsdgcvxdfsdfddfxczcvzvcv&last_name=gsdgs&password=&confipass=&email=&admin=False&admin=True
+2016-12-28 13:41:37,743 INFO  [makler.views.users][waitress] User:, user: n has edit user
+2016-12-28 13:44:40,343 INFO  [makler.views.users][waitress] User:, (<Request at 0x7f97d348c750 POST http://localhost:6543/user_edit/66>,)
+2016-12-28 13:45:04,260 INFO  [makler.views.users][waitress] User:, POST /user_edit/66 HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.5
+Cache-Control: max-age=0
+Connection: keep-alive
+Content-Length: 103
+Content-Type: application/x-www-form-urlencoded
+Cookie: auth_tkt=e6ef739b23c8f85ceb2314989bbe8126d915a04f58636743bg%3D%3D!userid_type:b64unicode; session=-iifWEOcAxHXCMrbah3xN2LAR5-j5uO3SGWEX2nGapSc9G2xl5vepOxFCtysJTnZEXQVVvMG_H3KGST929nNS4ACSrizY1hHQdYY2dDS-it9h3EBLg
+Host: localhost:6543
+Referer: http://localhost:6543/user_edit/66
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0
+
+id=66&username=dvdsgsg&first_name=xc&last_name=gsdgs&password=&confipass=&email=&admin=False&admin=True
+2016-12-28 13:53:13,363 INFO  [makler.views.users][waitress] User:, sadjlasdj
+2016-12-28 13:55:16,742 INFO  [makler.views.users][waitress] User: n , alkdfaldk
+2016-12-28 14:12:25,446 INFO  [makler.views.users][waitress] User: n , has edit user
+2016-12-28 14:15:13,443 INFO  [makler.views.users][waitress] User: n , has edit user
+2016-12-28 14:39:21,515 INFO  [makler.views.users][waitress] User: n , has edit user
+2016-12-28 14:42:48,181 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 08:43:32,264 INFO  [makler.views.users][waitress] User: n , has edit user
+2017-01-16 08:46:09,797 INFO  [makler.views.users][waitress] User: n , has edit user
